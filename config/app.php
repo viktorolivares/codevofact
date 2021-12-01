@@ -160,32 +160,24 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
         App\Providers\CacheServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-
         App\Providers\KardexServiceProvider::class,
         App\Providers\AnulationServiceProvider::class,
-
         App\Providers\InventoryKardexServiceProvider::class,
         App\Providers\InventoryAnulationServiceProvider::class,
         App\Providers\InventoryServiceProvider::class,
-
         App\Providers\LockedEmissionProvider::class,
         App\Providers\DocumentPaymentProvider::class,
-
         Intervention\Image\ImageServiceProvider::class,
-
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
-
         App\Providers\CashServiceProvider::class,
         Modules\Finance\Providers\GlobalPaymentServiceProvider::class,
         Modules\Sale\Providers\SaleNotePaymentProvider::class,
-
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
-
         ZanySoft\Zip\ZipServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -239,6 +231,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Zip' => ZanySoft\Zip\ZipFacade::class,
+        'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
     ],
 
 ];

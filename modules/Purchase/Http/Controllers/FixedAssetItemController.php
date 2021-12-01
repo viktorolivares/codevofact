@@ -10,7 +10,7 @@ use App\Http\Requests\Tenant\ItemRequest;
 use App\Models\Tenant\User;
 use App\Models\Tenant\Configuration;
 use App\Models\Tenant\ItemUnitType;
-use Exception;
+Use Throwable;
 use Illuminate\Http\Request;
 use Modules\Purchase\Http\Requests\FixedAssetItemRequest;
 use Modules\Purchase\Models\FixedAssetItem;
@@ -23,12 +23,12 @@ class FixedAssetItemController extends Controller
     {
         return view('purchase::fixed_asset_items.index');
     }
-  
+
     public function columns()
     {
         return [
             'name' => 'Nombre',
-            'internal_id' => 'Código interno', 
+            'internal_id' => 'Código interno',
         ];
     }
 
@@ -96,12 +96,12 @@ class FixedAssetItemController extends Controller
                 'message' => 'Ítem eliminado con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return ($e->getCode() == '23000') ? ['success' => false,'message' => 'El ítem esta siendo usado por otros registros, no puede eliminar'] : ['success' => false,'message' => 'Error inesperado, no se pudo eliminar el ítem'];
 
         }
 
 
-    } 
+    }
 }

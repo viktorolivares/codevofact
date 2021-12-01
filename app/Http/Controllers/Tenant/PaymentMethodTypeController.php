@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\PaymentMethodTypeRequest;
 use App\Http\Resources\Tenant\PaymentMethodTypeCollection;
 use App\Http\Resources\Tenant\PaymentMethodTypeResource;
-use Exception;
+Use Throwable;
 
 class PaymentMethodTypeController extends Controller
 {
@@ -48,7 +48,7 @@ class PaymentMethodTypeController extends Controller
                 'message' => 'Método de pago eliminada con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return ($e->getCode() == '23000') ? ['success' => false,'message' => 'El método de pago esta siendo usada por otros registros, no puede eliminar'] : ['success' => false,'message' => 'Error inesperado, no se pudo eliminar la unidad'];
 

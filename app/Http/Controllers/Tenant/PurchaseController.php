@@ -545,7 +545,7 @@ class PurchaseController extends Controller
     }
 
 
-    
+
     public function searchItems(Request $request)
     {
 
@@ -597,7 +597,7 @@ class PurchaseController extends Controller
 
     }
 
-    
+
     public function searchItemById($id)
     {
 
@@ -667,7 +667,7 @@ class PurchaseController extends Controller
                 'message' => 'Compra eliminada con éxito'
             ];
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
 
             return [
                 'success' => false,
@@ -788,7 +788,7 @@ class PurchaseController extends Controller
 
 
 
-        }catch(Exception $e)
+        }catch(Throwable $e)
         {
             return [
                 'success' => false,

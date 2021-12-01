@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use App\Http\Requests\Tenant\TagRequest;
 use App\Http\Resources\Tenant\TagCollection;
 use App\Http\Resources\Tenant\TagResource;
-use Exception;
+Use Throwable;
 use Illuminate\Http\Request;
 use App\Models\Tenant\ItemTag;
 use App\Models\Tenant\Catalogs\Tag;
@@ -34,7 +34,7 @@ class TagController extends Controller
     public function records(Request $request)
     {
         $records = Tag::where($request->column, 'like', "%{$request->value}%")->orderBy('description');
-        
+
         return new TagCollection($records->paginate(config('tenant.items_per_page')));
     }
 
@@ -63,7 +63,7 @@ class TagController extends Controller
             'id' => $person->id
         ];
     }
-    
+
     public function destroy($id)
     {
         //return 'sd';
@@ -82,10 +82,10 @@ class TagController extends Controller
 
 
 
-  
 
 
- 
+
+
 
 
 

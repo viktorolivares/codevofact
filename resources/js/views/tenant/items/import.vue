@@ -4,7 +4,7 @@
             <div class="form-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="/formats/items.xlsx" target="_new">Descargar formato</a>
+                        <a href="/formats/items.xlsx" target="_new"><i class="fa fa-download"> </i> Descargar formato</a>
                     </div>
                     <div class="col-md-12 mt-4">
                         <div class="form-group text-center" :class="{'has-danger': errors.file}">

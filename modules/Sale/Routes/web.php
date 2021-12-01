@@ -16,7 +16,6 @@ if($current_hostname) {
                 Route::get('records', 'SaleOpportunityController@records');
                 Route::get('record/{id}', 'SaleOpportunityController@record');
                 Route::get('create/{id?}', 'SaleOpportunityController@create')->name('tenant.sale_opportunities.create');
-                // Route::get('edit/{id}', 'SaleOpportunityController@edit');
                 Route::get('search/customers', 'SaleOpportunityController@searchCustomers');
                 Route::get('search/customer/{id}', 'SaleOpportunityController@searchCustomerById');
 

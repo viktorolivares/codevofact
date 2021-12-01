@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Tenant\Api;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
-use Exception;
+Use Throwable;
 use Illuminate\Support\Facades\DB;
 use App\Models\Tenant\User;
 use Illuminate\Http\Request;

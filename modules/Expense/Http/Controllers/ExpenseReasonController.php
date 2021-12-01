@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Expense\Models\ExpenseReason;
 use Modules\Expense\Http\Resources\ExpenseReasonCollection;
-use Exception;
+Use Throwable;
 
 class ExpenseReasonController extends Controller
 {
@@ -56,7 +56,7 @@ class ExpenseReasonController extends Controller
                 'message' => 'Motivo eliminado con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return ($e->getCode() == '23000') ? ['success' => false,'message' => "El Motivo esta siendo usado por otros registros, no puede eliminar"] : ['success' => false,'message' => "Error inesperado, no se pudo eliminar el Motivo "];
 

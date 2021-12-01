@@ -33,13 +33,12 @@ use Mpdf\Mpdf;
 use Mpdf\HTMLParserMode;
 use Mpdf\Config\ConfigVariables;
 use Mpdf\Config\FontVariables;
-use Exception;
+Use Throwable;
 use Illuminate\Support\Facades\Mail;
 use Modules\Sale\Mail\ContractEmail;
 use App\Models\Tenant\PaymentMethodType;
 use Modules\Finance\Traits\FinanceTrait;
 use App\Models\Tenant\Configuration;
-// use App\Models\Tenant\StateType;
 use Modules\Sale\Models\ContractStateType;
 
 
@@ -61,7 +60,7 @@ class ContractController extends Controller
     {
         $quotationId = null;
         $showPayments = true;
-        
+
         return view('sale::contracts.form', compact('id', 'quotationId', 'showPayments'));
     }
 

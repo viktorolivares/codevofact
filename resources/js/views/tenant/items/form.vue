@@ -148,7 +148,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
+                    <!-- Percepcioones | Lotes | Series
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
@@ -202,6 +202,7 @@
                             </div>
                         </div>
                     </div>
+                    -->
                 </el-tab-pane>
                 <el-tab-pane class name="second"><span slot="label">Presentaciones</span>
                     <div class="row m-1">

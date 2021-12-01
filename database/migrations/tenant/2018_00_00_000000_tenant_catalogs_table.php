@@ -91,6 +91,7 @@ class TenantCatalogsTable extends Migration
         });
 
         DB::table('cat_identity_document_types')->insert([
+            ['id' => '0', 'active' => true,  'description' => 'DOC.TRIB.NO.DOM.SIN.RUC'],
             ['id' => '1', 'active' => true,  'description' => 'DNI'],
             ['id' => '4', 'active' => true,  'description' => 'CE'],
             ['id' => '6', 'active' => true,  'description' => 'RUC'],

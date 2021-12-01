@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Tenant;
 use App\CoreFacturalo\Helpers\Certificate\GenerateCertificate;
 use App\Http\Controllers\Controller;
 use App\Models\Tenant\Company;
-use Exception;
+Use Throwable;
 use Illuminate\Http\Request;
 use App\Models\Tenant\Configuration;
 
@@ -43,7 +43,7 @@ class CertificateController extends Controller
                     'success' => true,
                     'message' =>  __('app.actions.upload.success'),
                 ];
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 return [
                     'success' => false,
                     'message' =>  $e->getMessage()

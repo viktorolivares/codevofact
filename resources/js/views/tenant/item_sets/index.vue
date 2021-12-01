@@ -14,7 +14,6 @@
                     </div>
                 </div>
                 <template v-if="typeUser === 'admin'">
-                    <!-- <button type="button" class="btn btn-custom btn-sm  mt-2 mr-2" @click.prevent="clickImport()"><i class="fa fa-upload"></i> Importar</button> -->
                     <button type="button" class="btn btn-custom btn-sm  mt-2 mr-2" @click.prevent="clickCreate()"><i class="fa fa-plus-circle"></i> Nuevo</button>
                 </template>
             </div>
@@ -32,7 +31,6 @@
                         <th>Nombre</th>
                         <th>Descripción</th>
                         <th>Cód. SUNAT</th>
-                        <!-- <th  class="text-left">Stock</th> -->
                         <th  class="text-right">P.Unitario (Venta)</th>
                         <th class="text-center">Tiene Igv</th>
                         <th class="text-right">Acciones</th>
@@ -44,13 +42,6 @@
                         <td>{{ row.description }}</td>
                         <td>{{ row.name }}</td>
                         <td>{{ row.item_code }}</td>
-                        <!-- <td>
-                            <template v-if="typeUser=='seller' && row.unit_type_id !='ZZ'">{{ row.stock }}</template>
-                            <template v-else-if="typeUser!='seller'&& row.unit_type_id !='ZZ'">
-                                <button type="button" class="btn waves-effect waves-light btn-xs btn-info" @click.prevent="clickWarehouseDetail(row.warehouses)"><i class="fa fa-search"></i></button>
-                            </template> 
-                            
-                        </td> -->
                         <td class="text-right">{{ row.sale_unit_price }}</td>
                         <td class="text-center">{{ row.has_igv_description }}</td>
                         <td class="text-right">
@@ -70,7 +61,7 @@
 
             <items-import-set-individual :showDialog.sync="showImportSetIndividualDialog"></items-import-set-individual>
 
-            <warehouses-detail 
+            <warehouses-detail
                 :showDialog.sync="showWarehousesDetail"
                 :warehouses="warehousesDetail">
             </warehouses-detail>

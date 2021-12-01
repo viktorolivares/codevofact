@@ -68,7 +68,7 @@ class DocumentsImportTwoFormat implements ToCollection
                 }
                 else {
                     $client_document_type = '0';
-                    $company_number = '00000000'; 
+                    $company_number = '00000000';
                 }
 
                 $company_name = $row[4];
@@ -91,14 +91,14 @@ class DocumentsImportTwoFormat implements ToCollection
                     $unit_type = 'NIU';
                 }
 
-                //genero json y envio a api para no hacer insert 
+                //genero json y envio a api para no hacer insert
 
                 //valores
                 $cantidad = $row[13];
                 $precio_unitario = $row[14];
                 $subtotal = $row[15];
                 $total_impuesto = $row[16];
-                
+
                 $json = array(
                     "serie_documento" => $serie,
                     "numero_documento" => $correlativo,
@@ -216,12 +216,9 @@ class DocumentsImportTwoFormat implements ToCollection
                         ],
                         'json' => $json
                     ]);
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     dd($e);
                 }
-
-                // dd($response);
-
                 $registered += 1;
             }
             $this->data = compact('total', 'registered');

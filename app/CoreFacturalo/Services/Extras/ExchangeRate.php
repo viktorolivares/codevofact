@@ -8,7 +8,7 @@ use DiDom\Document as DiDom;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Log;
-use Exception;
+Use Throwable;
 
 class ExchangeRate
 {
@@ -23,16 +23,6 @@ class ExchangeRate
     {
 
         try {
-
-            // $url = "https://e-consulta.sunat.gob.pe/cl-at-ittipcam/tcS01Alias?mes={$month}&anho={$year}";
-            // $url = 'http://www.sunat.gob.pe/a/txt/tipoCambio.txt';
-            // $ch = curl_init();
-            // curl_setopt($ch, CURLOPT_URL,$url);
-            // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            // $response = curl_exec ($ch);
-            // curl_close ($ch);
-
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
@@ -61,33 +51,11 @@ class ExchangeRate
                     $explode[1],
                     $explode[2]
                 ];
-
-                // dd($response, $explode, $values);
-
                 return collect($values)->toArray();
-
-
-                // $xp = new DiDom($html);
-                // $sub_headings = $xp->find('form table');
-                // $trs = $sub_headings[1]->find('tr');
-                // $values = [];
-
-                // for($i = 1; $i < count($trs); $i++)
-                // {
-                //     $tr = $trs[$i];
-                //     $tds = $tr->find('td');
-
-                //     foreach($tds as $td)
-                //     {
-                //         $values[] = trim(preg_replace("/[\t|\n|\r]+/", '', $td->text()));
-                //     }
-                // }
-
-                // return collect($values)->chunk(3)->toArray();
             }
 
-        } catch (Exception $e) {
-            // dd($e);
+        } catch (Throwable $e) {
+
             Log::info("Error consulta T/C: ".$e->getMessage());
             return false;
 
@@ -98,19 +66,8 @@ class ExchangeRate
 
     public function searchDate($date)
     {
-        // $date = Carbon::parse($date);
-        // do {
-        //     $res = $this->searchByDay($date);
-        //     $date = $date->addDay(-1);
-        // } while (!$res);
-
-        // return $res;
-
         $date = Carbon::parse($date);
-
         $res = $this->searchByDay($date);
-        // dd($res);
-
         $date = $date->addDay(-1);
 
         if(!$res){

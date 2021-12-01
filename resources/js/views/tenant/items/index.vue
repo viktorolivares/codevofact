@@ -16,7 +16,6 @@
                         </button>
                         <div class="dropdown-menu" role="menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 42px, 0px);">
                             <a class="dropdown-item text-1" href="#" @click.prevent="clickExport()">Listado</a>
-                            <a class="dropdown-item text-1" href="#" @click.prevent="clickExportWp()">Woocommerce</a>
                             <a class="dropdown-item text-1" href="#" @click.prevent="clickExportBarcode()">Etiquetas</a>
                         </div>
                     </div>
@@ -27,7 +26,7 @@
                         </button>
                         <div class="dropdown-menu" role="menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 42px, 0px); ">
                             <a class="dropdown-item text-1" href="#" @click.prevent="clickImport()">Productos</a>
-                            <a class="dropdown-item text-1" href="#" @click.prevent="clickImportListPrice()">L. Precios</a>
+                            <a class="dropdown-item text-1" href="#" @click.prevent="clickImportListPrice()">Lista de Precios</a>
                         </div>
                     </div>
                     <button type="button" class="btn btn-custom btn-sm mt-2 mr-2" @click.prevent="clickCreate()">
@@ -104,27 +103,23 @@
                         </td>
                         <td class="text-right">
                             <template v-if="typeUser === 'admin'">
-                                <button type="button" class="btn waves-effect waves-light btn-xs btn-info" @click.prevent="clickCreate(row.id)">
-                                    Editar
+                                <button type="button" class="btn waves-effect waves-light btn-xs btn-info" title="Editar" @click.prevent="clickCreate(row.id)">
+                                    <i class="fas fa-edit"></i>
                                 </button>
-                                <button type="button" class="btn waves-effect waves-light btn-xs btn-danger" @click.prevent="clickDelete(row.id)">
-                                    Eliminar
+                                <button type="button" class="btn waves-effect waves-light btn-xs btn-danger" title="Eliminar" @click.prevent="clickDelete(row.id)">
+                                    <i class="fas fa-trash" aria-hidden="true"></i>
                                 </button>
-                                <button type="button" class="btn waves-effect waves-light btn-xs btn-warning" @click.prevent="duplicate(row.id)">
-                                    Duplicar
+                                <button type="button" class="btn waves-effect waves-light btn-xs btn-primary" title="Clonar" @click.prevent="duplicate(row.id)">
+                                    <i class="fas fa-clone" aria-hidden="true"></i>
                                 </button>
-
-                                <button type="button" class="btn waves-effect waves-light btn-xs btn-danger" @click.prevent="clickDisable(row.id)" v-if="row.active">
-                                    Inhabilitar
+                                <button type="button" class="btn waves-effect waves-light btn-xs btn-success" title="Bloquear" @click.prevent="clickDisable(row.id)" v-if="row.active">
+                                   <i class="fas fa-unlock-alt" aria-hidden="true"></i>
                                 </button>
-                                <button type="button" class="btn waves-effect waves-light btn-xs btn-primary" @click.prevent="clickEnable(row.id)" v-else>
-                                    Habilitar
+                                <button type="button" class="btn waves-effect waves-light btn-xs btn-secondary" title="Desbloquear" @click.prevent="clickEnable(row.id)" v-else>
+                                    <i class="fas fa-lock" aria-hidden="true"></i>
                                 </button>
-                                <button type="button" class="btn waves-effect waves-light btn-xs btn-primary" @click.prevent="clickBarcode(row)">
-                                    Cod. Barras
-                                </button>
-                                <button type="button" class="btn waves-effect waves-light btn-xs btn-primary" @click.prevent="clickPrintBarcode(row)">
-                                    Etiquetas
+                                <button type="button" class="btn waves-effect waves-light btn-xs btn-dark" title="Etiquetas |  Código de barras" @click.prevent="clickPrintBarcode(row)">
+                                    <i class="fas fa-barcode" aria-hidden="true"></i>
                                 </button>
                             </template>
                         </td>

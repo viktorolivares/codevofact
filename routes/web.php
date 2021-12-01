@@ -17,7 +17,6 @@ if ($hostname) {
 
 		Route::get('downloads/{model}/{type}/{external_id}/{format?}', 'Tenant\DownloadController@downloadExternal')->name('tenant.download.external_id');
 		Route::get('print/{model}/{external_id}/{format?}', 'Tenant\DownloadController@toPrint');
-		Route::get('/exchange_rate/ecommence/{date}', 'Tenant\Api\ServiceController@exchangeRateTest');
 
 		Route::get('sale-notes/print/{external_id}/{format?}', 'Tenant\SaleNoteController@toPrint');
 		Route::get('purchases/print/{external_id}/{format?}', 'Tenant\PurchaseController@toPrint');
@@ -458,13 +457,13 @@ if ($hostname) {
 			Route::post('person-types', 'Tenant\PersonTypeController@store');
 			Route::delete('person-types/{person}', 'Tenant\PersonTypeController@destroy');
 
-			//Cuenta
-			Route::get('cuenta/payment_index', 'Tenant\AccountController@paymentIndex')->name('tenant.payment.index');
-			Route::get('cuenta/configuration', 'Tenant\AccountController@index')->name('tenant.configuration.index');
-			Route::get('cuenta/payment_records', 'Tenant\AccountController@paymentRecords');
-			Route::get('cuenta/tables', 'Tenant\AccountController@tables');
-			Route::post('cuenta/update_plan', 'Tenant\AccountController@updatePlan');
-			Route::post('cuenta/payment_culqui', 'Tenant\AccountController@paymentCulqui')->name('tenant.account.payment_culqui');
+			//Subscription
+			Route::get('subscription/payment_index', 'Tenant\SubscriptionController@paymentIndex')->name('tenant.payment.index');
+			Route::get('subscription/configuration', 'Tenant\SubscriptionController@index')->name('tenant.configuration.index');
+			Route::get('subscription/payment_records', 'Tenant\SubscriptionController@paymentRecords');
+			Route::get('subscription/tables', 'Tenant\SubscriptionController@tables');
+			Route::post('subscription/update_plan', 'Tenant\SubscriptionController@updatePlan');
+			Route::post('subscription/payment_culqui', 'Tenant\SubscriptionController@paymentCulqui')->name('tenant.subscription.payment_culqui');
 
 			//Payment Methods
 			Route::get('payment_method/records', 'Tenant\PaymentMethodTypeController@records');
@@ -475,6 +474,7 @@ if ($hostname) {
 			//Formats PDF
 			Route::get('templates', 'Tenant\FormatTemplateController@records');
 		});
+
 	});
 } else {
 	Route::domain(env('APP_URL_BASE'))->group(function () {
@@ -485,9 +485,11 @@ if ($hostname) {
 
 		Route::middleware('auth:admin')->group(function () {
 			Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+
 			Route::get('/', function () {
 				return redirect()->route('system.dashboard');
 			});
+
 			Route::get('dashboard', 'System\HomeController@index')->name('system.dashboard');
 
 			//Clients
@@ -549,7 +551,7 @@ if ($hostname) {
 			Route::get('companies/record', 'System\CompanyController@record');
 			Route::post('companies', 'System\CompanyController@store');
 
-			// Auto-update
+			//Auto-update
 			Route::get('auto-update', 'System\UpdateController@index')->name('system.update');
 			Route::get('auto-update/branch', 'System\UpdateController@branch')->name('system.update.branch');
 			Route::get('auto-update/pull/{branch}', 'System\UpdateController@pull')->name('system.update.pull');
@@ -565,7 +567,7 @@ if ($hostname) {
 			Route::get('configurations/record', 'System\ConfigurationController@record');
 			Route::get('configurations/apiruc', 'System\ConfigurationController@apiruc');
 
-			// backup
+			//Backup
 			Route::get('backup', 'System\BackupController@index')->name('system.backup');
 			Route::get('backup/db', 'System\BackupController@db')->name('system.backup.db');
 			Route::get('backup/files', 'System\BackupController@files')->name('system.backup.files');
@@ -573,5 +575,6 @@ if ($hostname) {
 			Route::get('backup/last-backup', 'System\BackupController@mostRecent');
 			Route::get('backup/download/{filename}', 'System\BackupController@download');
 		});
+
 	});
 }

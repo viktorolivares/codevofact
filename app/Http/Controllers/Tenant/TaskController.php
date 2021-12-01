@@ -15,13 +15,13 @@ class TaskController extends Controller
      * @var array
      */
     private $exclude = ['.', '..', 'TenantCommand.php'];
-    
+
     /**
      * Path
      * @var string
      */
     private $path = "App\Console\Commands\\";
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +30,7 @@ class TaskController extends Controller
     public function index() {
         return view('tenant.task.index');
     }
-    
+
     /**
      * Tables
      * @return \Illuminate\Http\Response
@@ -38,7 +38,7 @@ class TaskController extends Controller
     public function tables() {
             return Task::all();
     }
-    
+
     /**
      * Lists Command
      * @return \Illuminate\Http\Response
@@ -46,14 +46,14 @@ class TaskController extends Controller
     public function listsCommand() {
         return collect(array_diff(scandir(app_path('Console/Commands')), $this->exclude))->map(function($fileCommand) {
             $name = explode('.', $fileCommand)[0];
-            
+
             return [
                 'name' => $name,
                 'class' => "{$this->path}{$name}"
             ];
         });
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -66,20 +66,20 @@ class TaskController extends Controller
                 'class' => $request->class,
                 'execution_time' => Carbon::parse($request->execution_time)->format('H:i:s'),
             ]);
-            
+
             return [
                 'success' => true,
                 'message' => 'Se registró la tarea con éxito.'
             ];
         }
-        catch (\Exception $e) {
+        catch (\Throwable $e) {
             return [
                 'success' => false,
                 'message' => $e->getMessage()
             ];
         }
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
@@ -88,7 +88,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task) {
         $task->delete();
-        
+
         return [
             'success' => true,
             'message' => 'Se eliminó la tarea con éxito.'

@@ -15,14 +15,14 @@ class TenantCommand extends Command
      * @var string
      */
     protected $signature = 'tenant:run';
-    
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Execute the scheduled tasks of the tenants';
-    
+
     /**
      * Create a new command instance.
      *
@@ -31,7 +31,7 @@ class TenantCommand extends Command
     public function __construct() {
         parent::__construct();
     }
-    
+
     /**
      * Execute the console command.
      *
@@ -41,11 +41,11 @@ class TenantCommand extends Command
         foreach (Task::where('execution_time', Carbon::now()->format('H:i').':00')->get() as $task) {
             try {
                 Artisan::call($task->class);
-                
+
                 $task->output = Artisan::output();
                 $task->save();
             }
-            catch (\Exception $e) {
+            catch (\Throwable $e) {
                 $task->output = $e->getMessage();
                 $task->save();
             }

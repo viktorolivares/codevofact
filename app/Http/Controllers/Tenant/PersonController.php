@@ -13,7 +13,7 @@ use App\Models\Tenant\Catalogs\Province;
 use App\Http\Controllers\Controller;
 use App\Models\Tenant\Person;
 use App\Models\Tenant\PersonType;
-use Exception;
+Use Throwable;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 use Carbon\Carbon;
@@ -118,7 +118,7 @@ class PersonController extends Controller
                 'message' => $person_type.' eliminado con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return ($e->getCode() == '23000') ? ['success' => false,'message' => "El {$person_type} esta siendo usado por otros registros, no puede eliminar"] : ['success' => false,'message' => "Error inesperado, no se pudo eliminar el {$person_type}"];
 
@@ -138,7 +138,7 @@ class PersonController extends Controller
                     'message' =>  __('app.actions.upload.success'),
                     'data' => $data
                 ];
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 return [
                     'success' => false,
                     'message' =>  $e->getMessage()

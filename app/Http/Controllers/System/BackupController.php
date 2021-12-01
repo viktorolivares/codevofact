@@ -5,7 +5,7 @@ namespace App\Http\Controllers\System;
 use Config;
 use Artisan;
 use DateTime;
-use Exception;
+Use Throwable;
 use App\Traits\BackupTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,11 +20,11 @@ class BackupController extends Controller
 
     public function index() {
 
-        $avail = new Process('df -m -h --output=avail /');
+        $avail = new Process(['df -m -h --output=avail /']);
         $avail->run();
         $disc_used = $avail->getOutput();
 
-        $df = new Process('du -sh '.storage_path().' | cut -f1');
+        $df = new Process(['du -sh '.storage_path().' | cut -f1']);
         $df->run();
         $storage_size = $df->getOutput();
         $most_recent = $this->mostRecent();
@@ -58,7 +58,6 @@ class BackupController extends Controller
         ];
 
         Config::set('filesystems.disks.ftp', $config);
-        // Definimos y subimos el archivo
         try{
             $most_recent = $this->mostRecent();
             $fileTo = $most_recent['name'];
@@ -70,7 +69,7 @@ class BackupController extends Controller
                 'message' => 'Proceso finalizado satisfactoriamente'
             ];
 
-        }catch (Exception $e) {
+        }catch (Throwable $e) {
             $this->setErrorLog($e);
             return $this->getErrorMessage("Lo sentimos, ocurrió un error inesperado: {$e->getMessage()}");
         }

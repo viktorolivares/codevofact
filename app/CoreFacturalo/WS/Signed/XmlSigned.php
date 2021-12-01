@@ -215,7 +215,7 @@ class XmlSigned
         // Check references (data)
         try {
             $objXMLSecDSig->validateReference();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return false;
         }
 

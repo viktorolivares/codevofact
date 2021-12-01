@@ -12,7 +12,7 @@ use App\Models\Tenant\Catalogs\IdentityDocumentType;
 use App\Models\Tenant\Catalogs\Province;
 use App\Http\Controllers\Controller;
 use App\Models\Tenant\PersonType;
-use Exception;
+Use Throwable;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 
@@ -43,7 +43,7 @@ class PersonTypeController extends Controller
     {
         return view('tenant.customers.form');
     }
- 
+
 
     public function record($id)
     {
@@ -58,7 +58,7 @@ class PersonTypeController extends Controller
         $person_type = PersonType::firstOrNew(['id' => $id]);
         $person_type->fill($request->all());
         $person_type->save();
-  
+
 
         return [
             'success' => true,
@@ -68,23 +68,23 @@ class PersonTypeController extends Controller
 
     public function destroy($id)
     {
-        try {            
-            
+        try {
+
             $person_type = PersonType::findOrFail($id);
             $person_type_type = 'Tipo de cliente';
-            $person_type->delete(); 
+            $person_type->delete();
 
             return [
                 'success' => true,
                 'message' => $person_type_type.' eliminado con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return ($e->getCode() == '23000') ? ['success' => false,'message' => "El {$person_type_type} esta siendo usado por otros registros, no puede eliminar"] : ['success' => false,'message' => "Error inesperado, no se pudo eliminar el {$person_type_type}"];
 
         }
-        
+
     }
-  
+
 }

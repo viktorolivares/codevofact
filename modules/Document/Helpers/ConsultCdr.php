@@ -9,12 +9,12 @@ use App\CoreFacturalo\WS\Validator\XmlErrorCodeProvider;
 use App\CoreFacturalo\WS\Client\WsClient;
 use App\CoreFacturalo\WS\Services\SunatEndpoints;
 use App\Models\Tenant\Company;
-use Exception;
+Use Throwable;
 
 
 class ConsultCdr
 {
-    
+
     protected $wsClient;
     protected $document;
     protected $response;
@@ -58,7 +58,7 @@ class ConsultCdr
                 'message' => "Code: {$res->getError()->getCode()}; Description: {$res->getError()->getMessage()}"
             ];
             // throw new Exception("Code: {$res->getError()->getCode()}; Description: {$res->getError()->getMessage()}");
-            
+
         } else {
 
             $cdrResponse = $res->getCdrResponse();
@@ -86,7 +86,7 @@ class ConsultCdr
 
     }
 
-    
+
     public function validationCodeResponse($code, $message, $res)
     {
         //Errors

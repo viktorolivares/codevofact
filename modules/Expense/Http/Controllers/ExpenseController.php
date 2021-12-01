@@ -21,7 +21,7 @@ use App\CoreFacturalo\Requests\Inputs\Common\PersonInput;
 use App\Models\Tenant\Establishment;
 use Illuminate\Support\Facades\DB;
 use App\Models\Tenant\Company;
-use Modules\Finance\Traits\FinanceTrait; 
+use Modules\Finance\Traits\FinanceTrait;
 
 class ExpenseController extends Controller
 {
@@ -102,7 +102,7 @@ class ExpenseController extends Controller
             foreach ($data['payments'] as $row)
             {
                 $record_payment = $doc->payments()->create($row);
-                
+
                 if($row['expense_method_type_id'] == 1){
                     $row['payment_destination_id'] = 'cash';
                 }
@@ -178,7 +178,7 @@ class ExpenseController extends Controller
                 ],
                 'message' => 'Gasto anulado exitosamente',
             ];
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return [
                 'success' => false,
                 'data' => [

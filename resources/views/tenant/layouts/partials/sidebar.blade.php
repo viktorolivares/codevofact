@@ -347,7 +347,7 @@
 
                     @endif
 
-                    {{-- Productos --}}
+                    {{-- Products --}}
                     @if(auth()->user()->type != 'integrator')
                         @if(in_array('documents', $vc_modules))
                         <li class="nav-parent
@@ -370,11 +370,6 @@
                                 <li class="{{ ($path[0] === 'brands')?'nav-active':'' }}">
                                     <a class="nav-link" href="{{route('tenant.brands.index')}}">Marcas</a>
                                 </li>
-                                <li class="{{ ($path[0] === 'item-lots')?'nav-active':'' }}">
-                                    <a class="nav-link" href="{{route('tenant.item-lots.index')}}">
-                                        Series
-                                    </a>
-                                </li>
                                 <li class="{{ ($path[0] === 'item-sets'  )?'nav-active':'' }}">
                                     <a class="nav-link" href="{{route('tenant.item_sets.index')}}">
                                         Pack Producto
@@ -385,7 +380,7 @@
                         @endif
                     @endif
 
-                    {{-- Clientes --}}
+                    {{-- Clients --}}
                     @if(auth()->user()->type != 'integrator')
                         @if(in_array('documents', $vc_modules))
                         <li class="nav-parent
@@ -812,21 +807,21 @@
                     </li>
                     @endif
 
-                    <!--Cuenta-->
-                    @if(in_array('account', $vc_modules))
+                    <!--Subscription-->
+                    @if(in_array('subscription', $vc_modules))
                     <li class=" nav-parent
-                        {{ ($path[0] === 'cuenta')?'nav-active nav-expanded':'' }}">
+                        {{ ($path[0] === 'subscription')?'nav-active nav-expanded':'' }}">
                         <a class="nav-link" href="#">
                             <i class="fas fa-dollar-sign" aria-hidden="true"></i>
                             <span>Mis Pagos</span>
                         </a>
                         <ul class="nav nav-children">
-                            <li class="{{ (($path[0] === 'cuenta') && ($path[1] === 'configuration')) ?'nav-active':'' }}">
+                            <li class="{{ (($path[0] === 'subscription') && ($path[1] === 'configuration')) ?'nav-active':'' }}">
                                 <a class="nav-link" href="{{route('tenant.configuration.index')}}">
                                     Configuracion
                                 </a>
                             </li>
-                            <li class="{{ (($path[0] === 'cuenta') && ($path[1] === 'payment_index')) ?'nav-active':'' }}">
+                            <li class="{{ (($path[0] === 'subscription') && ($path[1] === 'payment_index')) ?'nav-active':'' }}">
                                 <a class="nav-link" href="{{route('tenant.payment.index')}}">
                                     Lista de Pagos
                                 </a>

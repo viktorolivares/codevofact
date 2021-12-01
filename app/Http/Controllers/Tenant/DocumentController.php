@@ -34,7 +34,7 @@ use App\Models\Tenant\Person;
 use App\Models\Tenant\Series;
 use App\Models\Tenant\Warehouse;
 use App\Models\Tenant\User;
-use Exception;
+Use Throwable;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -596,7 +596,7 @@ class DocumentController extends Controller
                     'message' =>  __('app.actions.upload.success'),
                     'data' => $data
                 ];
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 return [
                     'success' => false,
                     'message' =>  $e->getMessage()
@@ -621,7 +621,7 @@ class DocumentController extends Controller
                     'message' =>  __('app.actions.upload.success'),
                     'data' => $data
                 ];
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 return [
                     'success' => false,
                     'message' =>  $e->getMessage()
@@ -836,7 +836,7 @@ class DocumentController extends Controller
                 'message' => 'Documento eliminado con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return ($e->getCode() == '23000') ? ['success' => false,'message' => 'El Documento esta siendo usada por otros registros, no puede eliminar'] : ['success' => false,'message' => 'Error inesperado, no se pudo eliminar el Documento'];
 

@@ -5,7 +5,7 @@ use App\Models\Tenant\Item;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Tenant\ItemCollection;
 use App\Http\Resources\Tenant\ItemResource;
-use Exception;
+Use Throwable;
 use Illuminate\Http\Request;
 use Modules\Item\Http\Resources\IncentiveCollection;
 

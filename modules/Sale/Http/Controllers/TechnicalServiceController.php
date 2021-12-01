@@ -18,7 +18,7 @@ use Mpdf\Mpdf;
 use Mpdf\HTMLParserMode;
 use Mpdf\Config\ConfigVariables;
 use Mpdf\Config\FontVariables;
-use Exception;
+Use Throwable;
 use Modules\Sale\Models\TechnicalService;
 
 class TechnicalServiceController extends Controller

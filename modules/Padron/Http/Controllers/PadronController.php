@@ -87,13 +87,13 @@ class PadronController extends Controller
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
             $raw_file_data = curl_exec($ch);
-    
+
             if(curl_errno($ch)){
                  return 'error en descarga Zip';
             }
-            
+
             curl_close($ch);
-    
+
             file_put_contents($filepath, $raw_file_data);
 
             //EXTRACT ZIP
@@ -103,7 +103,6 @@ class PadronController extends Controller
 
             //LOAD DATA TXT TO MYSQL
             DB::connection('tenant')->table('padrones')->truncate();
-           // $file = public_path();
             $file =  str_replace(DIRECTORY_SEPARATOR, '/', public_path("padron_extract".DIRECTORY_SEPARATOR."padron_reducido_ruc.txt"));
             $query = "LOAD DATA LOCAL INFILE '" . $file . "'
             INTO TABLE padrones FIELDS TERMINATED BY '|' LINES TERMINATED BY '\n' IGNORE 1 LINES
@@ -133,7 +132,7 @@ class PadronController extends Controller
 
             return [ 'success' => true, 'message' => 'Proceso Terminado correctamente'];
 
-        }catch(Exception $e)
+        }catch(Throwable $e)
         {
             return [ 'success' => false, 'message' => $e->getMessage()];
         }
@@ -143,7 +142,7 @@ class PadronController extends Controller
                 'message' => $Exception->getMessage(),
             ];
         }
-       
+
     }
 
     public function list_history()
@@ -160,8 +159,6 @@ class PadronController extends Controller
 
         try {
             DB::connection('tenant')->table('padrones')->truncate();
-            //$file = public_path();
-           
             $file =  str_replace(DIRECTORY_SEPARATOR, '/', public_path("padron_extract".DIRECTORY_SEPARATOR."demo.txt"));
             $query = "LOAD DATA LOCAL INFILE '" . $file . "'
             INTO TABLE padrones FIELDS TERMINATED BY '|' LINES TERMINATED BY '\n' IGNORE 1 LINES
@@ -184,18 +181,15 @@ class PadronController extends Controller
                     @updated_at)
             SET status=1,created_at=NOW(),updated_at=null";
             DB::connection('tenant')->getPdo()->exec($query);
-    
+
             return 'ok';
         }
         catch(\PDOException $Exception ) {
-            // Note The Typecast To An Integer!
-
             return [
                 'message' => $Exception->getMessage(),
                 'line' => $Exception->getLine(),
             ];
-            //throw new MyDatabaseException( $Exception->getMessage( ) , (int)$Exception->getCode( ) );
         }
-       
+
     }
 }

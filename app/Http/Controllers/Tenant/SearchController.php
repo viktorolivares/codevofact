@@ -7,7 +7,7 @@ use App\Http\Resources\Tenant\SearchResource;
 use App\Models\Tenant\Catalogs\DocumentType;
 use App\Models\Tenant\Document;
 use App\Models\Tenant\Person;
-use Exception;
+Use Throwable;
 
 class SearchController extends Controller
 {

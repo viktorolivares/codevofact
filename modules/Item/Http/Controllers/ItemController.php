@@ -48,7 +48,7 @@ class ItemController extends Controller
                     'message' =>  __('app.actions.upload.success'),
                     'data' => $data
                 ];
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 return [
                     'success' => false,
                     'message' =>  $e->getMessage()

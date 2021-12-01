@@ -36,7 +36,7 @@ class DocumentsImport implements ToCollection
                     $document_type_operation = '0101';
                 } elseif($row[2] == '0001'){
                     $document_type = '01';
-                    $document_type_operation = '0101';  
+                    $document_type_operation = '0101';
                 } elseif ($row[2] == '01') {
                     $document_type = '01';
                     $document_type_operation = '0101';
@@ -64,7 +64,7 @@ class DocumentsImport implements ToCollection
                 }
                  else {
                     $client_document_type = '0';
-                    $company_number = '00000000'; 
+                    $company_number = '00000000';
                 }
 
                 if ($row[10] == null) {
@@ -92,12 +92,12 @@ class DocumentsImport implements ToCollection
                 } else {
                     $unit_type = 'NIU';
                 }
-                
+
 
                 $total_primer_producto = $row[26] + $row[27];
 
-                //genero json y envio a api para no hacer insert 
-                
+                //genero json y envio a api para no hacer insert
+
                 $json = array(
                     "serie_documento" => $serie,
                     "numero_documento" => $correlativo,
@@ -200,7 +200,7 @@ class DocumentsImport implements ToCollection
                         ],
                         'json' => $json
                     ]);
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     dd($e);
                 }
 

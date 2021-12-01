@@ -4,7 +4,7 @@ namespace App\CoreFacturalo\Requests\Api\Validation;
 
 use App\Models\Tenant\Company;
 use App\Models\Tenant\Document;
-use Exception;
+Use Throwable;
 
 class SummaryValidation
 {

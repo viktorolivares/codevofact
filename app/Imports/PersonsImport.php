@@ -3,7 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Tenant\Person;
-use Exception;
+Use Throwable;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;

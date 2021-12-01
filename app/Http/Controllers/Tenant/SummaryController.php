@@ -21,25 +21,25 @@ use App\Models\Tenant\{
     Summary,
     Company
 };
-use Exception;
+Use Throwable;
 
 class SummaryController extends Controller
 {
     use StorageDocument, SummaryTrait;
-    
+
     public function __construct() {
         $this->middleware('input.request:summary,web', ['only' => ['store']]);
     }
-    
+
     public function index() {
         return view('tenant.summaries.index');
     }
-    
+
     public function records(Request $request) {
-        
+
         $records = Summary::where([ ['summary_status_type_id','1'], [ $request->column, 'like', "%{$request->value}%" ]])
             ->latest();
-         
+
         return new SummaryCollection($records->paginate(config('tenant.items_per_page')));
     }
 
@@ -49,11 +49,11 @@ class SummaryController extends Controller
             'date_of_issue' => 'Fecha de emisión'
         ];
     }
-    
+
     public function documents(SummaryDocumentsRequest $request) {
         $company = Company::active();
         $date_of_reference = $request->input('date_of_reference');
-        
+
         $documents = Document::query()
             ->where('date_of_issue', $request->input('date_of_reference'))
             ->where('soap_type_id', $company->soap_type_id)
@@ -61,7 +61,7 @@ class SummaryController extends Controller
             ->where('state_type_id', '01')
             ->take(500)
             ->get();
-            
+
         if (count($documents) === 0) {
             return [
                 'success' => false,
@@ -73,13 +73,13 @@ class SummaryController extends Controller
             'success' => true,
             'data' => new DocumentCollection($documents)
         ];
-        
+
     }
-    
+
     public function store(SummaryRequest $request) {
         return $this->save($request);
     }
-    
+
     public function status($summary_id) {
         return $this->query($summary_id);
     }
@@ -100,7 +100,7 @@ class SummaryController extends Controller
             'message' => 'Resumen eliminada con éxito'
         ];
     }
-    
+
     public function record($id)
     {
         $record = new SummaryResource(Summary::findOrFail($id));

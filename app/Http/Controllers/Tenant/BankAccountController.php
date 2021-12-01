@@ -8,7 +8,7 @@ use App\Http\Resources\Tenant\BankAccountResource;
 use App\Models\Tenant\Bank;
 use App\Models\Tenant\BankAccount;
 use App\Models\Tenant\Catalogs\CurrencyType;
-use Exception;
+Use Throwable;
 
 class BankAccountController extends Controller
 {
@@ -61,19 +61,19 @@ class BankAccountController extends Controller
     public function destroy($id)
     {
         try {
-            
+
             $bank_account = BankAccount::findOrFail($id);
-            $bank_account->delete(); 
+            $bank_account->delete();
 
             return [
                 'success' => true,
                 'message' => 'Cuenta bancaria eliminada con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return ($e->getCode() == '23000') ? ['success' => false,'message' => 'La Cuenta bancaria esta siendo usada por otros registros, no puede eliminar'] : ['success' => false,'message' => 'Error inesperado, no se pudo eliminar la cuenta bancaria'];
 
-        } 
+        }
     }
 }

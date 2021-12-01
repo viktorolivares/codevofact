@@ -106,7 +106,7 @@
                     <div class="col-md-4">
                         <div class="form-group" :class="{'has-danger': errors.web_address}">
                             <label>Dirección web</label>
-                            <el-input v-model="form.web_address"></el-input>
+                            <el-input v-model="form.web_address" type="url"></el-input>
                             <small class="form-control-feedback" v-if="errors.web_address" v-text="errors.web_address[0]"></small>
                         </div>
                     </div>

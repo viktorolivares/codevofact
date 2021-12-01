@@ -9,161 +9,68 @@
       </div>
     </header>
     <div class="row">
-      <div class="col-xl-6">
-        <section class="card card-featured-left card-featured-secondary">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="control-label">Establecimiento</label>
-                  <el-select v-model="form.establishment_id" @change="loadAll">
-                    <el-option
-                      v-for="option in establishments"
-                      :key="option.id"
-                      :value="option.id"
-                      :label="option.name"
-                    ></el-option>
-                  </el-select>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <label class="control-label">Periodo</label>
-                <el-select v-model="form.period" @change="changePeriod">
-                  <el-option key="all" value="all" label="Todos"></el-option>
-                  <el-option key="month" value="month" label="Por mes"></el-option>
-                  <el-option key="between_months" value="between_months" label="Entre meses"></el-option>
-                  <el-option key="date" value="date" label="Por fecha"></el-option>
-                  <el-option key="between_dates" value="between_dates" label="Entre fechas"></el-option>
-                </el-select>
-              </div>
-              <template v-if="form.period === 'month' || form.period === 'between_months'">
-                <div class="col-md-6">
-                  <label class="control-label">Mes de</label>
-                  <el-date-picker
-                    v-model="form.month_start"
-                    type="month"
-                    @change="changeDisabledMonths"
-                    value-format="yyyy-MM"
-                    format="MM/yyyy"
-                    :clearable="false"
-                  ></el-date-picker>
-                </div>
-              </template>
-              <template v-if="form.period === 'between_months'">
-                <div class="col-md-6">
-                  <label class="control-label">Mes al</label>
-                  <el-date-picker
-                    v-model="form.month_end"
-                    type="month"
-                    :picker-options="pickerOptionsMonths"
-                    @change="loadAll"
-                    value-format="yyyy-MM"
-                    format="MM/yyyy"
-                    :clearable="false"
-                  ></el-date-picker>
-                </div>
-              </template>
-              <template v-if="form.period === 'date' || form.period === 'between_dates'">
-                <div class="col-md-6">
-                  <label class="control-label">Fecha del</label>
-                  <el-date-picker
-                    v-model="form.date_start"
-                    type="date"
-                    @change="changeDisabledDates"
-                    value-format="yyyy-MM-dd"
-                    format="dd/MM/yyyy"
-                    :clearable="false"
-                  ></el-date-picker>
-                </div>
-              </template>
-              <template v-if="form.period === 'between_dates'">
-                <div class="col-md-6">
-                  <label class="control-label">Fecha al</label>
-                  <el-date-picker
-                    v-model="form.date_end"
-                    type="date"
-                    :picker-options="pickerOptionsDates"
-                    @change="loadAll"
-                    value-format="yyyy-MM-dd"
-                    format="dd/MM/yyyy"
-                    :clearable="false"
-                  ></el-date-picker>
-                </div>
-              </template>
-            </div>
-          </div>
-        </section>
-      </div>
-      <div v-bind:class="[company.certificate_due != null ? 'col-xl-4': 'col-xl-6']" v-if="!disc.error">
-        <section class="card card-featured-left card-featured-secondary">
-          <div class="card-body">
-            <div class="widget-summary">
-              <div class="widget-summary-col">
-                <div class="row no-gutters">
-                  <div class="col-md-12 m-b-10">
-                    <h4 class="card-title">Disco Duro <small>Porcentaje de uso</small></h4>
-                  </div>
-                  <div class="col-lg-12 py-2">
-                    <div class="summary">
-                      <el-progress :percentage="disc.pcent"></el-progress>
+        <div class="col-12">
+            <section class="card card-dashboard">
+                <div class="card-body pt-2 pb-0">
+                    <div class="row border-bottom mb-2 no-gutters">
+                        <small class="col-12 text-muted text-center">Filtrar datos históricos</small>
                     </div>
-                  </div>
-                  <!-- <div class="col-lg-4">
-                    <div class="summary">
-                      <h4 class="title">
-                        Disponible
-                      </h4>
-                      <el-progress :percentage="disc.avail"></el-progress>
+                    <div class="row">
+                        <div class="col-6 col-md-3 form-group">
+                            <label class="control-label">Establecimiento</label>
+                            <el-select v-model="form.establishment_id" @change="loadAll">
+                                <el-option v-for="option in establishments" :key="option.id" :value="option.id" :label="option.name"></el-option>
+                            </el-select>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <label class="control-label">Periodo</label>
+                            <el-select v-model="form.period" @change="changePeriod">
+                                <el-option key="all" value="all" label="Todos"></el-option>
+                                <el-option key="last_week" value="last_week" label="Última semana"></el-option>
+                                <el-option key="month" value="month" label="Por mes"></el-option>
+                                <el-option key="between_months" value="between_months" label="Entre meses"></el-option>
+                                <el-option key="date" value="date" label="Por fecha"></el-option>
+                                <el-option key="between_dates" value="between_dates" label="Entre fechas"></el-option>
+                            </el-select>
+                        </div>
+                        <template v-if="form.period === 'month' || form.period === 'between_months'">
+                            <div class="col-6 col-md-3">
+                                <label class="control-label">Mes de</label>
+                                <el-date-picker v-model="form.month_start" type="month" @change="changeDisabledMonths" value-format="yyyy-MM" format="MM/yyyy" :clearable="false"></el-date-picker>
+                            </div>
+                        </template>
+                        <template v-if="form.period === 'between_months'">
+                            <div class="col-6 col-md-3">
+                                <label class="control-label">Mes al</label>
+                                <el-date-picker v-model="form.month_end" type="month" :picker-options="pickerOptionsMonths" @change="loadAll" value-format="yyyy-MM" format="MM/yyyy" :clearable="false"></el-date-picker>
+                            </div>
+                        </template>
+                        <template v-if="form.period === 'date' || form.period === 'between_dates'">
+                            <div class="col-6 col-md-3">
+                                <label class="control-label">Fecha del</label>
+                                <el-date-picker v-model="form.date_start"  type="date" @change="changeDisabledDates" value-format="yyyy-MM-dd" format="dd/MM/yyyy" :clearable="false"></el-date-picker>
+                            </div>
+                        </template>
+                        <template v-if="form.period === 'between_dates'">
+                            <div class="col-6 col-md-3">
+                                <label class="control-label">Fecha al</label>
+                                <el-date-picker v-model="form.date_end" type="date" :picker-options="pickerOptionsDates" @change="loadAll" value-format="yyyy-MM-dd" format="dd/MM/yyyy" :clearable="false"></el-date-picker>
+                            </div>
+                        </template>
                     </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="summary">
-                      <h4 class="title">
-                        Uso
-                      </h4>
-                      <el-progress :percentage="disc.used"></el-progress>
-                    </div>
-                  </div> -->
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-      <div class="col-xl-2" v-if="company.certificate_due">
-        <section class="card card-featured-left card-featured-secondary">
-          <div class="card-body">
-            <div class="widget-summary">
-              <div class="widget-summary-col">
-                <div class="row no-gutters">
-                  <div class="col-md-12 m-b-10">
-                    <h4 class="card-title">Certificado</h4>
-                  </div>
-                  <div class="col-lg-12 py-1">
-                    <div class="summary">
-                      Vence: {{company.certificate_due}}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
+            </section>
+        </div>
     </div>
     <div class="row">
       <div class="col-xl-12">
         <div class="row">
-
             <div class="col-xl-3" >
               <section class="card card-featured-left card-featured-secondary">
-
                 <div class="card-body" >
-
                   <template v-if="loaders.sale_note">
                     <loader-graph :rows="4" :columns="1" :radius="50"></loader-graph>
                   </template>
-
                   <div class="widget-summary" v-show="!loaders.sale_note">
                     <div class="widget-summary-col" v-if="sale_note">
                       <div class="row no-gutters">
@@ -711,8 +618,7 @@
 }
 </style>
 <script>
-// import DocumentPayments from "../../../../../../resources/js/views/tenant/documents/partials/payments.vue";
-// import SaleNotePayments from "../../../../../../resources/js/views/tenant/sale_notes/partials/payments.vue";
+
 import DashboardStock from "./partials/dashboard_stock.vue";
 import queryString from "query-string";
 import LoaderGraph from "../components/loaders/l-graph.vue";
@@ -752,7 +658,6 @@ export default {
         totals: {},
         graph: {}
       },
-      disc: [],
       form: {},
       pickerOptionsDates: {
         disabledDate: time => {
@@ -790,9 +695,6 @@ export default {
     await this.loadAll();
     await this.filterItems()
 
-    // this.$eventHub.$on("reloadDataUnpaid", () => {
-    //   this.loadAll();
-    // });
   },
 
   methods: {
@@ -900,17 +802,13 @@ export default {
     },
     loadAll() {
       this.loadData();
-     // this.loadUnpaid();
       this.loadDataAditional();
       this.loadDataUtilities();
-      //this.loadCustomer();
       this.loadCompany();
       this.changeStock()
     },
     changeStock(){
-
         this.$eventHub.$emit('changeStock', this.form.establishment_id)
-
     },
     loadCompany() {
       this.$http.get(`/companies/record`).then(response => {
@@ -918,7 +816,6 @@ export default {
       });
     },
     initLoaders(){
-
       this.loaders = {
         document: true,
         sale_note: true,
@@ -932,7 +829,6 @@ export default {
 
     },
     showLoadersLoadData(){
-
       this.loaders.document = true
       this.loaders.sale_note = true
       this.loaders.general = true
@@ -940,7 +836,6 @@ export default {
 
     },
     hideLoadersLoadData(){
-
       this.loaders.document = false
       this.loaders.sale_note = false
       this.loaders.general = false
@@ -950,7 +845,6 @@ export default {
     loadData() {
 
       this.showLoadersLoadData()
-
       this.$http.post(`/${this.resource}/data`, this.form).then(response => {
 
         this.document = response.data.data.document;
@@ -961,16 +855,6 @@ export default {
         this.items = response.data.data.items;
         this.hideLoadersLoadData()
 
-      });
-
-      this.$http.get(`/command/df`).then(response => {
-        if (response.data[0] != 'error'){
-          this.disc.used = Number(response.data[0].replace(/[^0-9\.]+/g,""));
-          this.disc.avail = Number(response.data[1].match(/\d/g).join(""));
-          this.disc.pcent = Number(response.data[2].match(/\d/g).join(""));
-        } else {
-          this.disc.error = true;
-        }
       });
 
     },

@@ -3,12 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Models\Tenant\Purchase;  
+use App\Models\Tenant\Purchase;
 use Modules\Expense\Models\Expense;
 use Modules\Expense\Models\ExpensePayment;
 use App\Models\Tenant\Cash;
 use App\Models\Tenant\CashDocument;
-use Exception;
+Use Throwable;
 
 class CashServiceProvider extends ServiceProvider
 {
@@ -35,21 +35,21 @@ class CashServiceProvider extends ServiceProvider
 
     // private function purchase(){
 
-    //     Purchase::created(function ($purchase) { 
+    //     Purchase::created(function ($purchase) {
 
     //         $cash = self::getCash();
     //         $cash->cash_documents()->create(['purchase_id' => $purchase->id]);
- 
+
     //     });
-        
+
     // }
 
     private function expense_payment(){
 
-        ExpensePayment::created(function ($expense_payment) { 
+        ExpensePayment::created(function ($expense_payment) {
 
             if($expense_payment->expense_method_type_id === 1){
-                
+
                 $cash = self::getCash();
 
                 if(!$cash){
@@ -60,15 +60,15 @@ class CashServiceProvider extends ServiceProvider
             }
 
         });
-        
+
     }
-    
-    
+
+
     private static function getCash(){
 
         return  Cash::where([['user_id',auth()->user()->id],['state',true]])->first();
 
     }
-    
+
 
 }

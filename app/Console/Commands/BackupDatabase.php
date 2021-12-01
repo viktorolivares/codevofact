@@ -9,7 +9,7 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
 use Ifsnop\Mysqldump as IMysqldump;
-use Exception;
+Use Throwable;
 
 class BackupDatabase extends Command
 {
@@ -26,9 +26,7 @@ class BackupDatabase extends Command
      * @var string
      */
     protected $description = 'Backup database';
-
     protected $process;
-
     protected $host;
     protected $username;
     protected $password;
@@ -63,7 +61,7 @@ class BackupDatabase extends Command
 
 
             foreach ($dbs as $db) {
-                
+
                 $tenant_dump = new IMysqldump\Mysqldump('mysql:host='.$this->host.';dbname='.$db->uuid, $this->username, $this->password);
                 $tenant_dump->start(storage_path("app/backups/{$today}/{$db->uuid}.sql"));
 
@@ -71,11 +69,11 @@ class BackupDatabase extends Command
 
             $system_dump = new IMysqldump\Mysqldump('mysql:host='.$this->host.';dbname='.$db_admin, $this->username, $this->password);
             $system_dump->start(storage_path("app/backups/{$today}/{$db_admin}.sql"));
- 
+
             Log::info('Backup database success');
 
 
-        }catch (Exception $e) {
+        }catch (Throwable $e) {
 
             Log::error("Backup failed -- Line: {$e->getLine()} - Message: {$e->getMessage()} - File: {$e->getFile()}");
 
@@ -88,7 +86,7 @@ class BackupDatabase extends Command
 
     }
 
-    
+
     private function initDbConfig(){
 
         $dbConfig = config('database.connections.' . config('tenancy.db.system-connection-name', 'system'));

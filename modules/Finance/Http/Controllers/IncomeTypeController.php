@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Finance\Models\IncomeType;
 use Modules\Finance\Http\Resources\IncomeTypeCollection;
-use Exception;
+Use Throwable;
 
 class IncomeTypeController extends Controller
 {
@@ -56,7 +56,7 @@ class IncomeTypeController extends Controller
                 'message' => 'Tipo comprobante eliminado con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return ($e->getCode() == '23000') ? ['success' => false,'message' => "El Tipo comprobante esta siendo usada por otros registros, no puede eliminar"] : ['success' => false,'message' => "Error inesperado, no se pudo eliminar el Tipo comprobante "];
 

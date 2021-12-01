@@ -1,376 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="robots" content="noindex, nofollow">
-    <title>Laravel log viewer</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"">
-    <link rel=" stylesheet" type="text/css"  href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
-    @if (file_exists(public_path('theme/custom_styles.css')))
-    <link rel="stylesheet" href="{{ asset('theme/custom_styles.css') }}" />
-    @endif
-    <style>
-        body {
-            padding: 25px;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Laravel log viewer</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
 
-        h1 {
-            font-size: 1.5em;
-            margin-top: 0;
-        }
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+  <style>
+    body {
+      padding: 25px;
+    }
 
-        #table-log {
-            font-size: 0.85rem;
-        }
+    h1 {
+      font-size: 1.5em;
+      margin-top: 0;
+    }
 
-        .sidebar {
-            font-size: 0.85rem;
-            line-height: 1;
-            margin-bottom: 20px;
-        }
+    #table-log {
+        font-size: 0.85rem;
+    }
 
-        .btn {
-            font-size: 0.7rem;
-        }
+    .sidebar {
+        font-size: 0.85rem;
+        line-height: 1;
+    }
 
-        .stack {
-            font-size: 0.85em;
-        }
+    .btn {
+        font-size: 0.7rem;
+    }
 
-        .date {
-            min-width: 75px;
-        }
+    .stack {
+      font-size: 0.85em;
+    }
 
-        .text {
-            word-break: break-all;
-        }
+    .date {
+      min-width: 75px;
+    }
 
-        a.llv-active {
-            z-index: 2;
-            background-color: #f5f5f5;
-            border-color: #777;
-        }
+    .text {
+      word-break: break-all;
+    }
 
-        .list-group-item {
-            word-break: break-word;
-        }
+    a.llv-active {
+      z-index: 2;
+      background-color: #f5f5f5;
+      border-color: #777;
+    }
 
-        .folder {
-            padding-top: 15px;
-        }
+    .list-group-item {
+      word-break: break-word;
+    }
 
-        .div-scroll {
-            height: 80vh;
-            overflow: hidden auto;
-        }
+    .folder {
+      padding-top: 15px;
+    }
 
-        .nowrap {
-            white-space: nowrap;
-        }
+    .div-scroll {
+      height: 80vh;
+      overflow: hidden auto;
+    }
+    .nowrap {
+      white-space: nowrap;
+    }
 
-        /**
-        * DARK MODE CSS
-        */
 
-        body[data-theme="dark"] {
-            background-color: #151515;
-            color: #cccccc;
-        }
 
-        [data-theme="dark"] a {
-            color: #4da3ff;
-        }
+    /**
+    * DARK MODE CSS
+    */
 
-        [data-theme="dark"] a:hover {
-            color: #a8d2ff;
-        }
+    body[data-theme="dark"] {
+      background-color: #151515;
+      color: #cccccc;
+    }
 
-        [data-theme="dark"] .list-group-item {
-            background-color: #1d1d1d;
-            border-color: #444;
-        }
+    [data-theme="dark"] a {
+      color: #4da3ff;
+    }
 
-        [data-theme="dark"] a.llv-active {
-            background-color: #0468d2;
-            border-color: rgba(255, 255, 255, 0.125);
-            color: #ffffff;
-        }
+    [data-theme="dark"] a:hover {
+      color: #a8d2ff;
+    }
 
-        [data-theme="dark"] a.list-group-item:focus,
-        [data-theme="dark"] a.list-group-item:hover {
-            background-color: #273a4e;
-            border-color: rgba(255, 255, 255, 0.125);
-            color: #ffffff;
-        }
+    [data-theme="dark"] .list-group-item {
+      background-color: #1d1d1d;
+      border-color: #444;
+    }
 
-        [data-theme="dark"] .table td,
-        [data-theme="dark"] .table th,
-        [data-theme="dark"] .table thead th {
-            border-color: #616161;
-        }
+    [data-theme="dark"] a.llv-active {
+        background-color: #0468d2;
+        border-color: rgba(255, 255, 255, 0.125);
+        color: #ffffff;
+    }
 
-        [data-theme="dark"] .page-item.disabled .page-link {
-            color: #8a8a8a;
-            background-color: #151515;
-            border-color: #5a5a5a;
-        }
+    [data-theme="dark"] a.list-group-item:focus, [data-theme="dark"] a.list-group-item:hover {
+      background-color: #273a4e;
+      border-color: rgba(255, 255, 255, 0.125);
+      color: #ffffff;
+    }
 
-        [data-theme="dark"] .page-link {
-            background-color: #151515;
-            border-color: #5a5a5a;
-        }
+    [data-theme="dark"] .table td, [data-theme="dark"] .table th,[data-theme="dark"] .table thead th {
+      border-color:#616161;
+    }
 
-        [data-theme="dark"] .page-item.active .page-link {
-            color: #fff;
-            background-color: #0568d2;
-            border-color: #007bff;
-        }
+    [data-theme="dark"] .page-item.disabled .page-link {
+      color: #8a8a8a;
+      background-color: #151515;
+      border-color: #5a5a5a;
+    }
 
-        [data-theme="dark"] .page-link:hover {
-            color: #ffffff;
-            background-color: #0051a9;
-            border-color: #0568d2;
-        }
+    [data-theme="dark"] .page-link {
+      background-color: #151515;
+      border-color: #5a5a5a;
+    }
 
-        [data-theme="dark"] .form-control {
-            border: 1px solid #464646;
-            background-color: #151515;
-            color: #bfbfbf;
-        }
+    [data-theme="dark"] .page-item.active .page-link {
+      color: #fff;
+      background-color: #0568d2;
+      border-color: #007bff;
+    }
 
-        [data-theme="dark"] .form-control:focus {
-            color: #bfbfbf;
-            background-color: #212121;
-            border-color: #4a4a4a;
-        }
-    </style>
-    <script>
-        function initTheme() {
-        const darkThemeSelected =
-            localStorage.getItem('darkSwitch') !== null &&
-            localStorage.getItem('darkSwitch') === 'dark';
-        darkSwitch.checked = darkThemeSelected;
-        darkThemeSelected ? document.body.setAttribute('data-theme', 'dark') :
-            document.body.removeAttribute('data-theme');
-        }
+    [data-theme="dark"] .page-link:hover {
+      color: #ffffff;
+      background-color: #0051a9;
+      border-color: #0568d2;
+    }
 
-        function resetTheme() {
-        if (darkSwitch.checked) {
-            document.body.setAttribute('data-theme', 'dark');
-            localStorage.setItem('darkSwitch', 'dark');
-        } else {
-            document.body.removeAttribute('data-theme');
-            localStorage.removeItem('darkSwitch');
-        }
-        }
-    </script>
+    [data-theme="dark"] .form-control {
+      border: 1px solid #464646;
+      background-color: #151515;
+      color: #bfbfbf;
+    }
+
+    [data-theme="dark"] .form-control:focus {
+      color: #bfbfbf;
+      background-color: #212121;
+      border-color: #4a4a4a;
+    }
+
+  </style>
+  <script>
+    function initTheme() {
+      const darkThemeSelected =
+        localStorage.getItem('darkSwitch') !== null &&
+        localStorage.getItem('darkSwitch') === 'dark';
+      darkSwitch.checked = darkThemeSelected;
+      darkThemeSelected ? document.body.setAttribute('data-theme', 'dark') :
+        document.body.removeAttribute('data-theme');
+    }
+
+    function resetTheme() {
+      if (darkSwitch.checked) {
+        document.body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('darkSwitch', 'dark');
+      } else {
+        document.body.removeAttribute('data-theme');
+        localStorage.removeItem('darkSwitch');
+      }
+    }
+  </script>
 </head>
-<body class="log-bg">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-2 col-md-4 col-lg-2 col-sm-12 col-xs-12 sidebar">
-                <div class="card border-secondary">
-                    <div class="card-body">
-                        <h1 class="text-primary pb-3"><i class="fa fa-calendar" aria-hidden="true"></i> Log Viewer</h1>
-                        <div class="custom-control custom-switch pb-4">
-                            <input type="checkbox" class="custom-control-input" id="darkSwitch">
-                            <label class="custom-control-label" for="darkSwitch" style="margin-top: 6px;">Modo
-                                Oscuro</label>
-                        </div>
-                        <div class="list-group">
-                            @foreach($folders as $folder)
-                            <div class="list-group-item">
-                                <a href="?f={{ \Illuminate\Support\Facades\Crypt::encrypt($folder) }}">
-                                    <span class="fa fa-folder"></span> {{$folder}}
-                                </a>
-                                @if ($current_folder == $folder)
-                                <div class="list-group folder">
-                                    @foreach($folder_files as $file)
-                                    <a href="?l={{ \Illuminate\Support\Facades\Crypt::encrypt($file) }}&f={{ \Illuminate\Support\Facades\Crypt::encrypt($folder) }}"
-                                        class="list-group-item @if ($current_file == $file) llv-active @endif">
-                                        {{$file}}
-                                    </a>
-                                    @endforeach
-                                </div>
-                                @endif
-                            </div>
-                            @endforeach
-                            @foreach($files as $file)
-                            <a href="?l={{ \Illuminate\Support\Facades\Crypt::encrypt($file) }}"
+<body class="bg-secondary">
+<div class="container-fluid mt-4">
+  <div class="row">
+        <div class="card border-secondary pt-4">
+            <div class="col sidebar mb-3">
+                <h5><i class="fa fa-calendar" aria-hidden="true"></i> Laravel Log Viewer</h5>
+                <div class="custom-control custom-switch" style="padding-bottom:20px;">
+                    <input type="checkbox" class="custom-control-input" id="darkSwitch">
+                    <label class="custom-control-label" for="darkSwitch" style="margin-top: 6px;">Dark Mode</label>
+                </div>
+                <div class="list-group div-scroll">
+                    @foreach($folders as $folder)
+                    <div class="list-group-item">
+                        <a href="?f={{ \Illuminate\Support\Facades\Crypt::encrypt($folder) }}">
+                        <span class="fa fa-folder"></span> {{$folder}}
+                        </a>
+                        @if ($current_folder == $folder)
+                        <div class="list-group folder">
+                            @foreach($folder_files as $file)
+                            <a href="?l={{ \Illuminate\Support\Facades\Crypt::encrypt($file) }}&f={{ \Illuminate\Support\Facades\Crypt::encrypt($folder) }}"
                                 class="list-group-item @if ($current_file == $file) llv-active @endif">
                                 {{$file}}
                             </a>
                             @endforeach
                         </div>
+                        @endif
                     </div>
+                    @endforeach
+                    @foreach($files as $file)
+                    <a href="?l={{ \Illuminate\Support\Facades\Crypt::encrypt($file) }}"
+                        class="list-group-item @if ($current_file == $file) llv-active @endif">
+                        {{$file}}
+                    </a>
+                    @endforeach
                 </div>
             </div>
-            <div class="col-10 col-md-8 col-lg-10 col-sm-12 col-xs-12">
-                <div class="card border-secondary">
-                    <div class="card-body m-3">
-                        @if ($logs === null)
-                        <div>
-                            Log file >50M, please download it.
-                        </div>
-                        @else
-                        <table id="table-log" class="table table-striped"
-                            data-ordering-index="{{ $standardFormat ? 2 : 0 }}">
-                            <thead>
-                                <tr>
-                                    @if ($standardFormat)
-                                    <th>Level</th>
-                                    <th>Context</th>
-                                    <th>Date</th>
-                                    @else
-                                    <th>Line number</th>
-                                    @endif
-                                    <th>Content</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($logs as $key => $log)
-                                <tr data-display="stack{{{$key}}}">
-                                    @if ($standardFormat)
-                                    <td class="nowrap text-{{{$log['level_class']}}}">
-                                        <span class="fa fa-{{{$log['level_img']}}}"
-                                            aria-hidden="true"></span>&nbsp;&nbsp;{{$log['level']}}
-                                    </td>
-                                    <td class="text">{{$log['context']}}</td>
-                                    @endif
-                                    <td class="date">{{{$log['date']}}}</td>
-                                    <td class="text">
-                                        @if ($log['stack'])
-                                        <button type="button"
-                                            class="float-right expand btn btn-outline-dark btn-sm mb-2 ml-2"
-                                            data-display="stack{{{$key}}}">
-                                            <span class="fa fa-search"></span>
-                                        </button>
-                                        @endif
-                                        {{{$log['text']}}}
-                                        @if (isset($log['in_file']))
-                                        <br />{{{$log['in_file']}}}
-                                        @endif
-                                        @if ($log['stack'])
-                                        <div class="stack" id="stack{{{$key}}}"
-                                            style="display: none; white-space: pre-wrap;">{{{
-                                            trim($log['stack']) }}}
-                                        </div>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
+        </div>
+        <div class="col-10 table-container px-4">
+            <div class="card border-secondary pt-4">
+                @if ($logs === null)
+                <div>
+                Log file >50M, please download it.
+                </div>
+                @else
+                <table id="table-log" class="table table-striped" data-ordering-index="{{ $standardFormat ? 2 : 0 }}">
+                <thead>
+                <tr>
+                    @if ($standardFormat)
+                    <th>Level</th>
+                    <th>Context</th>
+                    <th>Date</th>
+                    @else
+                    <th>Line number</th>
+                    @endif
+                    <th>Content</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($logs as $key => $log)
+                    <tr data-display="stack{{{$key}}}">
+                    @if ($standardFormat)
+                        <td class="nowrap text-{{{$log['level_class']}}}">
+                        <span class="fa fa-{{{$log['level_img']}}}" aria-hidden="true"></span>&nbsp;&nbsp;{{$log['level']}}
+                        </td>
+                        <td class="text">{{$log['context']}}</td>
+                    @endif
+                    <td class="date">{{{$log['date']}}}</td>
+                    <td class="text">
+                        @if ($log['stack'])
+                        <button type="button"
+                                class="float-right expand btn btn-outline-dark btn-sm mb-2 ml-2"
+                                data-display="stack{{{$key}}}">
+                            <span class="fa fa-search"></span>
+                        </button>
                         @endif
-                        <div class="card-footer mt-3 bg-dark">
-                            <div class="pt-3">
-                                @if($current_file)
-                                <a class="btn btn-light btn-sm"
-                                    href="?dl={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
-                                    <span class="fa fa-download"></span> Download file
-                                </a>
-                                <a class="btn btn-warning btn-sm" id="clean-log"
-                                    href="?clean={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
-                                    <span class="fa fa-sync"></span> Clean file
-                                </a>
-                                <a class="btn btn-danger btn-sm" id="delete-log"
-                                    href="?del={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
-                                    <span class="fa fa-trash"></span> Delete file
-                                </a>
-                                @if(count($files) > 1)
-                                <a class="btn btn-info btn-sm" id="delete-all-log"
-                                    href="?delall=true{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
-                                    <span class="fa fa-trash-alt"></span> Delete all files
-                                </a>
-                                @endif
-                                @endif
-                            </div>
+                        {{{$log['text']}}}
+                        @if (isset($log['in_file']))
+                        <br/>{{{$log['in_file']}}}
+                        @endif
+                        @if ($log['stack'])
+                        <div class="stack" id="stack{{{$key}}}"
+                            style="display: none; white-space: pre-wrap;">{{{ trim($log['stack']) }}}
                         </div>
+                        @endif
+                    </td>
+                    </tr>
+                @endforeach
+                </tbody>
+                </table>
+                @endif
+                <div class="card-footer bg-dark mt-4">
+                    <div class="pt-3">
+                        @if($current_file)
+                        <a class="btn btn-light btn-sm"
+                            href="?dl={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
+                            <span class="fa fa-download"></span> Download file
+                        </a>
+                        <a class="btn btn-warning btn-sm" id="clean-log"
+                            href="?clean={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
+                            <span class="fa fa-sync"></span> Clean file
+                        </a>
+                        <a class="btn btn-danger btn-sm" id="delete-log"
+                            href="?del={{ \Illuminate\Support\Facades\Crypt::encrypt($current_file) }}{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
+                            <span class="fa fa-trash"></span> Delete file
+                        </a>
+                        @if(count($files) > 1)
+                        <a class="btn btn-info btn-sm" id="delete-all-log"
+                            href="?delall=true{{ ($current_folder) ? '&f=' . \Illuminate\Support\Facades\Crypt::encrypt($current_folder) : '' }}">
+                            <span class="fa fa-trash-alt"></span> Delete all files
+                        </a>
+                        @endif
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <footer>
-        <p class="text-center text-muted m-4">&copy; Copyright {{ date('Y') }}. | Codevo Solutions - Log Viewer By Rap2h | Todos los derechos reservados</p>
-    </footer>
-    <!-- jQuery for Bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <!-- FontAwesome -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-    <!-- Datatables -->
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+  </div>
+</div>
+<!-- jQuery for Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<!-- FontAwesome -->
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<!-- Datatables -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 
-    <script>
-        // dark mode by https://github.com/coliff/dark-mode-switch
-        const darkSwitch = document.getElementById('darkSwitch');
+<script>
 
-        // this is here so we can get the body dark mode before the page displays
-        // otherwise the page will be white for a second...
-        initTheme();
-        window.addEventListener('load', () => {
-            if (darkSwitch) {
-            initTheme();
-            darkSwitch.addEventListener('change', () => {
-                resetTheme();
-            });
-            }
-        });
-        // end darkmode js
+  // dark mode by https://github.com/coliff/dark-mode-switch
+  const darkSwitch = document.getElementById('darkSwitch');
 
-        $(document).ready(function () {
-            $('.table-container tr').on('click', function () {
-            $('#' + $(this).data('display')).toggle();
-            });
-            $('#table-log').DataTable({
-            "order": [$('#table-log').data('orderingIndex'), 'desc'],
-            "stateSave": true,
-            "stateSaveCallback": function (settings, data) {
-                window.localStorage.setItem("datatable", JSON.stringify(data));
-            },
-            "stateLoadCallback": function (settings) {
-                var data = JSON.parse(window.localStorage.getItem("datatable"));
-                if (data) data.start = 0;
-                return data;
-            },
-            language: {
-                    "info": "",
-                    "search": "",
-                    "paginate": {
-                        "next": "Siguiente",
-                        "previous": "Anterior",
-                    },
-                    "lengthMenu":
-                        "Mostrar: &nbsp; <select>" +
-                        '<option value="5">5</option>' +
-                        '<option value="10">10</option>' +
-                        '<option value="50">50</option>' +
-                        '<option value="100">100</option>' +
-                        "</select> &nbsp; Registros",
-                    "pagingType": "simple",
-                    "iDisplayLength": 10,
-                    "lengthChange": false,
-                    "loadingRecords": "Cargando...",
-                    "processing": "Procesando...",
-                    "emptyTable": "No existe registros",
-                    "zeroRecords": "No existen coincidencias",
-                    "info": "Mostrando página _PAGE_ de _PAGES_ | Total de registros: _MAX_",
-                    "infoEmpty": "",
-                    "infoFiltered": "(Filtrado de _MAX_ registros)",
-                    "searchPlaceholder": "Buscar",
-                }
+  // this is here so we can get the body dark mode before the page displays
+  // otherwise the page will be white for a second...
+  initTheme();
 
-            });
-            $('#delete-log, #clean-log, #delete-all-log').click(function () {
-            return confirm('Are you sure?');
-            });
-        });
-    </script>
+  window.addEventListener('load', () => {
+    if (darkSwitch) {
+      initTheme();
+      darkSwitch.addEventListener('change', () => {
+        resetTheme();
+      });
+    }
+  });
+
+  // end darkmode js
+
+  $(document).ready(function () {
+
+    $('.table-container tr').on('click', function () {
+      $('#' + $(this).data('display')).toggle();
+    });
+
+    $('#table-log').DataTable({
+      "order": [$('#table-log').data('orderingIndex'), 'desc'],
+      "stateSave": true,
+      "stateSaveCallback": function (settings, data) {
+        window.localStorage.setItem("datatable", JSON.stringify(data));
+      },
+      "stateLoadCallback": function (settings) {
+        var data = JSON.parse(window.localStorage.getItem("datatable"));
+        if (data) data.start = 0;
+        return data;
+      },
+      language: {
+        "info": "",
+        "search": "",
+        "paginate": {
+        "next": "Siguiente",
+        "previous": "Anterior",
+        },
+        "lengthMenu":
+        "Mostrar: &nbsp; <select>" +
+        '<option value="5">5</option>' +
+        '<option value="10">10</option>' +
+        '<option value="50">50</option>' +
+        '<option value="100">100</option>' +
+        "</select> &nbsp; Registros",
+        "pagingType": "simple",
+        "iDisplayLength": 10,
+        "lengthChange": false,
+        "loadingRecords": "Cargando...",
+        "processing": "Procesando...",
+        "emptyTable": "No existe registros",
+        "zeroRecords": "No existen coincidencias",
+        "info": "Mostrando página _PAGE_ de _PAGES_ | Total de registros: _MAX_",
+        "infoEmpty": "",
+        "infoFiltered": "(Filtrado de _MAX_ registros)",
+        "searchPlaceholder": "Buscar",
+        }
+    });
+
+    $('#delete-log, #clean-log, #delete-all-log').click(function () {
+      return confirm('Are you sure?');
+    });
+
+  });
+</script>
 </body>
-
 </html>

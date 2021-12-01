@@ -23,7 +23,7 @@ use App\Models\Tenant\Document;
 use App\Models\Tenant\Retention;
 use App\Models\Tenant\Summary;
 use App\Models\Tenant\Voided;
-use Exception;
+Use Throwable;
 use Mpdf\HTMLParserMode;
 use Mpdf\Mpdf;
 use Mpdf\Config\ConfigVariables;

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\DetractionTypeRequest;
 use App\Http\Resources\Tenant\DetractionTypeCollection;
 use App\Http\Resources\Tenant\DetractionTypeResource;
-use Exception;
+Use Throwable;
 
 class DetractionTypeController extends Controller
 {
@@ -48,7 +48,7 @@ class DetractionTypeController extends Controller
     public function destroy($id)
     {
         try {
-            
+
             $record = DetractionType::findOrFail($id);
             $record->delete();
 
@@ -57,12 +57,12 @@ class DetractionTypeController extends Controller
                 'message' => 'Tipo de detracción eliminada con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return ($e->getCode() == '23000') ? ['success' => false,'message' => 'El Tipo de detracción esta siendo usada por otros registros, no puede eliminar'] : ['success' => false,'message' => 'Error inesperado, no se pudo eliminar el Tipo de detracción'];
 
         }
 
-        
+
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\System;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
-use Exception;
+Use Throwable;
 use Hyn\Tenancy\Contracts\Repositories\HostnameRepository;
 use Hyn\Tenancy\Contracts\Repositories\WebsiteRepository;
 use App\Http\Resources\System\ClientCollection;
@@ -177,7 +177,7 @@ class ClientController extends Controller
                     file_put_contents(storage_path('app'.DIRECTORY_SEPARATOR.'certificates'.DIRECTORY_SEPARATOR.$name), $pem);
                     $name_certificate = $name;
 
-                } catch (Exception $e) {
+                } catch (Throwable $e) {
                     return [
                         'success' => false,
                         'message' =>  $e->getMessage()
@@ -249,7 +249,7 @@ class ClientController extends Controller
                 'message' => 'Cliente Actualizado satisfactoriamente'
             ];
 
-        }catch(Exception $e)
+        }catch(Throwable $e)
         {
             return [
                 'success' => false,
@@ -279,7 +279,7 @@ class ClientController extends Controller
                 file_put_contents(storage_path('app'.DIRECTORY_SEPARATOR.'certificates'.DIRECTORY_SEPARATOR.$name), $pem);
                 $name_certificate = $name;
 
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 return [
                     'success' => false,
                     'message' =>  $e->getMessage()
@@ -320,7 +320,7 @@ class ClientController extends Controller
 
             DB::connection('system')->commit();
         }
-        catch (Exception $e) {
+        catch (Throwable $e) {
             DB::connection('system')->rollBack();
             app(HostnameRepository::class)->delete($hostname, true);
             app(WebsiteRepository::class)->delete($website, true);

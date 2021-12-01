@@ -25,7 +25,7 @@ use App\Models\Tenant\{
     Item
 };
 use Modules\Order\Http\Requests\OrderFormRequest;
-use Exception, Illuminate\Support\Facades\DB;
+Use Throwable, Illuminate\Support\Facades\DB;
 use Modules\Order\Models\OrderForm;
 use Modules\Order\Models\Dispatcher;
 use Modules\Order\Models\Driver;

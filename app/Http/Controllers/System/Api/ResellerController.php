@@ -4,7 +4,7 @@ namespace App\Http\Controllers\System\Api;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
-use Exception;
+Use Throwable;
 use Hyn\Tenancy\Contracts\Repositories\HostnameRepository;
 use Hyn\Tenancy\Contracts\Repositories\WebsiteRepository;
 use App\Http\Resources\System\ClientCollection;

@@ -3,7 +3,7 @@
 namespace App\CoreFacturalo\Requests\Api\Validation;
 
 use App\Models\Tenant\Item;
-use Exception;
+Use Throwable;
 
 class DispatchValidation
 {

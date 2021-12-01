@@ -17,7 +17,7 @@ use App\Http\Resources\Tenant\ItemResource;
 use App\Models\Tenant\User;
 use App\Models\Tenant\Warehouse;
 use App\Models\Tenant\ItemUnitType;
-use Exception;
+Use Throwable;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 use Modules\Account\Models\Account;
@@ -70,14 +70,14 @@ class ItemSetController extends Controller
         $web_platforms = WebPlatform::get();
         // $warehouses = Warehouse::all();
         // $accounts = Account::all();
-        // $tags = Tag::all(); 
+        // $tags = Tag::all();
 
         return compact('unit_types', 'currency_types', 'attribute_types', 'system_isc_types', 'affectation_igv_types', 'web_platforms');
     }
 
 
     public function item_tables()
-    { 
+    {
 
         $individual_items = Item::whereWarehouse()->whereTypeUser()->whereNotIsSet()->whereIsActive()->get()->transform(function($row) {
             $full_description = ($row->internal_id)?$row->internal_id.' - '.$row->description:$row->description;
@@ -133,14 +133,14 @@ class ItemSetController extends Controller
             $item->sets()->delete();
 
             foreach ($request->individual_items as $row) {
-                
+
                 $item->sets()->create([
                     'individual_item_id' => $row['individual_item_id'],
                     'quantity' => $row['quantity'],
                 ]);
 
             }
-            
+
             $item->update();
 
             return $item;
@@ -167,7 +167,7 @@ class ItemSetController extends Controller
                 'message' => 'Producto compuesto eliminado con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return ($e->getCode() == '23000') ? ['success' => false,'message' => 'El producto compuesto esta siendo usado por otros registros, no puede eliminar'] : ['success' => false,'message' => 'Error inesperado, no se pudo eliminar el producto compuesto'];
 
@@ -200,7 +200,7 @@ class ItemSetController extends Controller
                     'message' =>  __('app.actions.upload.success'),
                     'data' => $data
                 ];
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 return [
                     'success' => false,
                     'message' =>  $e->getMessage()
@@ -215,9 +215,9 @@ class ItemSetController extends Controller
 
     public function upload(Request $request)
     {
-        
+
         $validate_upload = UploadFileHelper::validateUploadFile($request, 'file', 'jpg,jpeg,png,gif,svg');
-        
+
         if(!$validate_upload['success']){
             return $validate_upload;
         }

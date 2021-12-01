@@ -45,20 +45,6 @@ class DashboardController extends Controller
         ];
     }
 
-    // public function unpaid(Request $request)
-    // {
-    //     return [
-    //             'records' => (new DashboardView())->getUnpaid($request->all())
-    //     ];
-    // }
-
-    // public function unpaidall()
-    // {
-
-    //     return Excel::download(new AccountsReceivable, 'Allclients.xlsx');
-
-    // }
-
     public function data_aditional(Request $request)
     {
         return [
@@ -77,43 +63,6 @@ class DashboardController extends Controller
         return [
             'data' => (new DashboardUtility())->data($request->all()),
         ];
-    }
-
-    public function df()
-    {
-        $path = app_path();
-        //df -m -h --output=used,avail,pcent /
-
-        $used = new Process('df -m -h --output=used /');
-        $used->run();
-        if (!$used->isSuccessful()) {
-            return ['error'];
-            throw new ProcessFailedException($used);
-        }
-        $disc_used = $used->getOutput();
-        $array[] = str_replace("\n","",$disc_used);
-
-        $avail = new Process('df -m -h --output=avail /');
-        $avail->run();
-        if (!$avail->isSuccessful()) {
-            return ['error'];
-            throw new ProcessFailedException($avail);
-        }
-        $disc_avail = $avail->getOutput();
-        $array[] = str_replace("\n","",$disc_avail);
-
-        $pcent = new Process('df -m -h --output=pcent /');
-        $pcent->run();
-        if (!$pcent->isSuccessful()) {
-            return ['error'];
-            throw new ProcessFailedException($pcent);
-        }
-        $disc_pcent = $pcent->getOutput();
-        $array[] = str_replace("\n","",$disc_pcent);
-
-        return $array;
-
-
     }
 
 }

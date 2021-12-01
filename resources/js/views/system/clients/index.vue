@@ -67,76 +67,14 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6">
-        <section class="card card-featured-left card-featured-primary mb-4">
-          <div class="card-body">
-            <div class="widget-summary widget-summary-md">
-              <div class="widget-summary-col widget-summary-col-icon">
-                <div class="summary-icon text-secondary">
-                  <div class="progress1 mx-auto" data-value='100'>
-                    <span class="progress1-left">
-                      <span class="progress1-bar border-tertiary"></span>
-                    </span>
-                    <span class="progress1-right">
-                      <span class="progress1-bar border-tertiary"></span>
-                    </span>
-                    <div class="progress1-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                      <div class="font-weight-bold">{{storageSize}}<small class="small"></small></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="widget-summary-col">
-                <div class="summary">
-                  <h4 class="title"></h4>
-                  <div class="info">
-                    <strong class="amount">Archivos <br> Generados</strong>
-                  </div>
-                </div>
-                <div class="summary-footer">
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-      <div class="col-md-6">
-        <section class="card card-featured-left card-featured-primary mb-4">
-          <div class="card-body">
-            <div class="widget-summary widget-summary-md">
-              <div class="widget-summary-col widget-summary-col-icon">
-                <div class="summary-icon" style="background-color: #292961">
-                  <i class="fab fa-gitlab"></i>
-                </div>
-              </div>
-              <div class="widget-summary-col">
-                <div class="summary">
-                  <h4 class="title"></h4>
-                  <div class="info">
-                    <strong class="amount">Versión</strong><br>
-                    <span class="text-primary">{{version}}</span>
-                  </div>
-                </div>
-                <div class="summary-footer">
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-
     <div class="card" id="client-list">
-      <div class="card-header bg-info">Listado de Clientes</div>
+      <div class="card-header bg-info">Listado de Empresas</div>
       <div class="card-body">
         <div class="row">
           <div class="col">
             <button
               type="button"
-              class="btn btn-custom btn-sm mt-2 mr-2 mb-3"
-              @click.prevent="clickCreate()"
-            >
+              class="btn btn-custom btn-sm mt-2 mr-2 mb-3" @click.prevent="clickCreate()">
               <i class="fa fa-plus-circle"></i> Nuevo
             </button>
           </div>
@@ -284,7 +222,7 @@ import AccountStatus from "./partials/account_status.vue";
 
 export default {
   mixins: [deletable, changeable],
-  props: ['deletePermission', 'discUsed', 'iUsed', 'storageSize', 'version'],
+  props: ['deletePermission'],
   components: { CompaniesForm, ChartLine, ClientPayments, AccountStatus },
   data() {
     return {

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Tenant\DocumentCollection;
 use App\Models\Tenant\Document;
 use App\Models\Tenant\StateType;
-use Exception;
+Use Throwable;
 use Facades\App\Http\Controllers\Tenant\DocumentController as DocumentControllerSend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

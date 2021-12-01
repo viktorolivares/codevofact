@@ -68,7 +68,7 @@ class FixedAssetPurchaseController extends Controller
                             });
 
                 break;
- 
+
             default:
                 $records = FixedAssetPurchase::where($request->column, 'like', "%{$request->value}%");
 
@@ -119,17 +119,17 @@ class FixedAssetPurchaseController extends Controller
 
     public function store(FixedAssetPurchaseRequest $request)
     {
- 
+
         $data = self::convert($request);
 
         $purchase = DB::connection('tenant')->transaction(function () use ($data, $request) {
 
             $doc =  FixedAssetPurchase::updateOrCreate( ['id' => $request->input('id')], $data);
             $doc->items()->delete();
-            
+
             foreach ($data['items'] as $row)
             {
-                $doc->items()->create($row); 
+                $doc->items()->create($row);
             }
 
             return $doc;
@@ -145,7 +145,7 @@ class FixedAssetPurchaseController extends Controller
         ];
     }
 
- 
+
 
     public function voided($id)
     {
@@ -244,7 +244,7 @@ class FixedAssetPurchaseController extends Controller
                 'message' => 'Compra eliminada con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return [
                 'success' => false,
@@ -269,6 +269,6 @@ class FixedAssetPurchaseController extends Controller
         return $persons;
 
     }
- 
+
 
 }

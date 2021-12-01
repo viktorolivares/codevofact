@@ -7,7 +7,7 @@ use App\Models\Tenant\Document;
 use App\Models\Tenant\User;
 
 use App\Models\Tenant\Configuration;
-use Exception;
+Use Throwable;
 
 class LockedEmissionProvider extends ServiceProvider
 {
@@ -37,15 +37,15 @@ class LockedEmissionProvider extends ServiceProvider
     private function update_quantity_documents()
     {
         Document::created(function ($document) {
-            
+
             $configuration = Configuration::first();
-            $configuration->quantity_documents++; 
+            $configuration->quantity_documents++;
             $configuration->save();
-        
-        }); 
+
+        });
     }
 
-    
+
 
     private function locked_emission()
     {
@@ -69,8 +69,8 @@ class LockedEmissionProvider extends ServiceProvider
     {
 
         User::creating(function ($document) {
-            
-            
+
+
             $configuration = Configuration::first();
 
             $quantity_users = User::count();

@@ -5,8 +5,7 @@ namespace Modules\Sale\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Tenant\SaleNote;
 use App\Models\Tenant\SaleNotePayment;
-
-use Exception;
+Use Throwable;
 
 class SaleNotePaymentProvider extends ServiceProvider
 {
@@ -27,10 +26,10 @@ class SaleNotePaymentProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->payments(); 
+        $this->payments();
     }
- 
-    
+
+
 
     private function payments()
     {
@@ -38,13 +37,10 @@ class SaleNotePaymentProvider extends ServiceProvider
         SaleNotePayment::created(function ($sale_note_payment) {
             $this->transaction_payment($sale_note_payment);
         });
- 
-        // SaleNotePayment::deleted(function ($sale_note_payment) {
-        //     $this->transaction_payment($sale_note_payment);
-        // });
-        
+
+
     }
- 
+
     private function transaction_payment($sale_note_payment){
 
         $sale_note = $sale_note_payment->associated_record_payment;
@@ -59,7 +55,7 @@ class SaleNotePaymentProvider extends ServiceProvider
             $sale_note->update();
 
         }else{
-            
+
             $sale_note->total_canceled = false;
             $sale_note->update();
         }

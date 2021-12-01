@@ -8,10 +8,10 @@ use App\Http\Resources\Tenant\RetentionCollection;
 use App\Http\Resources\Tenant\RetentionResource;
 use App\Models\Tenant\Catalogs\Code;
 use App\Models\Tenant\Establishment;
-use App\Models\Tenant\Series; 
+use App\Models\Tenant\Series;
 use App\Models\Tenant\Retention;
 use App\Models\Tenant\Supplier;
-use Exception;
+Use Throwable;
 use Illuminate\Http\Request;
 use App\Models\Tenant\Catalogs\RetentionType;
 use App\Models\Tenant\Person;
@@ -23,7 +23,7 @@ use App\CoreFacturalo\Facturalo;
 class RetentionController extends Controller
 {
     use StorageDocument;
-    
+
     public function __construct() {
         $this->middleware('input.request:retention,web', ['only' => ['store']]);
     }
@@ -76,7 +76,7 @@ class RetentionController extends Controller
 
     public function table($table)
     {
-        if ($table === 'suppliers') { 
+        if ($table === 'suppliers') {
 
             $suppliers = Person::whereType('suppliers')->where('identity_document_type_id', '6')->orderBy('name')->get()->transform(function($row) {
                 return [
@@ -100,7 +100,7 @@ class RetentionController extends Controller
 
         return $record;
     }
- 
+
 
     public function store(RetentionRequest $request)
     {

@@ -3,7 +3,7 @@
 namespace Modules\Account\Http\Controllers\System;
 
 use App\Http\Controllers\Controller;
-use Exception;
+Use Throwable;
 use App\Http\Resources\System\ClientCollection;
 use Hyn\Tenancy\Environment;
 use App\Models\System\Client;
@@ -19,23 +19,23 @@ class AccountingController extends Controller
     {
         return view('account::system.accounting.index');
     }
-  
+
 
     public function records()
     {
-        $records = Client::latest()->get(); 
+        $records = Client::latest()->get();
         return new ClientCollection($records);
     }
 
     public function download(Request $request)
     {
-        
+
         $client = Client::findOrFail($request->id);
         $tenancy = app(Environment::class);
         $tenancy->tenant($client->hostname->website);
 
         return app(AccountController::class)->download($request);
-    
+
     }
 
 }

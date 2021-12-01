@@ -6,7 +6,7 @@ use App\Http\Requests\Tenant\BankRequest;
 use App\Http\Resources\Tenant\BankCollection;
 use App\Http\Resources\Tenant\BankResource;
 use App\Models\Tenant\Bank;
-use Exception;
+Use Throwable;
 
 class BankController extends Controller
 {
@@ -39,17 +39,17 @@ class BankController extends Controller
 
     public function destroy($id)
     {
-        try {            
-            
+        try {
+
             $bank = Bank::findOrFail($id);
-            $bank->delete(); 
+            $bank->delete();
 
             return [
                 'success' => true,
                 'message' => 'Banco eliminado con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return ($e->getCode() == '23000') ? ['success' => false,'message' => 'El banco esta siendo usado por otros registros, no puede eliminar'] : ['success' => false,'message' => 'Error inesperado, no se pudo eliminar el banco'];
 

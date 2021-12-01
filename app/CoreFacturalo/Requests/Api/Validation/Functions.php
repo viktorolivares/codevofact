@@ -9,7 +9,7 @@ use App\Models\Tenant\Item;
 use App\Models\Tenant\Person;
 use App\Models\Tenant\Series;
 use App\Models\Tenant\Catalogs\District;
-use Exception;
+Use Throwable;
 
 class Functions
 {

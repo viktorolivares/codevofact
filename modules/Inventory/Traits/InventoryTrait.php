@@ -15,7 +15,7 @@ use App\Models\Tenant\{
     SaleNoteItem,
     Item
 };
-use Exception;
+Use Throwable;
 use Modules\Item\Models\ItemLotsGroup;
 use Modules\Item\Models\ItemLot;
 

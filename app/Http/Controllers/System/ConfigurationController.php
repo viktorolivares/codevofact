@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\System;
 
 use App\Http\Controllers\Controller;
-use Exception;
+Use Throwable;
 use Illuminate\Http\Request;
 use App\Models\System\Configuration;
 

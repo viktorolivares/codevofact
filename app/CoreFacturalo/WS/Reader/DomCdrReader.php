@@ -71,7 +71,7 @@ class DomCdrReader
                 ->setDescription($this->getValueByName($obj, 'Description'));
 
             return $cdr;
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             Log::error($e->getMessage());
             return null;
         }

@@ -18,7 +18,7 @@ use App\Models\Tenant\Cash;
 use App\Models\Tenant\Configuration;
 use Modules\Inventory\Models\InventoryConfiguration;
 use Modules\Inventory\Models\ItemWarehouse;
-use Exception;
+Use Throwable;
 use Modules\Item\Models\Category;
 use Modules\Finance\Traits\FinanceTrait;
 use App\Models\Tenant\Company;
@@ -41,9 +41,8 @@ class PosController extends Controller
 
         $company = Company::select('soap_type_id')->first();
         $soap_company  = $company->soap_type_id;
-        $business_turns = BusinessTurn::select('active')->where('id', 4)->first();
 
-        return view('tenant.pos.index', compact('configuration', 'soap_company', 'business_turns'));
+        return view('tenant.pos.index', compact('configuration', 'soap_company'));
     }
 
     public function index_full()
@@ -58,9 +57,7 @@ class PosController extends Controller
     public function search_items(Request $request)
     {
         $configuration =  Configuration::first();
-
         $items = Item::where('description','like', "%{$request->input_item}%")
-                            // ->orWhere('internal_id','like', "%{$request->input_item}%")
                             ->orWhere(function ($query) use ($request) {
                                 $query->where('internal_id','like', "%{$request->input_item}%")
                                     ->orWhere('barcode', "{$request->input_item}");

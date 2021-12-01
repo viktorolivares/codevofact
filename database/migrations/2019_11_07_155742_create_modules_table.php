@@ -31,7 +31,7 @@ class CreateModulesTable extends Migration
             ['value' => 'dashboard', 'description' => 'Dashboard'],
             ['value' => 'inventory', 'description' => 'Inventario'],
             ['value' => 'accounting', 'description' => 'Contabilidad'],
-            ['value' => 'account', 'description' => 'Cuenta'],
+            ['value' => 'subscription', 'description' => 'Suscripción'],
 
         ]);
     }

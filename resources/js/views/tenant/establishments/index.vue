@@ -11,7 +11,7 @@
         </div>
         <div class="card">
             <div class="card-header bg-info">
-                <h3 class="my-0">Listado de establecimientos</h3>
+                <h3 class="my-0">Listado de Establecimientos</h3>
             </div>
             <div class="card-body">
                 <data-table :resource="resource">

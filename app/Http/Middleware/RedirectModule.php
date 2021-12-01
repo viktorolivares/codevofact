@@ -21,21 +21,13 @@ class RedirectModule
         $modules = $request->user()->getModules();
 
         if(!$request->ajax()){
-
             if(count($modules)){
-
-                if(count($modules) < 9){
-
-                    $group = $this->getGroup($path, $module);
-
-                    if($group){
-                        if($this->getModuleByGroup($modules,$group) === 0){
+                $group = $this->getGroup($path, $module);
+                 if($group){
+                    if($this->getModuleByGroup($modules,$group) === 0){
                             return $this->redirectRoute($module);
-                        }
                     }
-
                 }
-
             }
         }
 
@@ -77,6 +69,9 @@ class RedirectModule
 
             case 'establishments':
                 return redirect()->route('tenant.users.index');
+
+            default;
+                return redirect()->route('tenant.dashboard.index');
 
 
         }
@@ -161,34 +156,32 @@ class RedirectModule
             $group = "reports";
         }
 
+
+        ///* Module Subscription */
+
+        elseif ($path[0] == "subscription") {
+            $group = "subscription";
+        }
+
         ///* Module configuration */
 
         elseif($path[0] == "users"){
             $group = "establishments";
-            // $group = "configuration";
-
         }
         elseif($path[0] == "establishments"){
             $group = "establishments";
-            // $group = "configuration";
-
         }
         elseif($path[0] == "companies"){
-
             $group = "configuration";
-
             if(count($path) > 0 && $path[1] == "uploads" && $module == "documents"){
                 $group = "documents";
             }
-
         }
         elseif($path[0] == "catalogs"){
             $group = "configuration";
-
         }
         elseif($path[0] == "advanced"){
             $group = "configuration";
-
         }
 
         ///* Determinate type person */
@@ -196,22 +189,19 @@ class RedirectModule
         elseif($path[0] == "persons"){
             if($path[1] == "suppliers"){
                 $group = "purchases";
-
             }elseif($path[1] == "customers"){
                 $group = "documents";
-
             }else{
                 $group = null;
             }
         }
+
         ///* Module pos */
         elseif($path[0] == "pos"){
             $group = "pos";
-
         }
         elseif($path[0] == "cash"){
             $group = "pos";
-
         }
 
         ///* Module inventory */
@@ -237,15 +227,9 @@ class RedirectModule
         elseif($path[0] == "finances"){
             $group = "finance";
         }
-
-        elseif($path[0] == "orders"){
-             $group = "ecommerce";
-
-        }
         else{
             $group = null;
         }
-
         return $group;
     }
 

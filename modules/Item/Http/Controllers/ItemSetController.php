@@ -4,7 +4,7 @@ namespace Modules\Item\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Routing\Controller; 
+use Illuminate\Routing\Controller;
 use Modules\Item\Imports\ItemSetIndividualImport;
 use Modules\Item\Imports\ItemSetImport;
 use Maatwebsite\Excel\Excel;
@@ -25,7 +25,7 @@ class ItemSetController extends Controller
                     'message' =>  __('app.actions.upload.success'),
                     'data' => $data
                 ];
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 return [
                     'success' => false,
                     'message' =>  $e->getMessage()
@@ -52,7 +52,7 @@ class ItemSetController extends Controller
                     'message' =>  __('app.actions.upload.success'),
                     'data' => $data
                 ];
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 return [
                     'success' => false,
                     'message' =>  $e->getMessage()

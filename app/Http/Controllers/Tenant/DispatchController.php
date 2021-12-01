@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Tenant;
 
-use Exception;
+Use Throwable;
 use App\Models\Tenant\Item;
 use Illuminate\Http\Request;
 use App\Models\Tenant\Person;

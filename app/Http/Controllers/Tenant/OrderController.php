@@ -1,16 +1,13 @@
 <?php
 namespace App\Http\Controllers\Tenant;
 
-use Exception;
-
+Use Throwable;
 use App\Models\Tenant\Order;
 use Illuminate\Http\Request;
 use App\Models\Tenant\Series;
-
 use App\Http\Controllers\Controller;
 use App\Models\Tenant\Establishment;
 use App\Models\Tenant\ItemWarehouse;
-
 use App\Http\Resources\Tenant\OrderCollection;
 use App\CoreFacturalo\Helpers\Storage\StorageDocument;
 use App\Http\Resources\Tenant\ItemWarehouseCollection;

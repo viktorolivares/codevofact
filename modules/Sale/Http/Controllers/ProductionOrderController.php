@@ -8,7 +8,7 @@ use Modules\Sale\Models\Contract;
 use Modules\Sale\Http\Resources\ProductionOrderCollection;
 use Illuminate\Support\Facades\DB;
 use App\Models\Tenant\Company;
-use Exception;
+Use Throwable;
 
 
 class ProductionOrderController extends Controller
@@ -18,7 +18,7 @@ class ProductionOrderController extends Controller
     public function index()
     {
         return view('sale::production_orders.index');
-    } 
+    }
 
     public function columns()
     {
@@ -29,7 +29,7 @@ class ProductionOrderController extends Controller
             'customer' => 'Cliente',
         ];
     }
- 
+
     public function records(Request $request)
     {
         $records = $this->getRecords($request);
@@ -40,14 +40,14 @@ class ProductionOrderController extends Controller
     private function getRecords($request){
 
         if($request->column == 'user_name'){
-            
+
             $records = Contract::whereHas('user', function($query) use($request){
                             $query->where('name', 'like', "%{$request->value}%");
                         });
 
         }
         else if($request->column == 'customer'){
-            
+
             $records = Contract::whereHas('person', function($query) use($request){
                             $query->where('name', 'like', "%{$request->value}%")
                                     ->orWhere('number', 'like', "%{$request->value}%");
@@ -57,10 +57,10 @@ class ProductionOrderController extends Controller
         else{
 
             $records = Contract::where($request->column, 'like', "%{$request->value}%");
-        
+
         }
-        
+
         return $records->where('delivery_date', '!=', null)->whereTypeUser()->orderBy('delivery_date');
     }
- 
+
 }

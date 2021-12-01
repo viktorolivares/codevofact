@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Sale\Http\Resources\PaymentMethodTypeCollection;
 use App\Models\Tenant\PaymentMethodType;
-use Exception;
+Use Throwable;
 use Modules\Sale\Http\Requests\PaymentMethodTypeRequest;
 
 class PaymentMethodTypeController extends Controller
@@ -56,7 +56,7 @@ class PaymentMethodTypeController extends Controller
                 'message' => 'Método de pago eliminado con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return ($e->getCode() == '23000') ? ['success' => false,'message' => "El Método de pago esta siendo usado por otros registros, no puede eliminar"] : ['success' => false,'message' => "Error inesperado, no se pudo eliminar el Método de pago "];
 

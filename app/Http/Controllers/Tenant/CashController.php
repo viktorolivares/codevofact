@@ -15,7 +15,7 @@ use App\Http\Resources\Tenant\CashCollection;
 use App\Http\Resources\Tenant\CashResource;
 use App\Models\Tenant\Cash;
 use App\Models\Tenant\CashDocument;
-use Exception;
+Use Throwable;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 use Barryvdh\DomPDF\Facade as PDF;

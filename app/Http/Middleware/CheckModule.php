@@ -21,10 +21,7 @@ class CheckModule
             if($path[0] !== '' && $path[0] !== 'dashboard') {
                 $module = ($path[0] === 'persons')?$path[1]:$path[0];
                 if(!in_array($module, $modules)) {
-////        if (! $request->user()->hasRole($role)) {
                     return response()->view('errors.403');
-//                    abort(403, 'No tienes autorización para ingresar.');
-////            return redirect('dashboard');
                 }
             }
         }

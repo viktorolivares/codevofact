@@ -3,7 +3,7 @@
 namespace App\CoreFacturalo\Services\Extras;
 
 use Carbon\Carbon;
-use Exception;
+Use Throwable;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use thiagoalessio\TesseractOCR\TesseractOCR;
@@ -129,7 +129,7 @@ class ValidateCpe2
                     'message' => $response->data
                 ];
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return [
                 'success' => false,
                 'message' => $e->getMessage()
@@ -139,8 +139,6 @@ class ValidateCpe2
 
     private function getCaptchaImage()
     {
-//        $response = $this->client->request('GET', self::URL_CAPTCHA);
-
         $response = $this->client->request('GET', self::URL_CAPTCHA, [
             'curl' => [
                 CURLOPT_HTTPHEADER => [],
@@ -149,8 +147,6 @@ class ValidateCpe2
                 CURLOPT_COOKIEJAR => public_path('cookie.txt'),
             ]
         ]);
-
-//        dd($response);
         $temp = tempnam(sys_get_temp_dir(), 'captcha_');
         file_put_contents($temp, $response->getBody()->getContents());
         $ocr = new TesseractOCR($temp);
@@ -198,7 +194,6 @@ class ValidateCpe2
                         ]);
                     }
                 } else {
-                    //Log::info($document->series.'-'.$document->number.'|'.'Mensaje: '.$response['message']);
                     goto reValidate;
                 }
             }

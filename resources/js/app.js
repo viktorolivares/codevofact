@@ -207,8 +207,8 @@
  Vue.component('tenant-orders-index', require('./views/tenant/orders/index.vue'));
 
  //Cuenta
- Vue.component('tenant-account-payment-index', require('./views/tenant/account/payment_index.vue'));
- Vue.component('tenant-account-configuration-index', require('./views/tenant/account/configuration.vue'));
+ Vue.component('tenant-subscription-payment-index', require('./views/tenant/subscription/payment_index.vue'));
+ Vue.component('tenant-subscription-configuration-index', require('./views/tenant/subscription/configuration.vue'));
 
  //Auto update
  Vue.component('system-update', require('./views/system/update/index.vue'));

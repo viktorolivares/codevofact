@@ -5,7 +5,7 @@ namespace App\CoreFacturalo\Services\Extras;
 use App\Models\Tenant\Company;
 use Carbon\Carbon;
 use DiDom\Document as DiDom;
-use Exception;
+Use Throwable;
 use GoogleCloudVision\GoogleCloudVision;
 use GoogleCloudVision\Request\AnnotateImageRequest;
 use GuzzleHttp\Client;
@@ -61,7 +61,7 @@ class ValidateCpe
                     'message' => "No se obtuvo resultado de la consulta:{$series}-{$number}"
                 ];
             }
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return [
                 'success' => false,
                 'message' => $e->getMessage()

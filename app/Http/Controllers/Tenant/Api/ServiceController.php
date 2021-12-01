@@ -18,7 +18,7 @@ use App\CoreFacturalo\WS\Validator\XmlErrorCodeProvider;
 use App\CoreFacturalo\WS\Client\WsClient;
 use App\CoreFacturalo\WS\Services\SunatEndpoints;
 use App\Http\Requests\Tenant\ServiceRequest;
-use Exception;
+Use Throwable;
 use Modules\Document\Helpers\ConsultCdr;
 
 
@@ -42,8 +42,6 @@ class ServiceController extends Controller
                                             ['series',$series],
                                             ['number',$number]
                                             ])->first();
-
-        // if(!$this->document)  throw new Exception("Documento no encontrado");
         if(!$this->document)  return [
             'success' => false,
             'message' => "Documento no encontrado"

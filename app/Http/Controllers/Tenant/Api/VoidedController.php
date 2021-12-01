@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Tenant\Api;
 use App\CoreFacturalo\Facturalo;
 use App\Http\Controllers\Controller;
 use App\Models\Tenant\Voided;
-use Exception;
+Use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

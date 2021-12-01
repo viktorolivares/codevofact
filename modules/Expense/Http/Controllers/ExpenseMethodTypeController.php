@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Expense\Models\ExpenseMethodType;
 use Modules\Expense\Http\Resources\ExpenseMethodTypeCollection;
-use Exception;
+Use Throwable;
 
 class ExpenseMethodTypeController extends Controller
 {
@@ -56,7 +56,7 @@ class ExpenseMethodTypeController extends Controller
                 'message' => 'Método de gasto eliminado con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return ($e->getCode() == '23000') ? ['success' => false,'message' => "El Método de gasto esta siendo usado por otros registros, no puede eliminar"] : ['success' => false,'message' => "Error inesperado, no se pudo eliminar el Método de gasto "];
 

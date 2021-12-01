@@ -18,7 +18,7 @@ use Mpdf\Mpdf;
 use Mpdf\HTMLParserMode;
 use Mpdf\Config\ConfigVariables;
 use Mpdf\Config\FontVariables;
-use Exception;
+Use Throwable;
 use Illuminate\Support\Facades\Mail;
 use Modules\Purchase\Models\PurchaseQuotation;
 use Modules\Purchase\Http\Resources\PurchaseQuotationCollection;

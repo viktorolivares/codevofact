@@ -5,7 +5,7 @@ namespace App\CoreFacturalo\Requests\Inputs;
 use App\Models\Tenant\Document;
 use App\Models\Tenant\Series;
 use Carbon\Carbon;
-use Exception;
+Use Throwable;
 use Modules\Document\Models\SeriesConfiguration;
 
 class Functions
@@ -34,7 +34,7 @@ class Functions
             }
 
         }
-        
+
         return $number;
 
         // if ($number === '#') {

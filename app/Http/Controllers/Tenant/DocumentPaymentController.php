@@ -9,7 +9,7 @@ use App\Models\Tenant\Document;
 use App\Models\Tenant\DocumentPayment;
 use App\Models\Tenant\PaymentMethodType;
 use App\Exports\DocumentPaymentExport;
-use Exception, Illuminate\Support\Facades\DB;
+Use Throwable, Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
 use Modules\Finance\Traits\FinanceTrait;
 use Modules\Finance\Traits\FilePaymentTrait;

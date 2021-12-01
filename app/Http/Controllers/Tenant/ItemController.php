@@ -9,9 +9,7 @@ use App\Models\Tenant\Catalogs\SystemIscType;
 use App\Models\Tenant\Catalogs\UnitType;
 use App\Models\Tenant\Item;
 use App\Models\Tenant\ItemImage;
-
 use Modules\Item\Models\ItemLot;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -22,7 +20,7 @@ use App\Models\Tenant\User;
 use App\Models\Tenant\Warehouse;
 use App\Models\Tenant\Configuration;
 use App\Models\Tenant\ItemUnitType;
-use Exception;
+Use Throwable;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 use Modules\Account\Models\Account;
@@ -68,7 +66,6 @@ class ItemController extends Controller
             'lot_code' => 'Código lote',
             'active' => 'Habilitados',
             'inactive' => 'Inhabilitados',
-            // 'description' => 'Descripción'
         ];
     }
 
@@ -128,7 +125,6 @@ class ItemController extends Controller
         $attribute_types = AttributeType::whereActive()->orderByDescription()->get();
         $system_isc_types = SystemIscType::whereActive()->orderByDescription()->get();
         $affectation_igv_types = AffectationIgvType::whereActive()->get();
-        // $warehouse = Warehouse::where('establishment_id', auth()->user()->establishment_id)->first();
         $warehouses = Warehouse::all();
         $accounts = Account::all();
         $tags = Tag::all();
@@ -148,7 +144,6 @@ class ItemController extends Controller
     }
 
     public function store(ItemRequest $request) {
-        //return 'no';
         $id = $request->input('id');
         if (!$request->barcode) {
             if ($request->internal_id) {
@@ -221,23 +216,17 @@ class ItemController extends Controller
             ItemTag::destroy(   ItemTag::where('item_id', $item->id)->pluck('id'));
             foreach ($request->tags_id as $value) {
                 ItemTag::create(['item_id' => $item->id,  'tag_id' => $value]);
-                //$tag = ItemTag::where('item_id', $item->id)->where('tag_id', $value)->first();
             }
         }
 
         if (!$id) {
 
-            // $item->lots()->delete();
             $establishment = Establishment::where('id', auth()->user()->establishment_id)->first();
             $warehouse = Warehouse::where('establishment_id',$establishment->id)->first();
-
-            //$warehouse = WarehouseModule::find(auth()->user()->establishment_id);
-
             $v_lots = isset($request->lots) ? $request->lots:[];
 
             foreach ($v_lots as $lot) {
 
-                // $item->lots()->create($lot);
                 $item->lots()->create([
                     'date' => $lot['date'],
                     'series' => $lot['series'],
@@ -335,7 +324,7 @@ class ItemController extends Controller
                 'message' => 'Producto eliminado con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return ($e->getCode() == '23000') ? ['success' => false,'message' => 'El producto esta siendo usado por otros registros, no puede eliminar'] : ['success' => false,'message' => 'Error inesperado, no se pudo eliminar el producto'];
 
@@ -368,7 +357,7 @@ class ItemController extends Controller
                     'message' =>  __('app.actions.upload.success'),
                     'data' => $data
                 ];
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 return [
                     'success' => false,
                     'message' =>  $e->getMessage()
@@ -486,7 +475,7 @@ class ItemController extends Controller
                 'message' => 'Producto inhabilitado con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return  ['success' => false, 'message' => 'Error inesperado, no se pudo inhabilitar el producto'];
 
@@ -536,7 +525,7 @@ class ItemController extends Controller
                 'message' => 'Producto habilitado con éxito'
             ];
 
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
 
             return  ['success' => false, 'message' => 'Error inesperado, no se pudo habilitar el producto'];
 
@@ -559,10 +548,6 @@ class ItemController extends Controller
                 $d_end = Carbon::parse($request->month_end.'-01')->endOfMonth()->format('Y-m-d');
                 break;
         }
-
-        // $date = $request->month_start.'-01';
-        // $start_date = Carbon::parse($date);
-        // $end_date = Carbon::parse($date)->addMonth()->subDay();
 
         $items = Item::whereTypeUser()->whereNotIsSet();
 
@@ -663,8 +648,12 @@ class ItemController extends Controller
     public function itemLast()
     {
         $record = Item::latest()->first();
-        return json_encode(['data' => $record->id]);
+
+        if ($record) {
+            return json_encode(['data' => $record->id]);
+        } else {
+            return response()->json(['Error' => 'sin datos']);
+        }
+
     }
-
-
 }

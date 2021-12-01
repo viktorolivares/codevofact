@@ -14,7 +14,7 @@ class TenantAddCuentaToModules extends Migration
     public function up()
     {
         DB::table('modules')->insert([
-            ['id'=> '10','value' => 'account', 'description' => 'Cuenta'],
+            ['id'=> '10','value' => 'subscription', 'description' => 'Suscripción'],
         ]);
     }
 
