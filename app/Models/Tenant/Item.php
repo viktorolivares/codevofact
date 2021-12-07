@@ -36,23 +36,19 @@ class Item extends ModelTenant
         'system_isc_type_id',
         'percentage_isc',
         'suggested_price',
-
         'sale_affectation_igv_type_id',
         'purchase_affectation_igv_type_id',
         'calculate_quantity',
         'has_igv',
-
         'stock',
         'stock_min',
         'percentage_of_profit',
-
         'attributes',
         'has_perception',
         'percentage_perception',
         'image',
         'image_medium',
         'image_small',
-
         'account_id',
         'amount_plastic_bag_taxes',
         'date_of_due',
@@ -70,16 +66,8 @@ class Item extends ModelTenant
         'web_platform_id',
         'has_plastic_bag_taxes',
         'barcode',
-        // 'warehouse_id'
     ];
 
-    /*protected static function boot()
-    {
-        parent::boot();
-        static::addGlobalScope('active', function (Builder $builder) {
-            $builder->where('active', 1);
-        });
-    }*/
 
     public function getAttributesAttribute($value)
     {

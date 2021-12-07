@@ -21,6 +21,27 @@ if($hostname) {
             Route::get('brands/columns', 'BrandController@columns');
             Route::delete('brands/{brand}', 'BrandController@destroy');
 
+            Route::get('colors', 'ColorController@index')->name('tenant.colors.index');
+            Route::get('colors/records', 'ColorController@records');
+            Route::get('colors/record/{color}', 'ColorController@record');
+            Route::post('colors', 'ColorController@store');
+            Route::get('colors/columns', 'ColorController@columns');
+            Route::delete('colors/{color}', 'ColorController@destroy');
+
+            Route::get('sizes', 'SizeController@index')->name('tenant.sizes.index');
+            Route::get('sizes/records', 'SizeController@records');
+            Route::get('sizes/record/{size}', 'SizeController@record');
+            Route::post('sizes', 'SizeController@store');
+            Route::get('sizes/columns', 'SizeController@columns');
+            Route::delete('sizes/{size}', 'SizeController@destroy');
+
+            Route::get('materials', 'MaterialController@index')->name('tenant.materials.index');
+            Route::get('materials/records', 'MaterialController@records');
+            Route::get('materials/record/{material}', 'MaterialController@record');
+            Route::post('materials', 'MaterialController@store');
+            Route::get('materials/columns', 'MaterialController@columns');
+            Route::delete('materials/{material}', 'MaterialController@destroy');
+
             Route::get('incentives', 'IncentiveController@index')->name('tenant.incentives.index');
             Route::get('incentives/records', 'IncentiveController@records');
             Route::get('incentives/record/{incentive}', 'IncentiveController@record');
@@ -33,7 +54,7 @@ if($hostname) {
             Route::post('items/import/item-price-lists', 'ItemController@importItemPriceLists');
 
             Route::prefix('item-lots')->group(function () {
-                
+
                 Route::get('', 'ItemLotController@index')->name('tenant.item-lots.index');
                 Route::get('/records', 'ItemLotController@records');
                 Route::get('/record/{record}', 'ItemLotController@record');
@@ -48,7 +69,7 @@ if($hostname) {
 
 
             Route::prefix('web-platforms')->group(function () {
-                
+
                 Route::get('', 'WebPlatformController@index');
                 Route::get('/records', 'WebPlatformController@records');
                 Route::get('/record/{brand}', 'WebPlatformController@record');

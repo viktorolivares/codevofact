@@ -11,16 +11,8 @@ class CardBrand extends ModelTenant
     public $timestamps = false;
 
     protected $fillable = [
-        'description',        
+        'description',
         'id',
     ];
 
-    // protected static function boot()
-    // {
-    //     parent::boot();
-
-    //     static::addGlobalScope('active', function (Builder $builder) {
-    //         $builder->where('active', 1);
-    //     });
-    // }
 }

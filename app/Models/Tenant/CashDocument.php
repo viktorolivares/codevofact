@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models\Tenant;
- 
+
 use Modules\Expense\Models\Expense;
 use Modules\Expense\Models\ExpensePayment;
 
@@ -10,18 +10,16 @@ class CashDocument extends ModelTenant
     // protected $with = ['document'];
 
     public $timestamps = false;
-    
+
     protected $fillable = [
         'cash_id',
-        'document_id',  
-        'sale_note_id',  
-        // 'purchase_id',  
-        // 'expense_id',  
-        'expense_payment_id',  
+        'document_id',
+        'sale_note_id',
+        'expense_payment_id',
     ];
- 
 
-  
+
+
     public function cash()
     {
         return $this->belongsTo(Cash::class);
@@ -36,7 +34,7 @@ class CashDocument extends ModelTenant
     {
         return $this->belongsTo(SaleNote::class);
     }
- 
+
     public function expense_payment()
     {
         return $this->belongsTo(ExpensePayment::class);
@@ -46,10 +44,10 @@ class CashDocument extends ModelTenant
     // {
     //     return $this->belongsTo(Purchase::class);
     // }
- 
+
     // public function expense()
     // {
     //     return $this->belongsTo(Expense::class);
     // }
- 
+
 }

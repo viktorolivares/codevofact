@@ -34,27 +34,24 @@
                 </data-table>
             </div>
 
-            <category-form 
-                :showDialog.sync="showDialog"
-                :recordId="recordId"
-                    ></category-form> 
+            <brand-form :showDialog.sync="showDialog" :recordId="recordId"></brand-form>
         </div>
     </div>
 </template>
 
 <script>
 
-    import CategoryForm from './form.vue' 
+    import BrandForm from './form.vue'
     import DataTable from '../../../../../../../resources/js/components/DataTable.vue'
     import {deletable} from '../../../../../../../resources/js/mixins/deletable'
 
     export default {
         mixins: [deletable],
-        components: {DataTable, CategoryForm},
+        components: {DataTable, BrandForm},
         data() {
             return {
                 title: null,
-                showDialog: false, 
+                showDialog: false,
                 resource: 'brands',
                 recordId: null,
             }
@@ -62,11 +59,11 @@
         created() {
             this.title = 'Marcas'
         },
-        methods: { 
+        methods: {
             clickCreate(recordId = null) {
                 this.recordId = recordId
                 this.showDialog = true
-            }, 
+            },
             clickDelete(id) {
                 this.destroy(`/${this.resource}/${id}`).then(() =>
                     this.$eventHub.$emit('reloadData')

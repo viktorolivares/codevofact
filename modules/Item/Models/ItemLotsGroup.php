@@ -23,6 +23,4 @@ class ItemLotsGroup extends ModelTenant
         return $this->belongsTo(Item::class);
     }
 
-
-
 }
