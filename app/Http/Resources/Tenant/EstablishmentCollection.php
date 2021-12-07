@@ -20,6 +20,7 @@ class EstablishmentCollection extends ResourceCollection
                 'code' => $row->code,
                 'description' => $row->description,
                 'number' => $row->number,
+                'is_own' => $row->is_own,
             ];
         });
     }

@@ -27,7 +27,9 @@ class Establishment extends ModelTenant
         'web_address',
         'aditional_information',
         'logo',
-        'identity_document_type_id'
+        'identity_document_type_id',
+        'active',
+        'is_own'
     ];
 
     public function country()

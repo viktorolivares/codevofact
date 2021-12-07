@@ -3,6 +3,15 @@
         <form autocomplete="off" @submit.prevent="submit">
             <div class="form-body">
                 <div class="row">
+                    <div class="col-md-12 center-el-checkbox">
+                        <div class="form-group" :class="{'has-danger': errors.is_own}">
+                            <el-checkbox v-model="form.is_own">Marcar si es local es propio</el-checkbox><br>
+                            <small class="form-control-feedback" v-if="errors.is_own" v-text="errors.is_own[0]"></small>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
                     <div class="col-md-3">
                         <div class="form-group" :class="{'has-danger': errors.code}">
                             <label>Código</label>
@@ -241,6 +250,7 @@
                     state: null,
                     aditional_information: null,
                     identity_document_type_id: '6',
+                    is_own: null,
                 }
                 this.file = null;
                 this.preview = null;

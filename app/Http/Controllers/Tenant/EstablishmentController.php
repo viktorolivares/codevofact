@@ -74,6 +74,13 @@ class EstablishmentController extends Controller
             $request->merge(['logo' => $path]);
         }
 
+        if ($request->input('is_own') == true) {
+            $request->merge(['is_own' => 1]);
+        }
+        else{
+            $request->merge(['is_own' => 0]);
+        };
+
         $establishment->fill($request->all());
         $establishment->save();
 
@@ -95,18 +102,14 @@ class EstablishmentController extends Controller
         return [
             'description' => 'Descripción',
             'number' => 'RUC',
-            'code' => 'Código'
+            'code' => 'Código',
+            'active' => 'Activo'
         ];
     }
 
     public function records(Request $request)
     {
-        //$records = Establishment::all();
-
         $records = Establishment::where($request->column, 'like', "%{$request->value}%");
-
-        //return new EstablishmentCollection($records);
-
         return new EstablishmentCollection($records->paginate(config('tenant.items_per_page')));
     }
 

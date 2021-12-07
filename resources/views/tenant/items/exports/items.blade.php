@@ -10,7 +10,6 @@
     <body>
         <div>
             <h3 align="center" class="title"><strong>Reporte Productos</strong></h3>
-
         </div>
         <br>
         @if(!empty($records))

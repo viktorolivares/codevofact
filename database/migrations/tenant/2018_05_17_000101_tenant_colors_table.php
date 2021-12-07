@@ -17,6 +17,22 @@ class TenantColorsTable extends Migration
             $table->increments('id');
             $table->string('name');
         });
+
+        DB::table('colors')->insert([
+            ['name' => 'Biege'],
+            ['name' => 'Blanco'],
+            ['name' => 'Negro'],
+            ['name' => 'Blanco y Negro'],
+            ['name' => 'Camel'],
+            ['name' => 'Hueso'],
+            ['name' => 'Hueso y Marrón'],
+            ['name' => 'Lila'],
+            ['name' => 'Marrón'],
+            ['name' => 'Perla'],
+            ['name' => 'Vintage'],
+            ['name' => 'Verde Militar'],
+            ['name' => 'Perla y Marrón'],
+        ]);
     }
 
     /**

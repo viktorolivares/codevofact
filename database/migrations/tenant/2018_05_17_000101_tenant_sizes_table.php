@@ -17,6 +17,19 @@ class TenantSizesTable extends Migration
             $table->increments('id');
             $table->string('name');
         });
+
+        DB::table('sizes')->insert([
+            ['name' => 'XS'],
+            ['name' => 'S'],
+            ['name' => 'M'],
+            ['name' => 'L'],
+            ['name' => 'XL'],
+            ['name' => '28'],
+            ['name' => '30'],
+            ['name' => '32'],
+        ]);
+
+
     }
 
     /**

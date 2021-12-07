@@ -246,7 +246,7 @@ class ClientController extends Controller
 
             return [
                 'success' => true,
-                'message' => 'Cliente Actualizado satisfactoriamente'
+                'message' => 'Empresa Actualizada satisfactoriamente'
             ];
 
         }catch(Throwable $e)
@@ -363,14 +363,15 @@ class ClientController extends Controller
         $establishment_id = DB::connection('tenant')->table('establishments')->insertGetId([
             'description' => $request->input('name'),
             'country_id' => 'PE',
-            'department_id' => '15',
-            'province_id' => '1501',
-            'district_id' => '150101',
+            'department_id' => '13',
+            'province_id' => '1301',
+            'district_id' => '130101',
             'address' => '-',
             'email' => $request->input('email'),
             'telephone' => '-',
             'code' => '0001',
             'number' => $request->input('number'),
+            'is_own' => true,
         ]);
 
         DB::connection('tenant')->table('warehouses')->insertGetId([
@@ -445,7 +446,7 @@ class ClientController extends Controller
 
         return [
             'success' => true,
-            'message' => 'Cliente Registrado satisfactoriamente'
+            'message' => 'Empresa Registrada satisfactoriamente'
         ];
     }
 

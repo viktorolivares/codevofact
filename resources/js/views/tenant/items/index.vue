@@ -59,7 +59,6 @@
                         <th>Unidad</th>
                         <th>Nombre</th>
                         <th v-if="columns.description.visible">Descripción</th>
-                        <th v-if="columns.item_code.visible">Cód. SUNAT</th>
                         <th class="text-left">Stock</th>
                         <th class="text-right">P.Unitario (Venta)</th>
                         <th v-if="typeUser != 'seller' && columns.purchase_unit_price.visible" class="text-right">
@@ -77,7 +76,6 @@
                         <td>{{ row.unit_type_id }}</td>
                         <td>{{ row.description }}</td>
                         <td v-if="columns.description.visible">{{ row.name }}</td>
-                        <td v-if="columns.item_code.visible">{{ row.item_code }}</td>
                         <td>
                             <div v-if="config.product_only_location == true">
                                 {{ row.stock }}
@@ -176,10 +174,6 @@ export default {
             columns: {
                 description: {
                     title: 'Descripción',
-                    visible: false
-                },
-                item_code: {
-                    title: 'Cód. SUNAT',
                     visible: false
                 },
                 purchase_unit_price: {

@@ -21,34 +21,29 @@ class TenantItemsTable extends Migration
             $table->string('internal_id', 30)->nullable();
             $table->string('item_code')->nullable();
             $table->string('item_code_gs1')->nullable();
-
             $table->string('unit_type_id');
             $table->string('currency_type_id');
             $table->decimal('sale_unit_price', 12, 2);
             $table->decimal('purchase_unit_price', 12, 2)->default(0);
-
             $table->boolean('has_isc')->default(false);
             $table->string('system_isc_type_id')->nullable();
             $table->decimal('percentage_isc', 12, 2)->default(0);
             $table->decimal('suggested_price', 12, 2)->default(0);
-
             $table->string('sale_affectation_igv_type_id');
             $table->string('purchase_affectation_igv_type_id');
-
             $table->unsignedInteger('color_id')->nullable();
             $table->unsignedInteger('size_id')->nullable();
-
+            $table->unsignedInteger('material_id')->nullable();
             $table->decimal('qty_material', 12, 2)->default(0);
             $table->decimal('price_material', 12, 2)->default(0);
-
             $table->decimal('stock', 12, 2)->default(0);
             $table->decimal('stock_min', 12, 2)->default(0);
-
             $table->json('attributes')->nullable();
             $table->timestamps();
 
             $table->foreign('color_id')->references('id')->on('colors');
             $table->foreign('size_id')->references('id')->on('sizes');
+            $table->foreign('material_id')->references('id')->on('materials');
             $table->foreign('item_type_id')->references('id')->on('item_types');
             $table->foreign('unit_type_id')->references('id')->on('cat_unit_types');
             $table->foreign('currency_type_id')->references('id')->on('cat_currency_types');

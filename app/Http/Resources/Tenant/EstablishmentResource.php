@@ -31,6 +31,8 @@ class EstablishmentResource extends JsonResource
             'aditional_information' => $this->aditional_information,
             'identity_document_type_id' => $this->identity_document_type_id,
             'logo' => $this->logo ? asset($this->logo) : null,
+            'active' => $this->active,
+            'is_own' => ($this->is_own == 1) ? true : false,
         ];
     }
 }

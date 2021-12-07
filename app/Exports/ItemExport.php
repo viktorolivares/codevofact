@@ -24,6 +24,4 @@ class ItemExport implements  FromView, ShouldAutoSize
             'records'=> $this->records,
         ]);
     }
-
-
 }
