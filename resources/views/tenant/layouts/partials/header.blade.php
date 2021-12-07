@@ -125,11 +125,13 @@
 <div class="container d-none d-sm-block">
     <div id="switcher-list" class="d-flex justify-content-center switcher-hover">
         <div class="row">
-            <div class="px-4"><a class="py-3" href="{{ route('tenant.items.index') }}"><i class="fas fa-fw fa-shopping-bag" aria-hidden="true"></i> Productos</a></div>
-            <div class="px-4"><a class="py-3" href="{{ route('tenant.persons.index', ['type'=> 'customers' ])}}"><i class="fas fa-fw fa-user" aria-hidden="true"></i> Clientes</a></div>
+            <div class="px-4"><a class="py-3" href="{{ route('tenant.items.index') }}">+ PRO</a></div>
+            <div class="px-4"><a class="py-3" href="{{ route('tenant.persons.index', ['type'=> 'customers' ])}}">+ CLI</a></div>
+            <div class="px-4"><a class="py-3" href="{{ route('tenant.documents.create')}}">+ FAC</a></div>
             <div style="min-width: 240px;"></div>
-            <div class="px-4"><a class="py-3" href="{{ route('tenant.companies.create') }}"><i class="fas fa-fw fa-industry" aria-hidden="true"></i> Empresa</a></div>
-            <div class="px-4"><a class="py-3" href="{{ route('tenant.establishments.index') }}"><i class="fas fa-fw fa-warehouse" aria-hidden="true"></i> Establecimientos</a></div>
+            <div class="px-4"><a class="py-3" href="{{ route('tenant.companies.create') }}">+ EMP</a></div>
+            <div class="px-4"><a class="py-3" href="{{ route('tenant.establishments.index') }}">+ EST</a></div>
+            <div class="px-4"><a class="py-3" href="{{ route('tenant.pos.index') }}">+ POS</a></div>
         </div>
     </div>
 </div>

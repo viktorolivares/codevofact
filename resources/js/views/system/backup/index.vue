@@ -2,8 +2,8 @@
     <div class="row">
         <div class="card col-md-8">
             <div class="card-header border-primary">
-                <h3 class="text-info">Generar Backups</h3>
-                <el-button @click.prevent="start()" :loading="loading_submit" class="btn btn-primary btn-sm">
+                <h3 class="text-primary">Generar Backups</h3>
+                <el-button @click.prevent="start()" :loading="loading_submit" class="btn btn-primary btn-lg">
                     <i class="fa fa-database" aria-hidden="true"></i> Iniciar Proceso
                 </el-button>
             </div>
@@ -24,8 +24,11 @@
                 </div>
                 <hr>
                 <div>
+                    <div class="div">
+
+                    </div>
                     <p v-if="newLastZip !== ''">Ultimo Backup generado: <strong>{{newLastZip.name}} | </strong><span class="text-info"> {{newLastZipDate}}</span></p>
-                    <el-button @click.prevent="clickDownload()" class="btn btn-success btn-sm"><i class="fa fa-download"></i> Descargar</el-button>
+                    <el-button @click.prevent="clickDownload()" class="btn btn-lg btn-primary"><i class="fa fa-download"></i> Descargar</el-button>
                     <hr>
                     <p class="mb-2">Para restaurar una base de datos debe ejecutar los siguientes comandos.</p>
                     <code>mysql -u [user] -p [database_name] < [filename].sql</code>
@@ -76,7 +79,7 @@
 </template>
 <script>
     export default {
-        props: ['storageSize','discUsed', 'lastZip'],
+        props: ['lastZip'],
         data() {
             return {
                 newLastZipDate: '',

@@ -52,16 +52,6 @@
                             <small class="form-control-feedback" v-if="errors.password" v-text="errors.password[0]"></small>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group" :class="{'has-danger': errors.plan_id}">
-                            <label class="control-label">Plan</label>
-                            <el-select v-model="form.plan_id" dusk="plan_id">
-                                <el-option v-for="option in plans" :key="option.id" :value="option.id" :label="option.name"></el-option>
-                            </el-select>
-                            <small class="form-control-feedback" v-if="errors.plan_id" v-text="errors.plan_id[0]"></small>
-                        </div>
-                    </div>
-
                     <div class="col-md-6" v-if="!form.is_update">
                         <div  class="form-group" :class="{'has-danger': errors.type}">
                             <label class="control-label">Perfil</label>
@@ -71,13 +61,8 @@
                             <small class="form-control-feedback" v-if="errors.type" v-text="errors.type[0]"></small>
                         </div>
                     </div>
-                    <div class="col-md-6 center-el-checkbox mt-4">
-                        <div class="form-group" :class="{'has-danger': errors.locked_emission}">
-                            <el-checkbox :disabled="form.is_update" v-model="form.locked_emission">Limitar emisión de documentos</el-checkbox><br>
-                            <small class="form-control-feedback" v-if="errors.locked_emission" v-text="errors.locked_emission[0]"></small>
-                        </div>
-                    </div>
 
+                    <el-input v-model="form.plan_id" :value="form.plan_id" type="hidden"></el-input>
 
                 </div>
                 <div class="row mb-1">
@@ -301,6 +286,7 @@
                     password_certificate: null,
                     certificate: null,
                     temp_path: null,
+                    plan_id: 1
                 }
 
                 this.modules.forEach(module => {

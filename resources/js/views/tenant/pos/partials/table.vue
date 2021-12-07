@@ -17,12 +17,7 @@
             <el-table-column property="internal_id" label="Código" width="130">
             </el-table-column>
             <el-table-column property="brand" label="Marca" width="130">
-                <!-- <template slot-scope="{ row }">
-                    {{ row }}
-                </template> -->
             </el-table-column>
-            <!-- <el-table-column property="currency_type_id" label="Moneda" width="80">
-                </el-table-column> -->
             <el-table-column label="Precio" width="130">
                 <template slot-scope="{ row }">
                     {{ row.currency_type_symbol }} {{ row.sale_unit_price }}
@@ -37,9 +32,6 @@
             </el-table-column>
             <el-table-column label="Stock">
                 <template slot-scope="{ row }">
-                    <!-- <button type="button" class="btn btn-xs btn-primary-pos" @click="clickWarehouseDetail(row)">
-                            <i class="fa fa-search"></i>
-                        </button> -->
                     <div v-if="config.product_only_location == true">
                         {{ row.stock }}
                     </div>
@@ -78,12 +70,6 @@
                     </button>
                 </template>
             </el-table-column>
-
-            <!-- <el-table-column label="Historial compras">
-                    <template slot-scope="{row}">
-                        <button type="button" class="btn btn-xs btn-primary-pos" @click="clickHistoryPurchases(row.item_id)"><i class="fas fa-cart-plus"></i></button>
-                    </template>
-                </el-table-column> -->
         </el-table>
     </div>
 </template>

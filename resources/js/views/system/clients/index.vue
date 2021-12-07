@@ -43,7 +43,7 @@
                 </div>
               </header>
               <div class="card-body p-4 text-center">
-                <p class="font-weight-semibold mb-0 mx-4">Total Clientes</p>
+                <p class="font-weight-semibold mb-0 mx-4">Total Empresas</p>
                 <h2 class="font-weight-semibold mt-0">{{ records.length }}</h2>
                 <div class="summary-footer">
                   <a class="text-muted text-uppercase" href="#client-list">Ver todos</a>
@@ -93,11 +93,7 @@
                 <th class="text-right">Limitar Doc.</th>
                 <th class="text-center">Limitar Usuarios</th>
                 <th class="text-right">Acciones</th>
-                <th class="text-right">Pagos</th>
-                <th class="text-right">E. Cuenta</th>
                 <th class="text-right">Editar</th>
-                <th class="text-right">Inicio Ciclo Fact.</th>
-                <th class="text-center">Comp. Ciclo Fact.</th>
               </tr>
             </thead>
             <tbody>
@@ -155,49 +151,9 @@
                 <td class="text-right">
                   <button
                     type="button"
-                    class="btn waves-effect waves-light btn-xs btn-warning m-1__2"
-                    @click.prevent="clickPayments(row.id)"
-                  >Pagos</button>
-                </td>
-                <td class="text-right">
-                  <button
-                    type="button"
-                    class="btn waves-effect waves-light btn-xs btn-primary m-1__2"
-                    @click.prevent="clickAccountStatus(row.id)"
-                  >E. Cuenta</button>
-                </td>
-                <td class="text-right">
-                  <button
-                    type="button"
                     class="btn waves-effect waves-light btn-xs btn-primary m-1__2"
                     @click.prevent="clickEdit(row.id)"
                   >Editar</button>
-                </td>
-                <td>
-                  <template v-if="row.start_billing_cycle">
-                    <span></span>
-                    <span>{{row.start_billing_cycle}}</span>
-                  </template>
-                  <template v-else>
-                    <el-date-picker
-                      @change="setStartBillingCycle($event, row.id)"
-                      v-model="row.select_date_billing"
-                      value-format="yyyy-MM-dd"
-                      type="date"
-                      placeholder="..."
-                    ></el-date-picker>
-                  </template>
-                </td>
-                <td class="text-center">
-                  <strong>
-                    {{ row.count_doc_month ? row.count_doc_month : 0 }} /
-                    <template v-if="row.max_documents == 0">
-                      <i class="fas fa-infinity"></i>
-                    </template>
-                    <template v-else>
-                      <strong>{{ row.max_documents }}</strong>
-                    </template>
-                  </strong>
                 </td>
               </tr>
             </tbody>
@@ -207,8 +163,7 @@
     </div>
 
     <system-clients-form :showDialog.sync="showDialog" :recordId="recordId"></system-clients-form>
-    <client-payments :showDialog.sync="showDialogPayments" :clientId="recordId"></client-payments>
-    <account-status :showDialog.sync="showDialogAccountStatus" :clientId="recordId"></account-status>
+
   </div>
 </template>
 
@@ -217,20 +172,16 @@ import CompaniesForm from "./form.vue";
 import { deletable } from "../../../mixins/deletable";
 import { changeable } from "../../../mixins/changeable";
 import ChartLine from "./charts/Line";
-import ClientPayments from "./partials/payments.vue";
-import AccountStatus from "./partials/account_status.vue";
+
 
 export default {
   mixins: [deletable, changeable],
   props: ['deletePermission'],
-  components: { CompaniesForm, ChartLine, ClientPayments, AccountStatus },
+  components: { CompaniesForm, ChartLine },
   data() {
     return {
-      selectBillingDate: "",
       showDialogEdit: false,
       showDialog: false,
-      showDialogPayments: false,
-      showDialogAccountStatus: false,
       resource: "clients",
       recordId: null,
       records: [],
@@ -310,31 +261,6 @@ export default {
         })
         .then(() => {});
     },
-
-    setStartBillingCycle(event, id) {
-      this.$http
-        .post(`${this.resource}/set_billing_cycle`, {
-          id: id,
-          start_billing_cycle: event
-        })
-        .then(response => {
-          if (response.data.success) {
-            this.$message.success(response.data.message);
-          } else {
-            this.$message.error(response.data.message);
-          }
-        })
-        .catch(error => {
-          if (error.response.status === 500) {
-            this.$message.error(error.response.data.message);
-          } else {
-            console.log(error.response);
-          }
-        })
-        .then(() => {
-          this.$eventHub.$emit("reloadData");
-        });
-    },
     changeLockedEmission(row) {
       this.$http
         .post(`${this.resource}/locked_emission`, row)
@@ -363,14 +289,6 @@ export default {
     clickCreate(recordId = null) {
       this.recordId = recordId;
       this.showDialog = true;
-    },
-    clickPayments(recordId = null) {
-      this.recordId = recordId;
-      this.showDialogPayments = true;
-    },
-    clickAccountStatus(recordId = null) {
-      this.recordId = recordId;
-      this.showDialogAccountStatus = true;
     },
     clickPassword(id) {
       this.change(`/${this.resource}/password/${id}`);

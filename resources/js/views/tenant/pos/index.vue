@@ -1,20 +1,12 @@
 <template>
     <div class="container-fluid p-0">
-        <div class="row page-header pr-0" style="height:auto">
+        <div class="row page-header pr-0" style="height: auto">
             <Keypress
                 key-event="keyup"
                 :key-code="112"
                 @success="handleFn112"
             />
-            <!-- <Keypress key-event="keyup" :key-code="113" @success="handleFn113" /> -->
-
-            <!-- <h2 class="text-sm">POS</h2>
-      <div class="right-wrapper pull-right">
-        <h2 class="text-sm pr-5">T/C 3.321</h2>
-        <h2 class="text-sm">{{user.name}}</h2>
-      </div> -->
             <div class="col-md-4">
-                <!-- <h2 class="text-sm">POS</h2> -->
                 <h2>
                     <el-switch
                         v-model="search_item_by_barcode"
@@ -34,7 +26,7 @@
                         <button
                             type="button"
                             @click="back()"
-                            class="btn btn-custom btn-sm  mt-2 mr-2 mr-sm-1"
+                            class="btn btn-custom btn-sm mt-2 mr-2 mr-sm-1"
                         >
                             <i class="fa fa-border-all"></i>
                         </button>
@@ -51,7 +43,7 @@
                             type="button"
                             :disabled="place == 'cat2'"
                             @click="setView('cat2')"
-                            class="btn btn-custom btn-sm  mt-2 mr-2 mr-sm-1"
+                            class="btn btn-custom btn-sm mt-2 mr-2 mr-sm-1"
                         >
                             <i class="fa fa-bars"></i>
                         </button>
@@ -68,7 +60,7 @@
                             type="button"
                             :disabled="place == 'cat3'"
                             @click="setView('cat3')"
-                            class="btn btn-custom btn-sm  mt-2 mr-2 mr-sm-1"
+                            class="btn btn-custom btn-sm mt-2 mr-2 mr-sm-1"
                         >
                             <i class="fas fa-list-ul"></i>
                         </button>
@@ -85,7 +77,7 @@
                             type="button"
                             :disabled="place == 'cat'"
                             @click="back()"
-                            class="btn btn-custom btn-sm  mt-2 mr-2 mr-sm-1"
+                            class="btn btn-custom btn-sm mt-2 mr-2 mr-sm-1"
                         >
                             <i class="fa fa-undo"></i>
                         </button>
@@ -97,7 +89,7 @@
                     <h2 class="text-sm pr-5">
                         T/C {{ form.exchange_rate_sale }}
                     </h2>
-                    <h2 class="text-sm  pull-right">{{ user.name }}</h2>
+                    <h2 class="text-sm pull-right">{{ user.name }}</h2>
                 </div>
             </div>
         </div>
@@ -177,7 +169,7 @@
                                 <div
                                     :style="{ backgroundColor: item.color }"
                                     class="card-body pointer"
-                                    style="font-weight: bold;color: white;font-size: 18px;"
+                                    style="font-weight: bold; color: white; font-size: 18px"
                                 >
                                     {{ item.name }}
                                 </div>
@@ -189,7 +181,7 @@
                 <div v-if="place == 'prod' || place == 'cat2'" class="row">
                     <template v-for="(item, index) in items">
                         <div v-bind:style="classObjectCol" :key="index">
-                            <section class="card ">
+                            <section class="card">
                                 <div
                                     class="card-body pointer px-2 pt-2"
                                     @click="clickAddItem(item, index)"
@@ -223,21 +215,11 @@
                                                 {{ item.sets.join("-") }}
                                             </small>
                                         </template>
-
-                                        <!-- <el-popover v-if="item.warehouses" placement="right" width="280"  trigger="hover">
-                      <el-table  :data="item.warehouses">
-                        <el-table-column width="150" property="warehouse_description" label="Ubicación"></el-table-column>
-                        <el-table-column width="100" property="stock" label="Stock"></el-table-column>
-                      </el-table>
-                      <el-button slot="reference"><i class="fa fa-search"></i></el-button>
-                    </el-popover> -->
                                     </p>
                                 </div>
                                 <div
                                     class="card-footer pointer text-center bg-primary"
                                 >
-                                    <!-- <button type="button" class="btn waves-effect waves-light btn-xs btn-danger m-1__2" @click="clickHistorySales(item.item_id)"><i class="fa fa-list"></i></button>
-                  <button type="button" class="btn waves-effect waves-light btn-xs btn-success m-1__2" @click="clickHistoryPurchases(item.item_id)"><i class="fas fa-cart-plus"></i></button> -->
                                     <template v-if="!item.edit_unit_price">
                                         <h5
                                             class="font-weight-semibold text-right text-white"
@@ -250,7 +232,7 @@
                                                     clickOpenInputEditUP(index)
                                                 "
                                             >
-                                                <span style="font-size:16px;"
+                                                <span style="font-size: 16px"
                                                     >&#9998;</span
                                                 >
                                             </button>
@@ -291,40 +273,10 @@
                                 </div>
                                 <div
                                     v-if="configuration.options_pos"
-                                    class=" card-footer  bg-primary btn-group flex-wrap"
-                                    style="width:100% !important; padding:0 !important; "
+                                    class="card-footer bg-primary btn-group flex-wrap"
+                                    style="width: 100% !important; padding: 0 !important"
                                 >
-                                    <!-- <el-popover v-if="item.warehouses" placement="right" width="280"  trigger="hover">
-                    <el-table  :data="item.warehouses">
-                      <el-table-column width="150" property="warehouse_description" label="Ubicación"></el-table-column>
-                      <el-table-column width="100" property="stock" label="Stock"></el-table-column>
-                    </el-table>
-                    <button type="button" style="width:100% !important;" slot="reference" class="btn btn-xs btn-default " @click="clickHistorySales(item.item_id)"><i class="fa fa-search"></i></button>
-                  </el-popover> -->
-                                    <!--<el-tooltip class="item" effect="dark" content="Visualizar stock" placement="bottom-end">
-                    <button type="button" style="width:25% !important;"   class="btn btn-xs btn-primary-pos" @click="clickWarehouseDetail(item)">
-                      <i class="fa fa-search"></i>
-                    </button>
-                  </el-tooltip>
-
-                  <el-tooltip class="item" effect="dark" content="Visualizar historial de ventas del producto (precio venta) y cliente" placement="bottom-end">
-                    <button type="button" style="width:25% !important;"   class="btn btn-xs btn-primary-pos" @click="clickHistorySales(item.item_id)"><i class="fa fa-list"></i></button>
-                  </el-tooltip>
-
-                  <el-tooltip class="item" effect="dark" content="Visualizar historial de compras del producto (precio compra)" placement="bottom-end">
-                    <button type="button" style="width:25% !important;"  class="btn btn-xs btn-primary-pos" @click="clickHistoryPurchases(item.item_id)"><i class="fas fa-cart-plus"></i></button>
-                  </el-tooltip>
-
-                  <el-popover
-                    placement="top-start"
-                    title="Title"
-                    width="400"
-                    trigger="hover"
-                    content="this is content, this is content, this is content">
-                    <el-button slot="reference">Hov</el-button>
-                </el-popover>-->
-
-                                    <el-row style="width:100%">
+                                    <el-row style="width: 100%">
                                         <el-col :span="6">
                                             <el-tooltip
                                                 class="item"
@@ -333,7 +285,7 @@
                                                 placement="bottom-end"
                                             >
                                                 <button
-                                                    style="width:100%"
+                                                    style="width: 100%"
                                                     type="button"
                                                     class="btn btn-xs btn-primary-pos"
                                                     @click="
@@ -355,7 +307,7 @@
                                             >
                                                 <button
                                                     type="button"
-                                                    style="width:100%;"
+                                                    style="width: 100%"
                                                     class="btn btn-xs btn-primary-pos"
                                                     @click="
                                                         clickHistorySales(
@@ -376,7 +328,7 @@
                                             >
                                                 <button
                                                     type="button"
-                                                    style="width:100%"
+                                                    style="width: 100%"
                                                     class="btn btn-xs btn-primary-pos"
                                                     @click="
                                                         clickHistoryPurchases(
@@ -482,7 +434,7 @@
                                                     <button
                                                         slot="reference"
                                                         type="button"
-                                                        style="width:100%"
+                                                        style="width: 100%"
                                                         class="btn btn-xs btn-primary-pos"
                                                     >
                                                         <i
@@ -576,7 +528,6 @@
                                     <template v-else>
                                         <strong>$</strong>
                                     </template>
-                                    <!-- <i class="fa fa-usd" aria-hidden="true"></i> -->
                                 </a>
                             </div>
                         </div>
@@ -600,24 +551,6 @@
                                                     keyupEnterQuantity
                                                 "
                                             ></el-input>
-                                            <!-- <el-input
-                                                v-model="item.item.aux_quantity"
-                                                :readonly="
-                                                    item.item.calculate_quantity
-                                                "
-                                                class
-                                                @input="
-                                                    clickAddItem(
-                                                        item,
-                                                        index,
-                                                        true
-                                                    )
-                                                "
-                                                @keyup.enter.native="
-                                                    keyupEnterQuantity
-                                                "
-                                            ></el-input> -->
-                                            <!-- <el-input-number v-model="item.item.aux_quantity" @change="clickAddItem(item,index,true)" :min="1" :max="10"></el-input-number> -->
                                         </td>
                                         <td width="20%">
                                             <p class="m-0">
@@ -626,25 +559,13 @@
                                             <small>
                                                 {{ nameSets(item.item_id) }}
                                             </small>
-                                            <!-- <p class="text-muted m-b-0"><small>Descuento 2%</small></p> -->
                                         </td>
                                         <td>
                                             <small>{{
                                                 item.unit_type_id
                                             }}</small>
                                         </td>
-                                        <!-- <td>
-                      <p class="font-weight-semibold m-0 text-center">{{currency_type.symbol}}</p>
-                    </td>
-                    <td width="30%">
-                      <p class="font-weight-semibold m-0 text-center">
-                        <el-input
-                          v-model="item.item.unit_price"
-                          @blur="blurCalculateQuantity2(index)"
-                        >
-                        </el-input>
-                      </p>
-                    </td> -->
+
                                         <td>
                                             <p
                                                 class="font-weight-semibold m-0 text-center"
@@ -656,7 +577,6 @@
                                             <p
                                                 class="font-weight-semibold m-0 text-center"
                                             >
-                                                <!-- {{currency_type.symbol}} {{item.total}} -->
                                                 <el-input
                                                     v-model="item.total"
                                                     @input="
@@ -672,7 +592,6 @@
                                                             .calculate_quantity
                                                     "
                                                 >
-                                                    <!-- <template slot="prepend" v-if="currency_type.symbol">{{ currency_type.symbol }}</template> -->
                                                 </el-input>
                                             </p>
                                         </td>
@@ -694,16 +613,31 @@
                 </div>
                 <div class="h-25 bg-light" style="overflow-y: auto">
                     <div
-                        class="row border-top bg-light m-0 p-0 h-50 d-flex align-items-right pr-5 pt-2"
+                        class="
+              row
+              border-top
+              bg-light
+              m-0
+              p-0
+              h-50
+              d-flex
+              align-items-right
+              pr-5
+              pt-2
+            "
                     >
                         <div
                             class="col-md-12"
-                            style="display: flex; flex-direction: column; align-items: flex-end;"
+                            style="
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+              "
                         >
                             <table>
                                 <tr
                                     v-if="form.total_exonerated > 0"
-                                    class="font-weight-semibold  m-0"
+                                    class="font-weight-semibold m-0"
                                 >
                                     <td class="font-weight-semibold">
                                         OP.EXONERADAS
@@ -716,7 +650,7 @@
                                 </tr>
                                 <tr
                                     v-if="form.total_free > 0"
-                                    class="font-weight-semibold  m-0"
+                                    class="font-weight-semibold m-0"
                                 >
                                     <td class="font-weight-semibold">
                                         OP.GRATUITAS
@@ -729,7 +663,7 @@
                                 </tr>
                                 <tr
                                     v-if="form.total_unaffected > 0"
-                                    class="font-weight-semibold  m-0"
+                                    class="font-weight-semibold m-0"
                                 >
                                     <td class="font-weight-semibold">
                                         OP.INAFECTAS
@@ -742,7 +676,7 @@
                                 </tr>
                                 <tr
                                     v-if="form.total_taxed > 0"
-                                    class="font-weight-semibold  m-0"
+                                    class="font-weight-semibold m-0"
                                 >
                                     <td class="font-weight-semibold">
                                         OP.GRAVADA
@@ -755,7 +689,7 @@
                                 </tr>
                                 <tr
                                     v-if="form.total_igv > 0"
-                                    class="font-weight-semibold  m-0"
+                                    class="font-weight-semibold m-0"
                                 >
                                     <td class="font-weight-semibold">IGV</td>
                                     <td class="font-weight-semibold">:</td>
@@ -766,7 +700,7 @@
                                 </tr>
                                 <tr
                                     v-if="form.total_plastic_bag_taxes > 0"
-                                    class="font-weight-semibold  m-0"
+                                    class="font-weight-semibold m-0"
                                 >
                                     <td class="font-weight-semibold">ICBPER</td>
                                     <td class="font-weight-semibold">:</td>
@@ -777,41 +711,6 @@
                                 </tr>
                             </table>
                         </div>
-
-                        <!-- <div class="col-12 text-right px-0" v-if="form.total_taxed > 0">
-              <h4 class="font-weight-semibold  m-0">
-                <span class="font-weight-semibold">OP.GRAVADA: </span>
-                <span class="text-blue">{{currency_type.symbol}} {{ form.total_taxed }}</span>
-              </h4>
-            </div>
-
-            <div class="col-12 text-right px-0" v-if="form.total_free > 0">
-              <h4 class="font-weight-semibold  m-0">
-                <span class="font-weight-semibold">OP.GRATUITAS: </span>
-                <span class="text-blue">{{currency_type.symbol}} {{ form.total_free }}</span>
-              </h4>
-            </div>
-
-            <div class="col-12 text-right px-0" v-if="form.total_unaffected > 0">
-              <h4 class="font-weight-semibold  m-0">
-                <span class="font-weight-semibold">OP.INAFECTAS: </span>
-                <span class="text-blue">{{currency_type.symbol}} {{ form.total_unaffected }}</span>
-              </h4>
-            </div>
-
-            <div class="col-12 text-right px-0" v-if="form.total_exonerated > 0">
-              <h4 class="font-weight-semibold  m-0">
-                <span class="font-weight-semibold">OP.EXONERADAS: </span>
-                <span class="text-blue">{{currency_type.symbol}} {{ form.total_exonerated }}</span>
-              </h4>
-            </div>
-
-            <div class="col-12 text-right px-0" v-if="form.total_igv > 0">
-              <h4 class="font-weight-semibold  m-0">
-                <span class="font-weight-semibold">IGV: </span>
-                <span class="text-blue">{{currency_type.symbol}} {{form.total_igv}}</span>
-              </h4>
-            </div> -->
                     </div>
                     <div
                         class="row text-white m-0 p-0 h-50 d-flex align-items-center"
@@ -881,11 +780,9 @@
 </template>
 <style>
 .el-select-dropdown__item.hover {
-    /* background-color: red; */
     background-color: #e6e9ee;
 }
 
-/* The heart of the matter */
 .testimonial-group > .row {
     overflow-x: auto;
     white-space: nowrap;
@@ -896,7 +793,6 @@
     float: none;
 }
 
-/* Decorations */
 .col-sm-3 {
     height: 70px;
     margin-right: 0.5%;
@@ -952,7 +848,7 @@ import WarehousesDetail from "../items/partials/warehouses.vue";
 import queryString from "query-string";
 import TableItems from "./partials/table.vue";
 export default {
-    props: ["configuration", "soapCompany", "businessTurns", "typeUser"],
+    props: ["configuration", "soapCompany", "typeUser"],
     components: {
         PaymentForm,
         ItemForm,
@@ -978,8 +874,7 @@ export default {
             showDialogNewPerson: false,
             showDialogNewItem: false,
             loading: false,
-            is_payment: false, //aq
-            // is_payment: true,//aq
+            is_payment: false,
             showWarehousesDetail: false,
             resource: "pos",
             recordId: null,
@@ -1022,7 +917,6 @@ export default {
     computed: {
         classObjectCol() {
             let cols = this.configuration.colums_grid_item;
-
             let clase = "c3";
             switch (cols) {
                 case 2:
@@ -1068,7 +962,6 @@ export default {
                 .focus();
         },
         keyupTabCustomer(e) {
-            // console.log(e.keyCode)
             if (e.keyCode === 9) {
                 this.$refs.select_person.$el
                     .getElementsByTagName("input")[0]
@@ -1150,7 +1043,6 @@ export default {
             if (form_pos) {
                 this.form = form_pos;
                 this.initDateTimeIssue();
-                // this.calculateTotal()
             }
         },
         initDateTimeIssue() {
@@ -1173,17 +1065,13 @@ export default {
             this.items[index].edit_unit_price = true;
         },
         clickEditUnitPriceItem(index) {
-            // console.log(index)
             let item_search = this.items[index];
             this.items[index].sale_unit_price = this.items[
                 index
             ].edit_sale_unit_price;
             this.items[index].edit_unit_price = false;
-
-            // console.log(item_search)
         },
         clickCancelUnitPriceItem(index) {
-            // console.log(index)
             this.items[index].edit_unit_price = false;
         },
         setPriceItem(price, index) {
@@ -1213,7 +1101,6 @@ export default {
         clickHistoryPurchases(item_id) {
             this.history_item_id = item_id;
             this.showDialogHistoryPurchases = true;
-            // console.log(item)
         },
         clickHistorySales(item_id) {
             if (!this.form.customer_id)
@@ -1221,7 +1108,6 @@ export default {
 
             this.history_item_id = item_id;
             this.showDialogHistorySales = true;
-            // console.log(item)
         },
         keyupEnterCustomer() {
             if (this.place == "cat3") {
@@ -1274,7 +1160,6 @@ export default {
             }
         },
         calculateQuantity(index) {
-            // console.log(this.form.items[index])
             if (this.form.items[index].item.calculate_quantity) {
                 let quantity = _.round(
                     parseFloat(this.form.items[index].total) /
@@ -1289,21 +1174,14 @@ export default {
                     this.form.items[index].quantity = 0;
                     this.form.items[index].item.aux_quantity = 0;
                 }
-                // this.calculateTotal()
             }
-
-            //  this.clickAddItem(this.form.items[index],index, true)
         },
         blurCalculateQuantity(index) {
-
             this.row = calculateRowItem(
                 this.form.items[index],
                 this.form.currency_type_id,
                 1
             );
-
-            // console.log(this.form.items[index])
-
             this.row["unit_type_id"] = this.form.items[index].unit_type_id;
 
             this.form.items[index] = this.row;
@@ -1320,8 +1198,6 @@ export default {
             this.calculateTotal();
         },
         changeCustomer() {
-            // console.log('clien 13')
-
             let customer = _.find(this.all_customers, {
                 id: this.form.customer_id
             });
@@ -1374,10 +1250,6 @@ export default {
                 });
             });
 
-            // await this.$eventHub.$on("indexInitFocus", () => {
-            //   if(!this.is_payment) this.initFocus()
-            // });
-
             await this.$eventHub.$on("reloadDataPersons", customer_id => {
                 this.reloadDataCustomers(customer_id);
                 this.setFormPosLocalStorage();
@@ -1388,7 +1260,6 @@ export default {
             });
 
             await this.$eventHub.$on("saleSuccess", () => {
-                // this.is_payment = false
                 this.initForm();
                 this.getTables();
                 this.setFormPosLocalStorage();
@@ -1468,7 +1339,7 @@ export default {
                 discounts: [],
                 attributes: [],
                 has_igv: false,
-                has_plastic_bag_taxes:false,
+                has_plastic_bag_taxes: false
             };
         },
         async clickPayment() {
@@ -1501,25 +1372,18 @@ export default {
         async clickAddItem(item, index, input = false) {
             this.loading = true;
             let exchangeRateSale = this.form.exchange_rate_sale;
-
-            // console.log(item.unit_type_id)
-            // console.log(exist_item)
-            // console.log(item)
-
             let exist_item = _.find(this.form.items, {
                 item_id: item.item_id,
                 unit_type_id: item.unit_type_id
             });
 
-            console.log(exist_item)
+            console.log(exist_item);
 
             let pos = this.form.items.indexOf(exist_item);
             let response = null;
 
             if (exist_item) {
-
                 if (input) {
-
                     response = await this.getStatusStock(
                         item.item_id,
                         exist_item.item.aux_quantity
@@ -1532,7 +1396,6 @@ export default {
 
                     exist_item.quantity = exist_item.item.aux_quantity;
                 } else {
-
                     response = await this.getStatusStock(
                         item.item_id,
                         parseFloat(exist_item.item.aux_quantity) + 1
@@ -1546,7 +1409,6 @@ export default {
                     exist_item.item.aux_quantity++;
                 }
 
-                // console.log(exist_item)
                 let search_item_bd = await _.find(this.items, {
                     item_id: item.item_id
                 });
@@ -1560,10 +1422,10 @@ export default {
                 let unit_price = exist_item.item.has_igv
                     ? exist_item.item.sale_unit_price
                     : exist_item.item.sale_unit_price * 1.18;
-                // exist_item.unit_price = unit_price
                 exist_item.item.unit_price = unit_price;
 
-                exist_item.has_plastic_bag_taxes = exist_item.item.has_plastic_bag_taxes;
+                exist_item.has_plastic_bag_taxes =
+                    exist_item.item.has_plastic_bag_taxes;
 
                 this.row = calculateRowItem(
                     exist_item,
@@ -1571,12 +1433,10 @@ export default {
                     exchangeRateSale
                 );
 
-
                 this.row["unit_type_id"] = item.unit_type_id;
 
                 this.form.items[pos] = this.row;
             } else {
-
                 response = await this.getStatusStock(
                     item.item_id,
                     item.presentation
@@ -1613,17 +1473,11 @@ export default {
                     this.affectation_igv_types,
                     { id: this.form_item.affectation_igv_type_id }
                 );
-
-                // console.log(this.form_item)
                 this.row = calculateRowItem(
                     this.form_item,
                     this.form.currency_type_id,
                     exchangeRateSale
                 );
-                // console.log(this.row)
-
-                // this.row['unit_type_id'] = item.presentation ? item.presentation.unit_type_id : 'NIU';
-
                 this.row["unit_type_id"] = item.presentation
                     ? item.presentation.unit_type_id
                     : this.form_item.item.unit_type_id;
@@ -1631,8 +1485,6 @@ export default {
                 this.form.items.push(this.row);
                 item.aux_quantity = 1;
             }
-
-            // console.log("pos", this.row);
 
             this.$notify({
                 title: "",
@@ -1647,8 +1499,6 @@ export default {
                 this.initFocus();
             }
 
-            // console.log(this.row)
-            // console.log(this.form.items)
             await this.calculateTotal();
             this.loading = false;
 
@@ -1673,7 +1523,6 @@ export default {
         },
 
         calculateTotal() {
-
             let total_discount = 0;
             let total_charge = 0;
             let total_exportation = 0;
@@ -1684,7 +1533,7 @@ export default {
             let total_igv = 0;
             let total_value = 0;
             let total = 0;
-            let total_plastic_bag_taxes = 0
+            let total_plastic_bag_taxes = 0;
 
             this.form.items.forEach(row => {
                 total_discount += parseFloat(row.total_discount);
@@ -1718,33 +1567,30 @@ export default {
                     total += parseFloat(row.total);
                 }
                 total_value += parseFloat(row.total_value);
-                total_plastic_bag_taxes += parseFloat(row.total_plastic_bag_taxes)
-
+                total_plastic_bag_taxes += parseFloat(
+                    row.total_plastic_bag_taxes
+                );
             });
 
             this.form.total_exportation = _.round(total_exportation, 2);
             this.form.total_exonerated = _.round(total_exonerated, 2);
             this.form.total_taxed = _.round(total_taxed, 2);
             this.form.total_exonerated = _.round(total_exonerated, 2);
-
-            // this.form.total_taxed =
-            //   _.round(total_taxed, 2) + this.form.total_exonerated;
-            // this.form.total_exonerated = _.round(total_exonerated, 2)
             this.form.total_unaffected = _.round(total_unaffected, 2);
             this.form.total_free = _.round(total_free, 2);
             this.form.total_igv = _.round(total_igv, 2);
             this.form.total_value = _.round(total_value, 2);
             this.form.total_taxes = _.round(total_igv, 2);
-            this.form.total_plastic_bag_taxes = _.round(total_plastic_bag_taxes, 2)
-            // this.form.total = _.round(total, 2);
-            this.form.total = _.round(total + this.form.total_plastic_bag_taxes, 2)
-
+            this.form.total_plastic_bag_taxes = _.round(
+                total_plastic_bag_taxes,
+                2
+            );
+            this.form.total = _.round(
+                total + this.form.total_plastic_bag_taxes,
+                2
+            );
         },
-        changeDateOfIssue() {
-            // this.searchExchangeRateByDate(this.form.date_of_issue).then(response => {
-            //     this.form.exchange_rate_sale = response
-            // })
-        },
+        changeDateOfIssue() {},
         changeExchangeRate() {
             this.searchExchangeRateByDate(this.form.date_of_issue).then(
                 response => {
@@ -1754,7 +1600,6 @@ export default {
         },
         async getTables() {
             await this.$http.get(`/${this.resource}/tables`).then(response => {
-                //this.all_items = response.data.items;
                 this.affectation_igv_types =
                     response.data.affectation_igv_types;
                 this.all_customers = response.data.customers;
@@ -1766,9 +1611,6 @@ export default {
                         ? this.currency_types[0].id
                         : null;
                 this.renderCategories(response.data.categories);
-                // this.currency_type = _.find(this.currency_types, {'id': this.form.currency_type_id})
-                // this.changeCurrencyType();
-                //this.filterItems();
                 this.changeDateOfIssue();
                 this.changeExchangeRate();
             });
@@ -1825,8 +1667,6 @@ export default {
             }
         },
         async searchItemsBarcode() {
-            // console.log(query)
-            // console.log("in:" + this.input_item)
             if (this.input_item.length > 1) {
                 this.loading = true;
                 let parameters = `input_item=${this.input_item}`;
@@ -1850,7 +1690,6 @@ export default {
         enabledSearchItemsBarcode() {
             if (this.search_item_by_barcode) {
                 if (this.items.length == 1) {
-                    // console.log(this.items)
                     this.clickAddItem(this.items[0], 0);
                     this.filterItems();
                 }
@@ -1888,7 +1727,6 @@ export default {
             this.changeCurrencyType();
         },
         async changeCurrencyType() {
-            // console.log(this.form.currency_type_id)
             this.currency_type = await _.find(this.currency_types, {
                 id: this.form.currency_type_id
             });

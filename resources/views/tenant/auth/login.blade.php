@@ -3,11 +3,12 @@
 @section('content')
 <section class="body-sign">
     <div class="center-sign">
-        <div class="card center-logo">
-            <img src="{{ asset('logo.png')}}" alt="Logo" class="img-fluid center-block">
-        </div>
-        <div class="card">
+        <div class="card shadow">
             <div class="card-body">
+                <div class="text-center">
+                    <img src="{{ asset('logo.png')}}" alt="Logo" class="img-fluid" width="80%">
+                </div>
+                <hr>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="form-group my-3">
@@ -30,10 +31,10 @@
                     <div class="form-group mb-4 {{ $errors->has('password') ? ' error' : '' }}">
                         <label>Contraseña</label>
                         <div class="input-group">
-                            <input name="password" type="password" class="form-control form-control">
+                            <input name="password" type="password" id="password" class="form-control form-control">
                             <span class="input-group-append">
                                 <span class="input-group-text">
-                                    <i class="fas fa-lock"></i>
+                                    <a type="button" id="btnEye"><i class="fas fa-eye"></i></a>
                                 </span>
                             </span>
                         </div>
@@ -61,3 +62,22 @@
     </div>
 </section>
 @endsection
+
+@push('scripts')
+    <script>
+        var inputPassword = document.getElementById('password');
+        var btnEye = document.getElementById('btnEye');
+
+        btnEye.addEventListener('click', function () {
+            if (inputPassword.classList.contains('hide-password')) {
+                inputPassword.type = 'text';
+                inputPassword.classList.remove('hide-password');
+                btnEye.innerHTML = '<i class="fa fa-eye-slash"></i>'
+            } else {
+                inputPassword.type = 'password';
+                inputPassword.classList.add('hide-password');
+                btnEye.innerHTML = '<i class="fa fa-eye"></i>'
+            }
+        });
+    </script>
+@endpush

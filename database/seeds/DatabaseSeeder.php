@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         App\Models\System\User::create([
             'name' => 'Administrador',
-            'email' => 'admin@codevosolutions.com',
+            'email' => 'codevo.solutions@gmail.com',
             'password' => bcrypt('123456'),
         ]);
 

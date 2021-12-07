@@ -216,11 +216,6 @@ class Facturalo
         $this->document->update([
             'soap_type_id' => $soap_type_id
         ]);
-        // if($type === 'invoice') {
-        //     $invoice = Invoice::where('document_id', $this->document->id)->first();
-        //     $invoice->date_of_due = $this->document->date_of_issue;
-        //     $invoice->save();
-        // }
     }
 
     public function updateStateDocuments($state_type_id)
@@ -273,8 +268,7 @@ class Facturalo
 
         $configuration = $this->configuration->formats;
 
-        $base_pdf_template = $configuration;//config(['tenant.pdf_template'=> $configuration]);
-        // dd($base_pdf_template);
+        $base_pdf_template = $configuration;
 
         $pdf_margin_top = 15;
         $pdf_margin_right = 15;
@@ -509,12 +503,10 @@ class Facturalo
         }
 
         if (($format_pdf != 'ticket') AND ($format_pdf != 'ticket_58') AND ($format_pdf != 'ticket_50')) {
-            // dd($base_pdf_template);// = config(['tenant.pdf_template'=> $configuration]);
             if(config('tenant.pdf_template_footer')) {
 
                 $html_footer = $template->pdfFooter($base_pdf_template, in_array($this->document->document_type_id, ['09']) ? null : $this->document);
                 $html_footer_legend = "";
-                // dd($this->configuration->legend_footer && in_array($this->document->document_type_id, ['01', '03']));
                 if($this->configuration->legend_footer && in_array($this->document->document_type_id, ['01', '03'])){
                     $html_footer_legend = $template->pdfFooterLegend($base_pdf_template, $document);
                 }
@@ -522,8 +514,6 @@ class Facturalo
                 $pdf->SetHTMLFooter($html_footer.$html_footer_legend);
 
             }
-//            $html_footer = $template->pdfFooter();
-//            $pdf->SetHTMLFooter($html_footer);
         }
 
         if ($base_pdf_template === 'blank' && in_array($this->document->document_type_id, ['09'])) {
@@ -544,7 +534,6 @@ class Facturalo
     public function loadXmlSigned()
     {
         $this->xmlSigned = $this->getStorage($this->document->filename, 'signed');
-//        dd($this->xmlSigned);
     }
 
     private function senderXmlSigned()
@@ -609,7 +598,6 @@ class Facturalo
             return;
         }
         if($code === 'HTTP') {
-//            $message = 'La SUNAT no responde a su solicitud, vuelva a intentarlo.';
 
             if(in_array($this->type, ['retention', 'dispatch'])){
                 throw new Exception("Code: {$code}; Description: {$message}");
@@ -712,7 +700,6 @@ class Facturalo
             ];
 
             $this->validationStatusCodeResponse($extService->getCustomStatusCode());
-            // $this->updateState(self::ACCEPTED);
 
             if($this->type === 'summary') {
 
@@ -806,16 +793,6 @@ class Facturalo
             }
         }
 
-//        if($this->isDemo) {
-//            $this->pathCertificate = app_path('CoreFacturalo'.DIRECTORY_SEPARATOR.
-//                'WS'.DIRECTORY_SEPARATOR.
-//                'Signed'.DIRECTORY_SEPARATOR.
-//                'Resources'.DIRECTORY_SEPARATOR.
-//                'certificate.pem');
-//        } else {
-//            $this->pathCertificate = storage_path('app'.DIRECTORY_SEPARATOR.
-//                'certificates'.DIRECTORY_SEPARATOR.$this->company->certificate);
-//        }
     }
 
     private function setSoapCredentials()
@@ -839,12 +816,8 @@ class Facturalo
         }
 
 
-//        $this->soapUsername = ($this->isDemo)?$this->company->number.'MODDATOS':$this->company->soap_username;
-//        $this->soapPassword = ($this->isDemo)?'moddatos':$this->company->soap_password;
-
         if($this->isOse) {
             $this->endpoint = $this->company->soap_url;
-//            dd($this->soapPassword);
         } else {
             switch ($this->type) {
                 case 'perception':
@@ -855,7 +828,6 @@ class Facturalo
                     $this->endpoint = ($this->isDemo)?SunatEndpoints::GUIA_BETA:SunatEndpoints::GUIA_PRODUCCION;
                     break;
                 default:
-                    // $this->endpoint = ($this->isDemo)?SunatEndpoints::FE_BETA:SunatEndpoints::FE_PRODUCCION;
                     $this->endpoint = ($this->isDemo)?SunatEndpoints::FE_BETA : ($this->configuration->sunat_alternate_server ? SunatEndpoints::FE_PRODUCCION_ALTERNATE : SunatEndpoints::FE_PRODUCCION);
                     break;
             }
@@ -864,7 +836,6 @@ class Facturalo
     }
 
     private function updatePrepaymentDocuments($inputs){
-        // dd($inputs);
 
         if(isset($inputs['prepayments'])) {
 
@@ -895,14 +866,6 @@ class Facturalo
 
     public function updateResponse(){
 
-        // if($this->response['sent']) {
-        //     return
-
-        //     $this->document->update([
-        //         'soap_shipping_response' => $this->response
-        //     ]);
-
-        // }
 
     }
 
@@ -945,7 +908,6 @@ class Facturalo
             });
         }
 
-        // dd($payments, $balance, $this->apply_change);
 
         foreach ($payments as $row) {
 
@@ -957,7 +919,6 @@ class Facturalo
 
             $record = $document->payments()->create($row);
 
-            //considerar la creacion de una caja chica cuando recien se crea el cliente
             if(isset($row['payment_destination_id'])){
                 $this->createGlobalPayment($record, $row);
             }

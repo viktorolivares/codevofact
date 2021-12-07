@@ -19,11 +19,8 @@
                         </div>
                         <div class="col-6 px-0">
                             <h4 class="font-weight-semibold m-0 text-center m-b-0">{{item.item.description}}</h4>
-                            <!-- <p class="m-b-0">Descripción del producto</p> -->
-                            <!-- <p class="text-muted m-b-0"><small>Descuento 2%</small></p> -->
                         </div>
                         <div class="col-4 p-l-0">
-                            <!-- <p class="font-weight-semibold m-b-0">{{currencyTypeActive.symbol}} 240.00</p> -->
                             <h4 class="font-weight-semibold m-0 text-center">{{currencyTypeActive.symbol}} {{item.total}}</h4>
                         </div>
                     </div>
@@ -76,15 +73,6 @@
                         </div>
                     </div>
                 </template>
-
-                <!-- <div class="row m-0 p-0 bg-white">
-                    <div class="col-sm-6 py-1">
-                        <p class="font-weight-semibold mb-0">DESCUENTO</p>
-                    </div>
-                    <div class="col-sm-6 py-1 text-right">
-                        <p class="font-weight-semibold mb-0">{{currencyTypeActive.symbol}} 4.00</p>
-                    </div>
-                </div> -->
                 <div class="row m-0 p-0 h-50 d-flex align-items-center">
                     <div class="col-sm-6 py-2">
                         <p class="font-weight-semibold mb-0 text-white">TOTAL</p>
@@ -148,9 +136,6 @@
                             <div class="col-lg-6">
                                 <div class="form-group" :class="{'has-danger': difference < 0}">
                                     <label class="control-label" v-text="(difference <0) ? 'Faltante' :'Vuelto'"></label>
-                                    <!-- <el-input v-model="difference" :disabled="true">
-                                        <template slot="prepend">{{currencyTypeActive.symbol}}</template>
-                                    </el-input> -->
                                     <h4 class="control-label font-weight-semibold m-0 text-center m-b-0">{{currencyTypeActive.symbol}} {{difference}}</h4>
                                 </div>
                             </div>
@@ -204,17 +189,16 @@
                                         <label class="control-label">Datos de referencia</label>
                                         <el-input type="textarea" v-model="form.reference_data"></el-input>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
 
                 <div class="col-lg-8">
                     <div class="card card-default">
                         <div class="card-body">
-                            <!-- <p class="text-center">Método de Pago</p> -->
                             <div class="input-group mb-3">
                                 <div class="col-lg-12 m-bottom">
                                     <div class="row">
@@ -246,40 +230,6 @@
                                         </template>
                                     </div>
                                 </div>
-                                <!-- <div class="col-lg-12 m-bottom">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <label class="control-label" >Método de Pago</label>
-
-                                            <el-select v-model="form_payment.payment_method_type_id" @change="changePaymentMethodType">
-                                                    <el-option v-for="option in payment_method_types" :key="option.id" :value="option.id" :label="option.description"></el-option>
-                                            </el-select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 m-bottom" v-if="has_card">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <label class="control-label" >Tarjeta
-                                            <a class="text-info" @click.prevent="showDialogNewCardBrand = true" href="#">[+ Nueva]</a>
-                                            </label>
-                                            <el-select v-model="form_payment.card_brand_id">
-                                                    <el-option v-for="option in cards_brand" :key="option.id" :value="option.id" :label="option.description"></el-option>
-                                            </el-select>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 m-bottom" >
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <label class="control-label"  >Referencia</label>
-                                            <el-input v-model="form_payment.reference" >
-                                            </el-input>
-                                        </div>
-                                    </div>
-                                </div>-->
                                 <div class="col-lg-12" v-if="form_payment.payment_method_type_id=='01'">
                                     <div class="row">
                                         <div class="col-lg-3">
@@ -326,11 +276,6 @@
             :total="form.total"
             @add="addRow"
             ></multiple-payment-form>
-
-        <!-- <sale-notes-options :showDialog.sync="showDialogSaleNote"
-                          :recordId="saleNotesNewId"
-                          :showClose="true"></sale-notes-options>  -->
-
         <card-brands-form   :showDialog.sync="showDialogNewCardBrand"
                             :external="true"
                             :recordId="null"></card-brands-form>
@@ -409,10 +354,8 @@
             await this.setInitialAmount()
 
             await this.getFormPosLocalStorage()
-            // console.log(this.form.payments, this.payments)
         },
         mounted(){
-            // console.log(this.currencyTypeActive)
         },
         methods: {
             handleFn113(){
@@ -445,11 +388,8 @@
             },
             async setInitialAmount(){
                 this.enter_amount = this.form.total
-                // this.form.payments = this.payments
-                // this.$eventHub.$emit('eventSetFormPosLocalStorage', this.form)
                 await this.$refs.enter_amount.$el.getElementsByTagName('input')[0].focus()
                 await this.$refs.enter_amount.$el.getElementsByTagName('input')[0].select()
-                // console.log(this.$refs.enter_amount.$el.getElementsByTagName('input')[0])
             },
             changeEnabledDiscount(){
 
@@ -475,13 +415,11 @@
 
                     }else{
 
-                        // this.discount_amount = 0
                         this.deleteDiscountGlobal()
                         this.reCalculateTotal()
 
                     }
 
-                    // console.log(this.discount_amount)
                 }
             },
             discountGlobal(){
@@ -539,7 +477,6 @@
                 }
 
                 this.difference = this.enter_amount - this.form.total
-                // console.log(this.form.discounts)
             },
             reCalculateTotal() {
 
@@ -591,7 +528,6 @@
                 this.form.total_value = _.round(total_value, 2)
                 this.form.total_taxes = _.round(total_igv, 2)
                 this.form.total_plastic_bag_taxes = _.round(total_plastic_bag_taxes, 2)
-                // this.form.total = _.round(total, 2)
                 this.form.total = _.round(total + this.form.total_plastic_bag_taxes, 2)
 
                 this.discountGlobal()
@@ -657,13 +593,10 @@
                     acum_payment += parseFloat(item.payment)
                 })
 
-               // this.amount = acum_payment
                 this.setAmount(acum_payment)
 
-                // console.log(this.form.payments)
             },
             setAmount(amount){
-                // this.amount = parseFloat(this.amount) + parseFloat(amount)
                 this.amount =  parseFloat(amount) //+ parseFloat(amount)
                 this.enter_amount =  parseFloat(amount) //+ parseFloat(amount)
                 this.inputAmount()
@@ -672,7 +605,6 @@
             {
                 let row = _.last(this.payments, { 'payment_method_type_id' : '01' })
                 row.payment = parseFloat(row.payment) + parseFloat(amount)
-                // console.log(row.payment)
 
                 this.form.payments = this.payments
                 let acum_payment = 0
@@ -688,23 +620,18 @@
 
                 let r_item = await _.last(this.payments, { 'payment_method_type_id' : '01' })
                 r_item.payment = await parseFloat(this.enter_amount)
-                // console.log(r_item.payment)
 
                 let ind = this.form.payments.length - 1
                 this.form.payments[ind].payment = parseFloat(this.enter_amount)
-                // this.setAmount(item.payment)
 
                 let acum_payment = 0
 
                 await this.form.payments.forEach((item)=>{
                     acum_payment += parseFloat(item.payment)
                 })
-                // console.log(this.form.payments)
 
-                // this.amount = item.payment
                 this.amount = acum_payment
-                // this.amount = this.enter_amount
-                // console.log(this.amount)
+
                 this.difference = this.amount - this.form.total
 
                 if(isNaN(this.difference)) {
@@ -751,7 +678,6 @@
                     this.button_payment = true
                 }
                 this.difference = _.round(this.difference,2)
-                // this.form_payment.payment = this.amount
 
                 this.$eventHub.$emit('eventSetFormPosLocalStorage', this.form)
                 this.lStoPayment()
@@ -761,7 +687,6 @@
 
                 this.setLocalStoragePayment('enter_amount', this.enter_amount)
                 this.setLocalStoragePayment('amount', this.amount)
-                // console.log(this.amount)
                 this.setLocalStoragePayment('difference', this.difference)
 
             },
@@ -835,7 +760,6 @@
                 }
             },
             async clickPayment(){
-                // if(this.has_card && !this.form_payment.card_brand_id) return this.$message.error('Seleccione una tarjeta');
 
                 if(!moment(moment().format("YYYY-MM-DD")).isSame(this.form.date_of_issue)){
                    return this.$message.error('La fecha de emisión no coincide con la del día actual');
@@ -862,18 +786,16 @@
 
                 this.loading_submit = true
                 this.locked_submit = true
-                
+
                 await this.$http.post(`/${this.resource_documents}`, this.form).then(response => {
                     if (response.data.success) {
 
                         if (this.form.document_type_id === "80") {
 
-                            // this.form_payment.sale_note_id = response.data.data.id;
                             this.form_cash_document.sale_note_id = response.data.data.id;
 
                         } else {
 
-                            // this.form_payment.document_id = response.data.data.id;
                             this.form_cash_document.document_id = response.data.data.id;
                             this.statusDocument = response.data.data.response
 
@@ -881,11 +803,7 @@
 
                         this.documentNewId = response.data.data.id;
                         this.showDialogOptions = true;
-
-                        // this.savePaymentMethod();
                         this.saveCashDocument();
-
-                        // this.initFormPayment() ;
                         this.cleanLocalStoragePayment()
                         this.$eventHub.$emit('saleSuccess');
                     }
@@ -908,7 +826,6 @@
                 this.$http.post(`/cash/cash_document`, this.form_cash_document)
                     .then(response => {
                         if (response.data.success) {
-                            // console.log(response)
                         } else {
                             this.$message.error(response.data.message);
                         }
@@ -921,7 +838,6 @@
                 this.$http.post(`/${this.resource_payments}`, this.form_payment)
                     .then(response => {
                         if (response.data.success) {
-                            // console.log(response)
                         } else {
                             this.$message.error(response.data.message);
                         }

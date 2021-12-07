@@ -17,13 +17,4 @@ class AttributeType extends ModelCatalog
         'active',
         'description',
     ];
-
-    // protected static function boot()
-    // {
-    //     parent::boot();
-
-    //     static::addGlobalScope('active', function (Builder $builder) {
-    //         $builder->where('active', 1);
-    //     });
-    // }
 }

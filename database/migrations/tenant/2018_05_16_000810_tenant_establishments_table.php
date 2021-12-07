@@ -27,6 +27,8 @@ class TenantEstablishmentsTable extends Migration
             $table->string('number')->nullable();
             $table->string('logo', 150)->nullable();
             $table->string('identity_document_type_id')->default(6);
+            $table->boolean('active')->default(true);
+            $table->boolean('is_own')->default(false);
             $table->timestamps();
 
             $table->foreign('country_id')->references('id')->on('countries');

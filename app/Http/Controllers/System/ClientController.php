@@ -454,7 +454,7 @@ class ClientController extends Controller
         $exists = $website::where('uuid', $uuid)->first();
 
         if($exists){
-            throw new Exception("El subdominio ya se encuentra registrado");
+            throw new \ErrorException('El subdominio ya se encuentra registrado');
         }
 
     }

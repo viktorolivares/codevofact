@@ -20,16 +20,9 @@ class BackupController extends Controller
 
     public function index() {
 
-        $avail = new Process(['df -m -h --output=avail /']);
-        $avail->run();
-        $disc_used = $avail->getOutput();
-
-        $df = new Process(['du -sh '.storage_path().' | cut -f1']);
-        $df->run();
-        $storage_size = $df->getOutput();
         $most_recent = $this->mostRecent();
 
-        return view('system.backup.index')->with('disc_used', $disc_used)->with('storage_size', $storage_size)->with('last_zip', $most_recent);
+        return view('system.backup.index')->with('last_zip', $most_recent);
     }
 
     public function db()

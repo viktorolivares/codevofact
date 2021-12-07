@@ -49,11 +49,6 @@ class ItemController extends Controller
         return view('tenant.items.index');
     }
 
-    public function index_ecommerce()
-    {
-        return view('tenant.items_ecommerce.index');
-    }
-
     public function columns()
     {
         return [
@@ -113,6 +108,17 @@ class ItemController extends Controller
 
     }
 
+
+    public function code()
+    {
+        $code = Item::max('id');
+        $code = $code + 1;
+        $code = str_pad($code,5,"0",STR_PAD_LEFT);
+        $code = 'IA'.$code;
+
+        return $code;
+    }
+
     public function create()
     {
         return view('tenant.items.form');
@@ -146,9 +152,9 @@ class ItemController extends Controller
     public function store(ItemRequest $request) {
         $id = $request->input('id');
         if (!$request->barcode) {
-            if ($request->internal_id) {
-                $request->merge(['barcode' => $request->internal_id]);
-            }
+            $barcode = Item::max('id');
+            $barcode = $barcode + 100000000001;
+            $request->merge(['barcode' => $barcode ]);
         }
         $item = Item::firstOrNew(['id' => $id]);
         $item->item_type_id = '01';
@@ -213,7 +219,7 @@ class ItemController extends Controller
 
         if($request->tags_id)
         {
-            ItemTag::destroy(   ItemTag::where('item_id', $item->id)->pluck('id'));
+            ItemTag::destroy(ItemTag::where('item_id', $item->id)->pluck('id'));
             foreach ($request->tags_id as $value) {
                 ItemTag::create(['item_id' => $item->id,  'tag_id' => $value]);
             }

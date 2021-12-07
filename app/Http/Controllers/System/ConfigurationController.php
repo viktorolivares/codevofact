@@ -70,4 +70,6 @@ class ConfigurationController extends Controller
             'token_apiruc' => $configuration->token_apiruc,
         ];
     }
+
+
 }

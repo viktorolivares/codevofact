@@ -6,19 +6,13 @@
             <el-tabs v-model="activeName">
                 <el-tab-pane class name="first"><span slot="label">General</span>
                     <div class="row m-1">
-                        <div v-show="form.unit_type_id !='ZZ'" class="col-md-4 center-el-checkbox">
-                            <div class="form-group" :class="{'has-danger': errors.calculate_quantity}">
-                                <el-checkbox v-model="form.calculate_quantity">Calcular cantidad por precio</el-checkbox><br>
-                                <small class="form-control-feedback" v-if="errors.calculate_quantity" v-text="errors.calculate_quantity[0]"></small>
-                            </div>
-                        </div>
-                        <div class="col-md-4 center-el-checkbox" v-show="show_has_igv">
+                        <div class="col-md-3 center-el-checkbox" v-show="show_has_igv">
                             <div class="form-group" :class="{'has-danger': errors.has_igv}">
                                 <el-checkbox v-model="form.has_igv">Incluye Igv {{configuration.include_igv}}</el-checkbox><br>
                                 <small class="form-control-feedback" v-if="errors.has_igv" v-text="errors.has_igv[0]"></small>
                             </div>
                         </div>
-                        <div class="col-md-4 center-el-checkbox">
+                        <div class="col-md-3 center-el-checkbox">
                             <div class="form-group" :class="{'has-danger': errors.has_plastic_bag_taxes}">
                                 <el-checkbox v-model="form.has_plastic_bag_taxes">Impuesto a la Bolsa Plástica</el-checkbox><br>
                                 <small class="form-control-feedback" v-if="errors.has_plastic_bag_taxes" v-text="errors.has_plastic_bag_taxes[0]"></small>
@@ -107,7 +101,7 @@
                                         <i class="fa fa-info-circle"></i>
                                     </el-tooltip>
                                 </label>
-                                <el-input v-model="form.internal_id" dusk="internal_id"></el-input>
+                                <el-input v-model="form.internal_id" dusk="internal_id" :disabled="true"></el-input>
                                 <small class="form-control-feedback" v-if="errors.internal_id" v-text="errors.internal_id[0]"></small>
                             </div>
                         </div>
@@ -497,7 +491,7 @@
                         price1:0,
                         price2:0,
                         price3:0,
-                        price_default:1,
+                        price_default:2,
 
                 },
                 attribute_types:  [],
@@ -518,22 +512,17 @@
                     this.brands = response.data.brands
                     this.attribute_types = response.data.attribute_types
                     this.configuration = response.data.configuration
-
                     this.form.sale_affectation_igv_type_id = (this.affectation_igv_types.length > 0)?this.affectation_igv_types[0].id:null
                     this.form.purchase_affectation_igv_type_id = (this.affectation_igv_types.length > 0)?this.affectation_igv_types[0].id:null
                 })
-
             this.$eventHub.$on('submitPercentagePerception', (data)=>{
                 this.form.percentage_perception = data
                 if(!this.form.percentage_perception) this.has_percentage_perception = false
             })
-
             this.$eventHub.$on('reloadTables', ()=>{
                 this.reloadTables()
             })
-
             await this.setDefaultConfiguration()
-
         },
 
         methods: {
@@ -618,7 +607,7 @@
                     price1: 0,
                     price2: 0,
                     price3: 0,
-                    price_default: 1
+                    price_default: 2
                 })
             },
             clickCancel(index) {
@@ -630,7 +619,7 @@
                 this.form = {
                     id: null,
                     item_type_id: '01',
-                    internal_id: null,
+                    internal_id: this.internal_id,
                     item_code: null,
                     item_code_gs1: null,
                     description: null,
@@ -646,7 +635,6 @@
                     suggested_price: 0,
                     sale_affectation_igv_type_id: null,
                     purchase_affectation_igv_type_id: null,
-                    calculate_quantity: false,
                     stock: 0,
                     stock_min: 1,
                     has_igv: true,
@@ -709,7 +697,6 @@
                 }else{
                     this.purchase_show_has_igv = true
                 }
-
             },
             resetForm() {
                 this.initForm()
@@ -718,9 +705,6 @@
                 this.setDefaultConfiguration()
             },
             create() {
-
-
-
                 this.titleDialog = (this.recordId)? 'Editar Producto':'Nuevo Producto'
                 if (this.recordId) {
                     this.$http.get(`/${this.resource}/record/${this.recordId}`)
@@ -731,7 +715,9 @@
                             this.changePurchaseAffectationIgvType()
                         })
                 }
-
+                else{
+                    this.getCode()
+                }
             },
             loadRecord(){
                 if (this.recordId) {
@@ -897,6 +883,12 @@
             },
             clickRemoveAttribute(index) {
                 this.form.attributes.splice(index, 1)
+            },
+            getCode() {
+                this.$http.get(`/${this.resource}/code`)
+                    .then(response => {
+                        this.form.internal_id = response.data
+                    })
             },
         }
     }
