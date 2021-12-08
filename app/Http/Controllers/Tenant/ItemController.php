@@ -556,12 +556,9 @@ class ItemController extends Controller
         }
 
         $items = Item::whereTypeUser()->whereNotIsSet();
-
         $records = ($period == 'all') ? $items->get() : $items->whereBetween('created_at', [$d_start, $d_end])->get();
 
-        return (new ItemExport)
-                ->records($records)
-                ->download('Reporte_Items_'.Carbon::now().'.xlsx');
+        return (new ItemExport)->records($records)->download('Report_Items_'.Carbon::now().'.xlsx');
 
     }
 
@@ -573,9 +570,7 @@ class ItemController extends Controller
 
         $records = Item::whereBetween('created_at', [$start_date, $end_date])->get();
 
-        return (new ItemExportWp)
-                ->records($records)
-                ->download('Reporte_Items_'.Carbon::now().'.csv', Excel::CSV);
+        return (new ItemExportWp)->records($records)->download('Reporte_Items_'.Carbon::now().'.csv', Excel::CSV);
 
     }
 

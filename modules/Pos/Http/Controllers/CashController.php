@@ -24,7 +24,7 @@ class CashController extends Controller
         $request->validate(
             ['email' => 'required']
         );
-        
+
         $company = Company::active();
         $email = $request->input('email');
 
@@ -50,7 +50,7 @@ class CashController extends Controller
         });
 
         set_time_limit(0);
-        
+
         $quantity_rows = $cash->cash_documents()->count();
 
         $html = view('pos::cash.report_pdf_ticket', compact("cash", "company", "methods_payment"))->render();
@@ -62,7 +62,7 @@ class CashController extends Controller
             'format' => [
                 $width,
                 190 +
-                ($quantity_rows * 8) 
+                ($quantity_rows * 8)
             ],
             'margin_top' => 5,
             'margin_right' => 5,
@@ -100,7 +100,7 @@ class CashController extends Controller
 
         set_time_limit(0);
         $filename = "Reporte_POS - {$cash->user->name} - {$cash->date_opening} {$cash->time_opening}";
-        
+
         return (new ReportCashExport)
                 ->cash($cash)
                 ->company($company)

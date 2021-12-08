@@ -42,7 +42,6 @@ class CashController extends Controller
     {
         return [
             'income' => 'Ingresos',
-            // 'expense' => 'Egresos',
         ];
     }
 
@@ -155,9 +154,6 @@ class CashController extends Controller
     public function close($id) {
 
         $cash = Cash::findOrFail($id);
-
-        // dd($cash->cash_documents);
-
         $cash->date_closed = date('Y-m-d');
         $cash->time_closed = date('H:i:s');
 
@@ -172,17 +168,12 @@ class CashController extends Controller
                 if(in_array($cash_document->sale_note->state_type_id, ['01','03','05','07','13'])){
                     $final_balance += ($cash_document->sale_note->currency_type_id == 'PEN') ? $cash_document->sale_note->total : ($cash_document->sale_note->total * $cash_document->sale_note->exchange_rate_sale);
                 }
-
-                // $final_balance += $cash_document->sale_note->total;
-
             }
             else if($cash_document->document){
 
                 if(in_array($cash_document->document->state_type_id, ['01','03','05','07','13'])){
                     $final_balance += ($cash_document->document->currency_type_id == 'PEN') ? $cash_document->document->total : ($cash_document->document->total * $cash_document->document->exchange_rate_sale);
                 }
-
-                // $final_balance += $cash_document->document->total;
 
             }
             else if($cash_document->expense_payment){
@@ -191,16 +182,7 @@ class CashController extends Controller
                     $final_balance -= ($cash_document->expense_payment->expense->currency_type_id == 'PEN') ? $cash_document->expense_payment->payment:($cash_document->expense_payment->payment  * $cash_document->expense_payment->expense->exchange_rate_sale);
                 }
 
-                // $final_balance -= $cash_document->expense_payment->payment;
-
             }
-
-            // else if($cash_document->purchase){
-            //     $final_balance -= $cash_document->purchase->total;
-            // }
-            // else if($cash_document->expense){
-            //     $final_balance -= $cash_document->expense->total;
-            // }
 
         }
 

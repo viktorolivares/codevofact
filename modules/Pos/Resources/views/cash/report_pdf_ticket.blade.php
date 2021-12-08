@@ -14,8 +14,6 @@ $cash_documents = $cash->cash_documents;
 
 foreach ($cash_documents as $cash_document) {
 
-    //$final_balance += ($cash_document->document) ? $cash_document->document->total : $cash_document->sale_note->total;
-
     if($cash_document->sale_note){
 
         if($cash_document->sale_note->currency_type_id == 'PEN'){
@@ -84,7 +82,6 @@ foreach ($cash_documents as $cash_document) {
                 $pays = $cash_document->document->payments;
 
                 foreach ($methods_payment as $record) {
-                    // dd($pays, $record);
 
                     $record->sum = ($record->sum + $pays->where('payment_method_type_id', $record->id)->whereIn('document.state_type_id', ['01','03','05','07','13'])->sum('payment'));
 
@@ -118,7 +115,6 @@ foreach ($cash_documents as $cash_document) {
 }
 
 $cash_final_balance = $final_balance + $cash->beginning_balance;
-//$cash_income = ($final_balance > 0) ? ($cash_final_balance - $cash->beginning_balance) : 0;
 
 @endphp
 <!DOCTYPE html>
@@ -128,7 +124,7 @@ $cash_final_balance = $final_balance + $cash->beginning_balance;
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="application/pdf; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Reporte POS - {{$cash->user->name}} - {{$cash->date_opening}} {{$cash->time_opening}}</title>
+        <title>Reporte POS</title>
         <style>
             body {
                 font-family: sans-serif;
@@ -172,7 +168,6 @@ $cash_final_balance = $final_balance + $cash->beginning_balance;
                 color: white;
                 text-align: center;
             }
-            /* .td-custom { line-height: 0.1em; } */
 
             .width-custom { width: 50% }
         </style>
@@ -196,7 +191,7 @@ $cash_final_balance = $final_balance + $cash->beginning_balance;
             <p><strong>Ingreso: </strong>S/. {{number_format($cash_income, 2, ".", "")}} </p>
             <p><strong>Saldo final: </strong>S/. {{number_format($cash_final_balance, 2, ".", "")}} </p>
             <p><strong>Egreso: </strong>S/. {{number_format($cash_egress, 2, ".", "")}} </p>
- 
+
         </div>
 
         @if($cash_documents->count())
@@ -233,11 +228,7 @@ $cash_final_balance = $final_balance + $cash->beginning_balance;
                             <tr>
                                 <th style="font-weight: bold;background: #0088cc;color: white;text-align: center;">#</th>
                                 <th style="font-weight: bold;background: #0088cc;color: white;text-align: center;">Transacción</th>
-                                {{-- <th style="font-weight: bold;background: #0088cc;color: white;text-align: center;">T. Doc</th> --}}
                                 <th style="font-weight: bold;background: #0088cc;color: white;text-align: center;">Documento</th>
-                                {{-- <th style="font-weight: bold;background: #0088cc;color: white;text-align: center;">Fecha emisión</th> --}}
-                                {{-- <th style="font-weight: bold;background: #0088cc;color: white;text-align: center;">Cliente/Proveedor</th>
-                                <th style="font-weight: bold;background: #0088cc;color: white;text-align: center;">N° Documento</th> --}}
                                 <th style="font-weight: bold;background: #0088cc;color: white;text-align: center;">Moneda</th>
                                 <th style="font-weight: bold;background: #0088cc;color: white;text-align: center;">Total</th>
                             </tr>

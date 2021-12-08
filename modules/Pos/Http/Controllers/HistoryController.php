@@ -14,12 +14,12 @@ use App\Models\Tenant\PurchaseItem;
 
 class HistoryController extends Controller
 {
-    
+
     public function recordsSales(Request $request)
     {
 
         $form = json_decode($request->form);
-        
+
         $sale_notes = SaleNoteItem::where('item_id', $form->item_id)
                                     ->whereHas('sale_note', function($query) use($form){
                                         $query->where('customer_id', $form->customer_id);
@@ -45,18 +45,18 @@ class HistoryController extends Controller
 
     }
 
-    
+
     public function recordsPurchases(Request $request)
     {
 
         $form = json_decode($request->form);
-        
-        $purchases = PurchaseItem::where('item_id', $form->item_id) 
+
+        $purchases = PurchaseItem::where('item_id', $form->item_id)
                                     ->join('purchases', 'purchase_items.purchase_id', '=', 'purchases.id')
                                     ->select(DB::raw("purchase_items.id as id, purchases.series as series, purchases.number as number,
                                     purchases.supplier as supplier,purchase_items.unit_price as price, purchases.date_of_issue as date_of_issue"))
                                     ->orderBy('created_at', 'desc');
- 
+
 
         $records = $purchases->orderBy('date_of_issue','desc')->orderBy('number','desc');
 

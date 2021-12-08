@@ -7,14 +7,9 @@ $cash_income = 0;
 $cash_egress = 0;
 $cash_final_balance = 0;
 
-
 $cash_documents = $cash->cash_documents;
 
-
-
 foreach ($cash_documents as $cash_document) {
-
-    //$final_balance += ($cash_document->document) ? $cash_document->document->total : $cash_document->sale_note->total;
 
     if($cash_document->sale_note){
 
@@ -26,7 +21,6 @@ foreach ($cash_documents as $cash_document) {
                 $final_balance += $cash_document->sale_note->total;
 
             }
-
 
         }else{
 
@@ -52,7 +46,6 @@ foreach ($cash_documents as $cash_document) {
 
             }
         }
-
 
     }
     else if($cash_document->document){
@@ -84,7 +77,6 @@ foreach ($cash_documents as $cash_document) {
                 $pays = $cash_document->document->payments;
 
                 foreach ($methods_payment as $record) {
-                    // dd($pays, $record);
 
                     $record->sum = ($record->sum + $pays->where('payment_method_type_id', $record->id)->whereIn('document.state_type_id', ['01','03','05','07','13'])->sum('payment'));
 
@@ -118,9 +110,9 @@ foreach ($cash_documents as $cash_document) {
 }
 
 $cash_final_balance = $final_balance + $cash->beginning_balance;
-//$cash_income = ($final_balance > 0) ? ($cash_final_balance - $cash->beginning_balance) : 0;
 
 @endphp
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -128,7 +120,7 @@ $cash_final_balance = $final_balance + $cash->beginning_balance;
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="application/pdf; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Reporte POS - {{$cash->user->name}} - {{$cash->date_opening}} {{$cash->time_opening}}</title>
+        <title>Reporte POS</title>
         <style>
             html {
                 font-family: sans-serif;
@@ -182,8 +174,6 @@ $cash_final_balance = $final_balance + $cash->beginning_balance;
             <p align="center" class="title"><strong>Reporte Punto de Venta</strong></p>
         </div>
         <div style="margin-top:20px; margin-bottom:20px;">
-
-
             <table>
                 <tr>
                     <td class="td-custom width-custom">

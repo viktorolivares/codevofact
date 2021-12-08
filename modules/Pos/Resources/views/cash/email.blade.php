@@ -14,14 +14,9 @@
     </style>
 </head>
 <body>
-<p>Estimad@: 
-
-    {{ $company->name }}
-  
-    , informamos que su reporte de caja ha sido generado exitosamente.</p>
-
+<p>Estimad@:
+    {{ $company->name }}, informamos que su reporte de caja ha sido generado exitosamente.</p>
 <ul>
-
 </ul>
 </body>
 </html>
