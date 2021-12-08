@@ -1,10 +1,13 @@
 # **Facturador Codevo**
 
-## Pruebas online
+* Sistema de Facturación Electrónica para Tienda de Ropa.
+* Partner Ivanna Almendariz
+* Desarrollado por Victor Olivares
+* Template - Open Source Facturalo.pe
 
 ### Panel de administración
 
-Usuario: admin@codevosolutions.com<br>
+Usuario: codevo.solutions@gmail.com<br>
 Contraseña: 123456
 
 ### Panel de cliente
