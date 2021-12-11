@@ -22,7 +22,6 @@ mix.webpackConfig({
             '@views': path.resolve(__dirname, 'resources/js/views/tenant'),
             '@helpers': path.resolve(__dirname, 'resources/js/helpers'),
             '@mixins': path.resolve(__dirname, 'resources/js/mixins'),
-
             '@viewsModuleSale': path.resolve(__dirname, 'modules/Sale/Resources/assets/js/views'),
             '@viewsModuleFinance': path.resolve(__dirname, 'modules/Finance/Resources/assets/js/views'),
             '@viewsModulePurchase': path.resolve(__dirname, 'modules/Purchase/Resources/assets/js/views'),

@@ -35,18 +35,18 @@ class ItemLotController extends Controller
 
     public function records(Request $request)
     {
-        
+
         $records = $this->getRecords($request);
 
         return new ItemLotCollection($records->paginate(config('tenant.items_per_page')));
-    
+
     }
 
 
     public function getRecords($request){
 
         if($request->column == 'item_description'){
-            
+
             $records = ItemLot::whereHas('item', function($query) use($request){
                             $query->where('description', 'like', "%{$request->value}%")->latest();
                         });

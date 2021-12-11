@@ -19,7 +19,7 @@ class TenantColorsTable extends Migration
         });
 
         DB::table('colors')->insert([
-            ['name' => 'Biege'],
+            ['name' => 'Beige'],
             ['name' => 'Blanco'],
             ['name' => 'Negro'],
             ['name' => 'Blanco y Negro'],

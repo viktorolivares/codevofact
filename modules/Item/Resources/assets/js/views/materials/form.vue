@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group" :class="{'has-danger': errors.description}">
-                            <label class="control-label">Nombre</label>
+                            <label class="control-label">Descripción</label>
                             <el-input v-model="form.description"></el-input>
                             <small class="form-control-feedback" v-if="errors.description" v-text="errors.description[0]"></small>
                         </div>

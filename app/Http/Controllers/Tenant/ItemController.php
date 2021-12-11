@@ -28,6 +28,9 @@ use App\Models\Tenant\ItemTag;
 use App\Models\Tenant\Catalogs\Tag;
 use Modules\Item\Models\Category;
 use Modules\Item\Models\Brand;
+use Modules\Item\Models\Color;
+use Modules\Item\Models\Size;
+use Modules\Item\Models\Material;
 use Modules\Inventory\Models\Warehouse as WarehouseModule;
 use App\Models\Tenant\Establishment;
 use Modules\Item\Models\ItemLotsGroup;
@@ -136,10 +139,13 @@ class ItemController extends Controller
         $tags = Tag::all();
         $categories = Category::all();
         $brands = Brand::all();
+        $sizes = Size::all();
+        $colors = Color::orderBy('name', 'asc')->get();
+        $materials = Material::all();
         $configuration = Configuration::select('affectation_igv_type_id')->firstOrFail();
 
         return compact('unit_types', 'currency_types', 'attribute_types', 'system_isc_types',
-                        'affectation_igv_types','warehouses', 'accounts', 'tags', 'categories', 'brands', 'configuration');
+                        'affectation_igv_types','warehouses', 'accounts', 'tags', 'categories', 'brands', 'colors', 'sizes', 'materials', 'configuration');
     }
 
     public function record($id)

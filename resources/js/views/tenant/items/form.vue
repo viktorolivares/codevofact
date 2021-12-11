@@ -2,7 +2,6 @@
     <el-dialog width="65%" :title="titleDialog" :visible="showDialog" :close-on-click-modal="false" @close="close" @open="create" append-to-body top="7vh">
         <form autocomplete="off" @submit.prevent="submit">
             <div class="form-body">
-
             <el-tabs v-model="activeName">
                 <el-tab-pane class name="first"><span slot="label">General</span>
                     <div class="row m-1">
@@ -142,61 +141,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Percepcioones | Lotes | Series
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="table-responsive">
-                                <table class="table table-sm mb-0 table-borderless">
-                                    <thead>
-                                    <tr>
-                                        <th width="33%">
-                                            <el-checkbox v-model="form.has_perception" @change="changeHasPerception">Incluye percepción</el-checkbox>
-                                        </th>
-                                        <th width="33%">
-                                            <div v-show="form.unit_type_id !='ZZ'">
-                                                <el-checkbox v-model="form.lots_enabled" @change="changeLotsEnabled">¿Maneja lotes? </el-checkbox>
-                                            </div>
-                                        </th>
-                                        <th width="33%">
-                                            <div v-show="form.unit_type_id !='ZZ'">
-                                                <el-checkbox v-model="form.series_enabled" @change="changeLotsEnabled">¿Maneja series?
-                                                </el-checkbox>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <div v-show="form.has_perception">
-                                                <div class="form-group">
-                                                    <el-input v-model="form.percentage_perception" placeholder="% de percepción"></el-input>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div v-show="form.unit_type_id !='ZZ' && form.lots_enabled">
-                                                <div :class="{'has-danger': errors.lot_code}" class="form-group">
-                                                    <el-input v-model="form.lot_code" placeholder="Código de lote"></el-input>
-                                                    <small v-if="errors.lot_code" class="form-control-feedback" v-text="errors.lot_code[0]"></small>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div v-show="form.unit_type_id !='ZZ' && form.series_enabled && !recordId">
-                                                <div :class="{'has-danger': errors.lot_code}" class="form-group">
-                                                    <el-button icon="el-icon-edit-outline" size="small" type="primary" @click.prevent="clickLotcode">Ingrese series </el-button>
-                                                    <small v-if="errors.lot_code" class="form-control-feedback" v-text="errors.lot_code[0]"></small>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    -->
                 </el-tab-pane>
                 <el-tab-pane class name="second"><span slot="label">Presentaciones</span>
                     <div class="row m-1">
@@ -304,7 +248,7 @@
                     <div class="row m-1">
                         <div class="col-md-3">
                             <div class="form-group" >
-                                <label class="control-label">Imágen <span class="text-danger"></span></label>
+                                <label class="control-label">Imagen <span class="text-danger"></span></label>
                                 <el-upload class="avatar-uploader"
                                     :data="{'type': 'items'}"
                                     :headers="headers"
@@ -346,6 +290,36 @@
                                             <el-option v-for="option in brands" :key="option.id" :value="option.id" :label="option.name"></el-option>
                                         </el-select>
                                         <small class="form-control-feedback" v-if="errors.brand_id" v-text="errors.brand_id[0]"></small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" :class="{'has-danger': errors.color_id}">
+                                        <label class="control-label">
+                                            Colores
+                                        </label>
+                                        <a href="#" v-if="form_color.add == false" class="control-label font-weight-bold text-info" @click="form_color.add = true"> [ + Nuevo]</a>
+                                        <a href="#" v-if="form_color.add == true" class="control-label font-weight-bold text-info" @click="saveColor()"> [ + Guardar]</a>
+                                        <a href="#" v-if="form_color.add == true" class="control-label font-weight-bold text-danger" @click="form_color.add = false"> [ Cancelar]</a>
+                                        <el-input   v-if="form_color.add == true" v-model="form_color.name" dusk="item_code" style="margin-bottom:1.5%;"></el-input>
+                                        <el-select v-if="form_color.add == false" v-model="form.color_id" filterable clearable >
+                                            <el-option v-for="option in colors" :key="option.id" :value="option.id" :label="option.name"></el-option>
+                                        </el-select>
+                                        <small class="form-control-feedback" v-if="errors.color_id" v-text="errors.color_id[0]"></small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" :class="{'has-danger': errors.size_id}">
+                                        <label class="control-label">
+                                            Tallas
+                                        </label>
+                                        <a href="#" v-if="form_size.add == false" class="control-label font-weight-bold text-info" @click="form_size.add = true"> [ + Nuevo]</a>
+                                        <a href="#" v-if="form_size.add == true" class="control-label font-weight-bold text-info" @click="saveSize()"> [ + Guardar]</a>
+                                        <a href="#" v-if="form_size.add == true" class="control-label font-weight-bold text-danger" @click="form_size.add = false"> [ Cancelar]</a>
+                                        <el-input   v-if="form_size.add == true" v-model="form_size.name" dusk="item_code" style="margin-bottom:1.5%;"></el-input>
+                                        <el-select v-if="form_size.add == false" v-model="form.size_id" filterable clearable >
+                                            <el-option v-for="option in sizes" :key="option.id" :value="option.id" :label="option.name"></el-option>
+                                        </el-select>
+                                        <small class="form-control-feedback" v-if="errors.size_id" v-text="errors.size_id[0]"></small>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -446,7 +420,6 @@
             :lots="form.lots"
             @addRowLot="addRowLot">
         </lots-form>
-
     </el-dialog>
 </template>
 
@@ -462,6 +435,8 @@
                 showDialogLots:false,
                 form_category:{ add: false, name: null, id: null },
                 form_brand:{ add: false, name: null, id: null },
+                form_color:{ add: false, name: null, id: null },
+                form_size:{ add: false, name: null, id: null },
                 warehouses: [],
                 loading_submit: false,
                 showPercentagePerception: false,
@@ -480,6 +455,8 @@
                 affectation_igv_types: [],
                 categories: [],
                 brands: [],
+                colors: [],
+                sizes: [],
                 accounts: [],
                 show_has_igv:true,
                 purchase_show_has_igv:true,
@@ -510,6 +487,8 @@
                     this.warehouses = response.data.warehouses
                     this.categories = response.data.categories
                     this.brands = response.data.brands
+                    this.colors = response.data.colors
+                     this.sizes = response.data.sizes
                     this.attribute_types = response.data.attribute_types
                     this.configuration = response.data.configuration
                     this.form.sale_affectation_igv_type_id = (this.affectation_igv_types.length > 0)?this.affectation_igv_types[0].id:null
@@ -556,7 +535,8 @@
                         this.warehouses = response.data.warehouses
                         this.categories = response.data.categories
                         this.brands = response.data.brands
-
+                        this.colors = response.data.colors
+                         this.sizes = response.data.sizes
                         this.form.sale_affectation_igv_type_id = (this.affectation_igv_types.length > 0)?this.affectation_igv_types[0].id:null
                         this.form.purchase_affectation_igv_type_id = (this.affectation_igv_types.length > 0)?this.affectation_igv_types[0].id:null
                     })
@@ -649,6 +629,8 @@
                     account_id: null,
                     category_id: null,
                     brand_id: null,
+                    color_id: null,
+                    size_id: null,
                     date_of_due:null,
                     lot_code:null,
                     line:null,
@@ -757,19 +739,13 @@
                 let error_by_item = 0
 
                 if(this.form.item_unit_types.length > 0){
-
                     this.form.item_unit_types.forEach(item => {
-
                         if(parseFloat(item.quantity_unit) < 0.0001){
                             error_by_item++
                         }
-
                     })
-
                 }
-
                 return error_by_item
-
             },
             async submit() {
 
@@ -872,9 +848,44 @@
                 .catch(error => {
 
                 })
+            },
+            saveColor()
+            {
+                this.form_color.add = false
 
+                this.$http.post(`colors`,  this.form_color)
+                .then(response => {
+                    if (response.data.success) {
+                        this.$message.success(response.data.message)
+                        this.colors.push(response.data.data)
+                        this.form_color.name = null
 
+                    } else {
+                        this.$message.error('No se guardaron los cambios')
+                    }
+                })
+                .catch(error => {
 
+                })
+            },
+            saveSize()
+            {
+                this.form_size.add = false
+
+                this.$http.post(`sizes`,  this.form_size)
+                .then(response => {
+                    if (response.data.success) {
+                        this.$message.success(response.data.message)
+                        this.sizes.push(response.data.data)
+                        this.form_size.name = null
+
+                    } else {
+                        this.$message.error('No se guardaron los cambios')
+                    }
+                })
+                .catch(error => {
+
+                })
             },
             changeAttributeType(index) {
                 let attribute_type_id = this.form.attributes[index].attribute_type_id

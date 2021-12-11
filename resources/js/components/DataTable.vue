@@ -6,7 +6,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-12 pb-2">
                         <div class="d-flex">
                             <div style="width:100px">
-                                Filtrar por:
+                                Filtrar:
                             </div>
                             <el-select
                                 v-model="search.column"
@@ -118,7 +118,6 @@ export default {
     },
     async mounted() {
         let column_resource = _.split(this.resource, "/");
-        // console.log(column_resource)
         await this.$http
             .get(`/${_.head(column_resource)}/columns`)
             .then(response => {

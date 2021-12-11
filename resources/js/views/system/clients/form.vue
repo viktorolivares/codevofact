@@ -72,7 +72,6 @@
                         <div class="row mt-2">
                             <div class="col-md-12" >
                                 <div class="form-group">
-                                    <label class="control-label">Módulos</label>
                                     <div class="row">
                                         <div class="col-4" v-for="(module,ind) in form.modules" :key="ind">
                                             <el-checkbox v-model="module.checked">{{ module.description }}</el-checkbox>
@@ -83,11 +82,6 @@
                         </div>
                      </el-collapse-item>
                      <el-collapse-item name="2" title="Entorno del sistema">
-                        <div class="row">
-                            <div class="col-md-12 mt-2">
-                                <h4 class="border-bottom">Entorno del sistema</h4>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group" :class="{'has-danger': errors.soap_send_id}">

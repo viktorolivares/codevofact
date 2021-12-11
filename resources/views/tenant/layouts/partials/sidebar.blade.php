@@ -355,6 +355,9 @@
                             {{ ($path[0] === 'categories')?'nav-active nav-expanded':'' }}
                             {{ ($path[0] === 'brands')?'nav-active nav-expanded':'' }}
                             {{ ($path[0] === 'item-sets')?'nav-active nav-expanded':'' }}
+                            {{ ($path[0] === 'colors')?'nav-active nav-expanded':'' }}
+                            {{ ($path[0] === 'sizes')?'nav-active nav-expanded':'' }}
+                            {{ ($path[0] === 'materials')?'nav-active nav-expanded':'' }}
                             ">
                             <a class="nav-link" href="#">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
@@ -373,6 +376,21 @@
                                 <li class="{{ ($path[0] === 'item-sets'  )?'nav-active':'' }}">
                                     <a class="nav-link" href="{{route('tenant.item_sets.index')}}">
                                         Pack Producto
+                                    </a>
+                                </li>
+                                <li class="{{ ($path[0] === 'item-sets'  )?'nav-active':'' }}">
+                                    <a class="nav-link" href="{{route('tenant.colors.index')}}">
+                                       Colores
+                                    </a>
+                                </li>
+                                <li class="{{ ($path[0] === 'item-sets'  )?'nav-active':'' }}">
+                                    <a class="nav-link" href="{{route('tenant.sizes.index')}}">
+                                        Tallas
+                                    </a>
+                                </li>
+                                <li class="{{ ($path[0] === 'item-sets'  )?'nav-active':'' }}">
+                                    <a class="nav-link" href="{{route('tenant.materials.index')}}">
+                                        Materiales
                                     </a>
                                 </li>
                             </ul>

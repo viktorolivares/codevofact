@@ -9,3 +9,4 @@
 @endsection
 
 @section('message', __('Sorry, you are not authorized to access this page.'))
+

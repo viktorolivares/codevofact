@@ -21,8 +21,6 @@
 </template>
 
 <script>
-
-
     export default {
         props: ['showDialog', 'recordId'],
         data() {
@@ -56,8 +54,6 @@
                 }
             },
             submit() {
-
-
                 this.loading_submit = true
                 this.$http.post(`${this.resource}`, this.form)
                     .then(response => {

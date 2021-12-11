@@ -57,6 +57,9 @@ class Item extends ModelTenant
         'apply_store',
         'brand_id',
         'category_id',
+        'color_id',
+        'size_id',
+        'material_id',
         'lot_code',
         'lots_enabled',
         'active',
@@ -209,6 +212,21 @@ class Item extends ModelTenant
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function color()
+    {
+        return $this->belongsTo(Color::class);
+    }
+
+    public function size()
+    {
+        return $this->belongsTo(Size::class);
+    }
+
+    public function materials()
+    {
+        return $this->belongsToMany(Material::class, 'item_material');
     }
 
     public function item_lots()
