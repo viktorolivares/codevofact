@@ -503,15 +503,10 @@
                 this.warehousesDetail = item.warehouses
                 this.showWarehousesDetail = true
             },
-            // filterItems(){
-            //     this.items = this.items.filter(item => item.warehouses.length >0)
-            // },
             initForm() {
                 this.errors = {};
 
                 this.form = {
-                   // category_id: [1],
-                   // edit: false,
                     item_id: null,
                     item: {},
                     affectation_igv_type_id: null,
@@ -541,9 +536,6 @@
                 this.item_unit_type = {};
                 this.has_list_prices = false;
             },
-            // initializeFields() {
-            //     this.form.affectation_igv_type_id = this.affectation_igv_types[0].id
-            // },
             async create() {
 
                 this.titleDialog = (this.recordItem) ? ' Editar Producto o Servicio' : ' Agregar Producto o Servicio';
@@ -742,10 +734,6 @@
                 this.total_item = null
             },
             async clickAddItem() {
-
-                // if(this.form.quantity < this.getMinQuantity()){
-                //     return this.$message.error(`La cantidad no puede ser inferior a ${this.getMinQuantity()}`);
-                // }
                 this.validateQuantity()
 
                 if(this.form.item.lots_enabled){
@@ -815,8 +803,6 @@
                     await this.$http.get(`/${this.resource}/table/items`).then((response) => {
                         this.items = response.data
                         this.form.item_id = item_id
-                        // if(item_id) this.changeItem()
-                        // this.filterItems()
                     })
 
                 }else{

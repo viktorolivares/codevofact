@@ -33,9 +33,11 @@ class TenantItemsTable extends Migration
             $table->string('purchase_affectation_igv_type_id');
             $table->unsignedInteger('color_id')->nullable();
             $table->unsignedInteger('size_id')->nullable();
+            $table->decimal('cost_price', 12, 2)->default(0);
             $table->decimal('stock', 12, 2)->default(0);
             $table->decimal('stock_min', 12, 2)->default(0);
             $table->json('attributes')->nullable();
+            $table->json('materials')->nullable();
             $table->timestamps();
 
             $table->foreign('color_id')->references('id')->on('colors');

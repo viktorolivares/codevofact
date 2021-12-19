@@ -53,7 +53,6 @@ class LockedEmissionProvider extends ServiceProvider
         Document::created(function ($document) {
 
             $configuration = Configuration::first();
-            // $quantity_documents = Document::count();
             $quantity_documents = $configuration->quantity_documents;
 
             if($configuration->locked_emission && $configuration->limit_documents !== 0){

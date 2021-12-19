@@ -68,9 +68,6 @@ class ItemSetController extends Controller
         $system_isc_types = SystemIscType::whereActive()->orderByDescription()->get();
         $affectation_igv_types = AffectationIgvType::whereActive()->get();
         $web_platforms = WebPlatform::get();
-        // $warehouses = Warehouse::all();
-        // $accounts = Account::all();
-        // $tags = Tag::all();
 
         return compact('unit_types', 'currency_types', 'attribute_types', 'system_isc_types', 'affectation_igv_types', 'web_platforms');
     }

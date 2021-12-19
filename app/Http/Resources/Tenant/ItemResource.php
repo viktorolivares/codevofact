@@ -56,7 +56,6 @@ class ItemResource extends JsonResource
             'has_plastic_bag_taxes' => (bool)$this->has_plastic_bag_taxes,
             'tags' => $this->tags,
             'tags_id' => $this->tags->pluck('tag_id'),
-            // 'individual_items' => collect($this->sets)->pluck('individual_item_id'),
             'commission_amount' => $this->commission_amount,
             'lot_code' => $this->lot_code,
             'line' => $this->line,
@@ -78,6 +77,7 @@ class ItemResource extends JsonResource
             }),
             'commission_type' => $this->commission_type ?? 'amount',
             'attributes' => $this->attributes ? $this->attributes : [],
+            'materials' => $this->materials ? $this->materials : [],
             'series_enabled' => (bool)$this->series_enabled,
             'lots_enabled' => (bool)$this->lots_enabled,
             'individual_items' => $this->sets->transform(function($row, $key) {
@@ -94,13 +94,6 @@ class ItemResource extends JsonResource
                 ];
             }),
             'web_platform_id' => $this->web_platform_id,
-
-            // 'warehouses' => collect($this->warehouses)->transform(function($row) {
-            //     return [
-            //         'warehouse_description' => $row->warehouse->description,
-            //         'stock' => $row->stock,
-            //     ];
-            // })
         ];
     }
 }

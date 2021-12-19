@@ -87,16 +87,6 @@ class Reniec
         return $person;
     }
 
-//    /**
-//     * Set Custom Http Client.
-//     *
-//     * @param ClientInterface $client
-//     */
-//    public function setClient(ClientInterface $client)
-//    {
-//        $this->client = $client;
-//    }
-
     /**
      * Get Last error message.
      *

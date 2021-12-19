@@ -30,19 +30,7 @@ class CashServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->expense_payment();
-        // $this->purchase();
     }
-
-    // private function purchase(){
-
-    //     Purchase::created(function ($purchase) {
-
-    //         $cash = self::getCash();
-    //         $cash->cash_documents()->create(['purchase_id' => $purchase->id]);
-
-    //     });
-
-    // }
 
     private function expense_payment(){
 

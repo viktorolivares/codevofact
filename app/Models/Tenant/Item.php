@@ -44,6 +44,7 @@ class Item extends ModelTenant
         'stock_min',
         'percentage_of_profit',
         'attributes',
+        'materials',
         'has_perception',
         'percentage_perception',
         'image',
@@ -59,7 +60,6 @@ class Item extends ModelTenant
         'category_id',
         'color_id',
         'size_id',
-        'material_id',
         'lot_code',
         'lots_enabled',
         'active',
@@ -71,7 +71,6 @@ class Item extends ModelTenant
         'barcode',
     ];
 
-
     public function getAttributesAttribute($value)
     {
         return (is_null($value))?null:json_decode($value);
@@ -80,6 +79,16 @@ class Item extends ModelTenant
     public function setAttributesAttribute($value)
     {
         $this->attributes['attributes'] = (is_null($value))?null:json_encode($value);
+    }
+
+    public function getAttributesMaterial($value)
+    {
+        return (is_null($value))?null:json_decode($value);
+    }
+
+    public function setAttributesMaterial($value)
+    {
+        $this->materials['materials'] = (is_null($value))?null:json_encode($value);
     }
 
     public function account()
@@ -222,11 +231,6 @@ class Item extends ModelTenant
     public function size()
     {
         return $this->belongsTo(Size::class);
-    }
-
-    public function materials()
-    {
-        return $this->belongsToMany(Material::class, 'item_material');
     }
 
     public function item_lots()

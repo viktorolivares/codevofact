@@ -302,17 +302,6 @@
                           </div>
                         </div>
                       </div>
-                      <!-- <div class="col-lg-4">
-                        <div class="summary">
-                          <h4 class="title">
-                            Total
-                            <br />&nbsp;
-                          </h4>
-                          <div class="info">
-                            <strong class="amount">S/ {{ balance.totals.total }}</strong>
-                          </div>
-                        </div>
-                      </div> -->
                     </div>
                     <div class="row m-t-20">
                       <div class="col-md-12">

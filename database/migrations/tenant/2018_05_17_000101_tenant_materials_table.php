@@ -17,6 +17,7 @@ class TenantMaterialsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description')->nullable();
+
         });
 
         DB::table('materials')->insert([

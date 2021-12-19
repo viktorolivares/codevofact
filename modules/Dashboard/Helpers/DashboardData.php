@@ -21,7 +21,6 @@ class DashboardData
 
     public function data($request)
     {
-// dd($request);
         $establishment_id = $request['establishment_id'];
         $period = $request['period'];
         $date_start = $request['date_start'];
@@ -50,16 +49,6 @@ class DashboardData
                 $d_end = $date_end;
                 break;
         }
-
-        // $customers = Person::whereType('customers')->orderBy('name')->take(100)->get()->transform(function($row) {
-        //     return [
-        //         'id' => $row->id,
-        //         'description' => $row->number.' - '.$row->name,
-        //         'name' => $row->name,
-        //         'number' => $row->number,
-        //         'identity_document_type_id' => $row->identity_document_type_id,
-        //     ];
-        // });
 
         return [
             'document' => $this->document_totals($establishment_id, $d_start, $d_end),
@@ -166,7 +155,7 @@ class DashboardData
         $document_total_note_credit_pen = 0;
 
         $document_total_pen = collect($documents->whereIn('state_type_id', ['01','03','05','07','13'])->whereIn('document_type_id', ['01','03','08']))->where('currency_type_id', 'PEN')->sum('total');
-        
+
 
         //USD
         $document_total_usd = 0;
@@ -191,7 +180,7 @@ class DashboardData
 
                     $document_total_payment_pen += collect($document->payments)->sum('payment');
                     $document_total_note_credit_pen += ($document->document_type_id == '07') ? $document->total:0; //nota de credito
-                
+
                 }
 
 
@@ -201,7 +190,7 @@ class DashboardData
 
                     $document_total_payment_usd += collect($document->payments)->sum('payment') * $document->exchange_rate_sale;
                     $document_total_note_credit_usd += ($document->document_type_id == '07') ? $document->total * $document->exchange_rate_sale:0; //nota de credito
-                
+
                 }
 
             }
@@ -215,9 +204,6 @@ class DashboardData
 
         $document_total = round(($document_total - $document_total_note_credit),2);
         $document_total_to_pay = $document_total - $document_total_payment;
-
-        // dd($document_total , $document_total_payment);
-        // dd($document_total, $document_total_pen, $document_total_note_credit, $document_total_payment, $document_total_to_pay);
 
         return [
             'totals' => [
@@ -315,8 +301,6 @@ class DashboardData
 
         $documents_total = $document_total - $document_total_note_credit;
 
-        // dd($document_total_pen , $document_total_usd, $document_total_note_credit_pen);
-
         //DOCUMENT
 
         //SALE NOTE
@@ -344,16 +328,6 @@ class DashboardData
 
         $total = $sale_notes_total + $documents_total;
 
-        // dd($period, $month_start, $month_end);
-
-        // if(in_array($period, ['month', 'between_months'])) {
-        //     if($month_start === $month_end) {
-        //         $data_array = $this->getDocumentsByDays($sale_notes, $documents, $date_start, $date_end);
-        //     } else {
-        //         $data_array = $this->getDocumentsByMonths($sale_notes, $documents, $month_start, $month_end);
-        //     }
-        // } 
-        
         if($period == 'month')
         {
             $data_array = $this->getDocumentsByDays($sale_notes, $documents, $date_start, $date_end);
@@ -366,7 +340,7 @@ class DashboardData
         {
             $data_array = $this->getDocumentsByMonths($sale_notes, $documents, $month_start, $month_end);
         }
-        else 
+        else
         {
             if($date_start === $date_end) {
                 $data_array = $this->getDocumentsByHours($sale_notes, $documents);
@@ -668,8 +642,6 @@ class DashboardData
         $response_totals_sale_note = $sale_note['totals'];
         $response_totals_purchase = $purchase['totals'];
         $response_totals_expense = $expense['totals'];
-
-        // dd($response_totals_document, $response_totals_sale_note, $response_totals_purchase, $response_totals_expense);
 
         $total_document =  $response_totals_document['total'];
         $total_payment_document =  $response_totals_document['total_payment'];

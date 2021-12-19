@@ -89,8 +89,6 @@ class ItemCollection extends ResourceCollection
                         'price_default' => $row->price_default,
                     ];
                 }),
-
-
             ];
         });
     }

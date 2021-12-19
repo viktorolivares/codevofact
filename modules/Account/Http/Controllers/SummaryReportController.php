@@ -28,7 +28,6 @@ class SummaryReportController extends Controller
             'date_start' => 'required',
             'date_end' => 'required',
         ]);
-        // dd($request->all());
         return $this->getRecords($request);
 
     }
@@ -145,7 +144,6 @@ class SummaryReportController extends Controller
 
                         return [
                             'document_type_description' => ($series->document_type_id == '01') ? 'FAC':'BV',
-                            // 'series' => $series,
                             'series' => $series->number,
                             'start_number' => $start_number,
                             'end_number' => $end_number,
@@ -180,11 +178,6 @@ class SummaryReportController extends Controller
             }])
             ->get()
             ->map(function($series) use($total){
-                // Estas variables no se usan
-                // $start_number = $series->documents->min('number') ?? 0;
-                // $end_number = $series->documents->max('number') ?? 0;
-                // Eliminando esta linea porque esta volviendo a llamar a la base de datos y no esta filtrando por fechas
-                // $voided = (count($series->documents) > 0) ? $series->documents()->where('state_type_id', '11')->pluck('number')->toArray() : [];
                 $voided = $series->documents->pluck('number')->toArray();
                 $total +=  $series->documents->where('currency_type_id', 'PEN')->sum('total');
                 $doc_dollar = collect($series->documents->where('currency_type_id', 'USD'));

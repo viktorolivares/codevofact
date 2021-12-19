@@ -262,7 +262,6 @@ class DashboardView
                 break;
         }
 
-        // dd($request['customer_id']);
         /*
          * Documents
          */
@@ -314,7 +313,6 @@ class DashboardView
 
             $documents = DB::connection('tenant')
                 ->table('documents')
-                //->where('customer_id', $customer_id)
                 ->join('persons', 'persons.id', '=', 'documents.customer_id')
                 ->join('users', 'users.id', '=', 'documents.user_id')
                 ->leftJoinSub($document_payments, 'payments', function ($join) {
@@ -367,7 +365,6 @@ class DashboardView
 
             $sale_notes = DB::connection('tenant')
                 ->table('sale_notes')
-                //->where('customer_id', $customer_id)
                 ->join('persons', 'persons.id', '=', 'sale_notes.customer_id')
                 ->join('users', 'users.id', '=', 'sale_notes.user_id')
                 ->leftJoinSub($sale_note_payments, 'payments', function ($join) {
@@ -407,7 +404,6 @@ class DashboardView
 
             $sale_notes = DB::connection('tenant')
                 ->table('sale_notes')
-               // ->where('customer_id', $customer_id)
                 ->join('persons', 'persons.id', '=', 'sale_notes.customer_id')
                 ->join('users', 'users.id', '=', 'sale_notes.user_id')
                 ->leftJoinSub($sale_note_payments, 'payments', function ($join) {
@@ -444,9 +440,8 @@ class DashboardView
 
         }
 
-        // return $documents->union($sale_notes);
         return $documents->union($sale_notes)->havingRaw('total_subtraction > 0');
- 
+
     }
 
 }

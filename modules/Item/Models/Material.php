@@ -9,13 +9,9 @@ class Material extends ModelTenant
 {
     public $timestamps = false;
     protected $fillable = [
-        'name', 'description'
+        'id',
+        'name',
+        'description'
     ];
-
-    public function items()
-    {
-        return $this->hasMany(Material::class);
-    }
-
 
 }

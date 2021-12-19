@@ -16,9 +16,6 @@ use Modules\Expense\Models\Expense;
 
 class DashboardUtility
 {
-
-    // use TotalsTrait;
-
     public function data($request)
     {
 
@@ -113,12 +110,9 @@ class DashboardUtility
             $sale_note_items = $sale_note_items->where('item_id', $item_id);
         }
 
-        // dd($document_items);
         $getTotalDocumentItems = $this->getTotalDocumentItems($document_items);
         $getTotalSaleNoteItems = $this->getTotalSaleNoteItems($sale_note_items);
         $getTotalExpenses = $this->getTotalExpenses($expenses);
-
-        // dd($getTotalDocumentItems, $getTotalSaleNoteItems, $getTotalExpenses);
 
         $total_income = $getTotalDocumentItems['document_sale_total'] + $getTotalSaleNoteItems['sale_note_sale_total'];
         $total_egress = $getTotalDocumentItems['document_purchase_total'] + $getTotalSaleNoteItems['sale_note_purchase_total'] + $getTotalExpenses;
@@ -227,15 +221,6 @@ class DashboardUtility
 
         return [
 
-            // 'sale_note_sale_total_pen' => round($sale_note_sale_total_pen, 2),
-            // 'sale_note_purchase_total_pen' => round($sale_note_purchase_total_pen, 2),
-
-            // 'sale_note_purchase_total_usd' => round($sale_note_purchase_total_usd, 2),
-            // 'sale_note_sale_total_usd' => round($sale_note_sale_total_usd, 2),
-
-            // 'sale_note_utility_total_pen' => round($sale_note_utility_total_pen, 2),
-            // 'sale_note_utility_total_usd' => round($sale_note_utility_total_usd, 2),
-
             'sale_note_sale_total' => $sale_note_sale_total_usd + $sale_note_sale_total_pen,
             'sale_note_purchase_total' => $sale_note_purchase_total_usd + $sale_note_purchase_total_pen,
 
@@ -262,27 +247,12 @@ class DashboardUtility
 
         foreach ($document_items as $doc_it) {
 
-            //compra por item
-            // if($doc_it->relation_item->purchase_unit_price > 0){
-
-            //     $purchase_unit_price = $doc_it->relation_item->purchase_unit_price;
-            //     // $purchase_currency_type = $doc_it->relation_item->currency_type_id;
-
-            // }else{
-
-            //     $purchase_item = PurchaseItem::select('unit_price')->where('item_id', $doc_it->item_id)->last();
-            //     $purchase_unit_price = ($purchase_item) ? $purchase_item->unit_price : $doc_it->unit_price;
-            //     // $purchase_currency_type = ($purchase_item) ? $purchase_item->purchase->currency_type_id : $doc_it->document->currency_type_id;
-
-            // }
             $purchase_unit_price = $this->getPurchaseUnitPrice($doc_it);
 
 
             $doc_total_purchase = $purchase_unit_price * $doc_it->quantity;
 
             if($doc_it->document->currency_type_id === 'PEN'){
-
-                // $doc_total_purchase_pen = ($purchase_currency_type == 'PEN') ? ($purchase_unit_price * $doc_it->quantity):($purchase_unit_price * $doc_it->quantity * $doc_it->document->exchange_rate_sale);
 
                 if(in_array($doc_it->document->document_type_id,['01','03','08'])){
 

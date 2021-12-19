@@ -55,8 +55,6 @@ class DashboardSalePurchase
 
     private function top_customers($establishment_id, $d_start, $d_end, $enabled_transaction_customer){
 
-        // $documents = Document::get();
-        // $sale_notes = SaleNote::get();
         if($d_start && $d_end){
 
             $documents = Document::query()->where('establishment_id', $establishment_id)
@@ -90,9 +88,6 @@ class DashboardSalePurchase
 
         foreach ($group_customers as $customers) {
 
-            // $customers es un cliente con todos sus documentos generados
-            // dd($customers[0]->total);
-
             $transaction_quantity_sale = $customers->whereIn('document_type_id', ['01','03','08'])->count() + $customers->where('prefix', 'NV')->count();
             $transaction_quantity_credit_note =$customers->where('document_type_id', '07')->count();
 
@@ -102,10 +97,8 @@ class DashboardSalePurchase
 
             $totals = $customers->whereIn('document_type_id', ['01','03','08'])->sum(function ($row) {
                 return $this->calculateTotalCurrency($row->currency_type_id, $row->exchange_rate_sale, $row->total);//count($product['colors']);
-            });    //('total');
+            });
 
-
-            //totales en documents
             $totals_sale_note = $customers->where('prefix', 'NV')->sum(function ($row) {
                 return $this->calculateTotalCurrency($row->currency_type_id, $row->exchange_rate_sale, $row->total);//count($product['colors']);
             });
@@ -136,7 +129,6 @@ class DashboardSalePurchase
 
     private function purchase_totals($establishment_id, $d_start, $d_end)
     {
-        // $purchases = Purchase::get();
         $purchases = Purchase::query()->whereIn('state_type_id', ['01','03','05','07','13'])->where('establishment_id', $establishment_id)->get();
 
         $purchases_total = $purchases->where('currency_type_id', 'PEN')->sum('total');
@@ -202,8 +194,6 @@ class DashboardSalePurchase
 
     private function items_by_sales($establishment_id, $d_start, $d_end, $enabled_move_item){
 
-        // $document_items = DocumentItem::get();
-        // $sale_note_items = SaleNoteItem::get();
         if($d_start && $d_end){
 
             $documents = Document::query()->where('establishment_id', $establishment_id)
@@ -224,8 +214,6 @@ class DashboardSalePurchase
                         ->whereIn('state_type_id', ['01','03','05','07','13'])->get();
 
         }
-
-        // dd($documents->count(),$sale_notes->count());
 
         $document_items = collect([]);
         $sale_note_items = collect([]);
@@ -253,7 +241,6 @@ class DashboardSalePurchase
         $items_by_sales = collect([]);
 
         foreach ($group_items as $items) {
-            // dd($items);
 
             $item = Item::where('status',true)->find($items[0]->item_id);
 
@@ -296,7 +283,6 @@ class DashboardSalePurchase
                     'description' => $item->description,
                     'internal_id' => $item->internal_id,
                     'move_quantity' => number_format($move_quantity, 2, ".", ""),
-                   // 'currency' => $item->currency_type->symbol
                 ]);
             }
         }

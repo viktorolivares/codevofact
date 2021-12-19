@@ -17,7 +17,6 @@ class Jne
             ];
         }
 
-        //nuevo metodo post
         $requestToken = 'Dmfiv1Unnsv8I9EoXEzbyQExSD8Q1UY7viyyf_347vRCfO-1xGFvDddaxDAlvm0cZ8XgAKTaWclVFnnsGgoy4aLlBGB5m-E8rGw_ymEcCig1:eq4At-H2zqgXPrPnoiDGFZH0Fdx5a-1UiyVaR4nQlCvYZzAhzmvWxLwkUk6-yORYrBBxEnoG5sm-Hkiyc91so6-nHHxIeLee5p700KE47Cw1';
         $url = 'https://aplicaciones007.jne.gob.pe/srop_publico/Consulta/api/AfiliadoApi/GetNombresCiudadano';
 
@@ -45,8 +44,6 @@ class Jne
 
         $data = json_decode($response, true);
 
-        // if ($response) {
-        // $text = $response->getBody()->getContents();
         $text = $data['data'];
         $parts = explode('|', $text);
 
@@ -70,7 +67,6 @@ class Jne
                 'message' => 'Datos no encontrados.'
             ];
         }
-        // }
 
         return [
             'success' => false,

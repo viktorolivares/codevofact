@@ -378,17 +378,17 @@
                                         Pack Producto
                                     </a>
                                 </li>
-                                <li class="{{ ($path[0] === 'item-sets'  )?'nav-active':'' }}">
+                                <li class="{{ ($path[0] === 'colors'  )?'nav-active':'' }}">
                                     <a class="nav-link" href="{{route('tenant.colors.index')}}">
                                        Colores
                                     </a>
                                 </li>
-                                <li class="{{ ($path[0] === 'item-sets'  )?'nav-active':'' }}">
+                                <li class="{{ ($path[0] === 'sizes'  )?'nav-active':'' }}">
                                     <a class="nav-link" href="{{route('tenant.sizes.index')}}">
                                         Tallas
                                     </a>
                                 </li>
-                                <li class="{{ ($path[0] === 'item-sets'  )?'nav-active':'' }}">
+                                <li class="{{ ($path[0] === 'materials'  )?'nav-active':'' }}">
                                     <a class="nav-link" href="{{route('tenant.materials.index')}}">
                                         Materiales
                                     </a>

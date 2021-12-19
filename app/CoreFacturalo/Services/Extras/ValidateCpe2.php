@@ -66,19 +66,16 @@ class ValidateCpe2
     public function __construct()
     {
         $this->client = new Client([
-            // 'base_uri' => 'https://www.sunat.gob.pe/ol-ti-itconsultaunificadalibre/consultaUnificadaLibre/',
             'base_uri' => 'https://ww1.sunat.gob.pe/ol-ti-itconsultaunificadalibre/consultaUnificadaLibre/',
             'defaults' => [
                 'exceptions' => false,
                 'allow_redirects' => false
             ]
         ]);
-//        $this->client = new Client(['cookies' => true]);
     }
 
     public function search($company_number, $document_type_id, $series, $number, $date_of_issue, $total)
     {
-//        dd('aca');
         try {
             $captcha = trim($this->getCaptchaImage());
             $form_params = [
@@ -105,7 +102,6 @@ class ValidateCpe2
                 'headers' => [
                     'Accept' => 'application/json',
                 ],
-//                'form_params' => $form_params
             ]);
 
             $html = $response->getBody()->getContents();

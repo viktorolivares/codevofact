@@ -15,8 +15,6 @@ class CacheServiceProvider extends ServiceProvider
             if (PHP_SAPI === 'cli') {
                 $uuid = $app['config']['driver'];
             } else {
-                // ok, this is basically a hack to set the redis cache store
-                // prefix to the UUID of the current website being called
                 $fqdn = $_SERVER['SERVER_NAME'];
 
                 $uuid = DB::table('hostnames')

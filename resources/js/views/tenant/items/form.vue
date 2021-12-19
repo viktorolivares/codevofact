@@ -323,44 +323,61 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div v-if="attribute_types.length > 0">
+                                    <div v-if="material_types.length > 0">
                                         <h5 class="separator-title ">
-                                        Atributos &nbsp;
+                                        Materiales &nbsp;
                                             <el-tooltip class="item" effect="dark" content="Diferentes presentaciones para la venta del producto" placement="top">
                                                 <i class="fa fa-info-circle"></i>
                                             </el-tooltip>
-                                            <a href="#" class="control-label font-weight-bold text-info" @click.prevent="clickAddAttribute">[+ Agregar]</a>
+                                            <a href="#" class="control-label font-weight-bold text-info" @click.prevent="clickAddMaterial">[+ Agregar]</a>
                                         </h5>
                                     </div>
-                                    <div v-if="form.attributes.length > 0">
+                                    <div v-if="form.materials.length > 0">
                                         <div class="table-responsive">
                                             <table class="table table-striped table-hover table-bordered">
                                                 <thead>
                                                 <tr>
                                                     <th>Tipo</th>
-                                                    <th>Descripción</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Precio</th>
+                                                    <th>Total</th>
                                                     <th></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr v-for="(row, index) in form.attributes" :key="index">
+                                                <tr v-for="(row, index) in form.materials" :key="index">
                                                     <td>
-                                                        <el-select v-model="row.attribute_type_id" filterable @change="changeAttributeType(index)">
-                                                            <el-option v-for="option in attribute_types" :key="option.id" :value="option.id" :label="option.description"></el-option>
+                                                        <el-select v-model="row.material_id" filterable @change="changeMaterial(index)">
+                                                            <el-option v-for="option in material_types" :key="option.id" :value="option.id" :label="option.name + ' (' + option.description + ')'"></el-option>
                                                         </el-select>
                                                     </td>
                                                     <td>
-                                                        <el-input v-model="row.value"></el-input>
+                                                        <el-input v-model="row.qty" @change="calculateTotal(index)"></el-input>
+                                                    </td>
+                                                    <td>
+                                                        <el-input v-model="row.price" @change="calculateTotal(index)"></el-input>
+                                                    </td>
+                                                    <td>
+                                                        <el-input v-model="row.total" disabled></el-input>
                                                     </td>
                                                     <td>
                                                         <div class="mt-1 text-center">
-                                                            <button type="button" class="btn btn-danger btn-xs" @click.prevent="clickRemoveAttribute(index)">x</button>
+                                                            <button type="button" class="btn btn-danger btn-xs" @click.prevent="clickRemoveMaterial(index)">x</button>
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 </tbody>
                                             </table>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group" :class="{'has-danger': errors.cost_price}">
+                                        <label class="control-label">Total Costo<span class="text-danger"></span></label>
+                                        <el-input v-model="form.cost_price" @input="calculateCost()" disabled></el-input>
+                                        <small class="form-control-feedback" v-if="errors.cost_price" v-text="errors.cost_price[0]"></small>
                                     </div>
                                 </div>
                             </div>
@@ -472,6 +489,8 @@
 
                 },
                 attribute_types:  [],
+                material_types:  [],
+                cost_price: null,
                 activeName: 'first',
             }
         },
@@ -488,8 +507,9 @@
                     this.categories = response.data.categories
                     this.brands = response.data.brands
                     this.colors = response.data.colors
-                     this.sizes = response.data.sizes
+                    this.sizes = response.data.sizes
                     this.attribute_types = response.data.attribute_types
+                    this.material_types = response.data.material_types
                     this.configuration = response.data.configuration
                     this.form.sale_affectation_igv_type_id = (this.affectation_igv_types.length > 0)?this.affectation_igv_types[0].id:null
                     this.form.purchase_affectation_igv_type_id = (this.affectation_igv_types.length > 0)?this.affectation_igv_types[0].id:null
@@ -521,6 +541,15 @@
                     start_date: null,
                     end_date: null,
                     duration: null,
+                })
+            },
+            clickAddMaterial() {
+                this.form.materials.push({
+                    material_id: null,
+                    description: null,
+                    qty: null,
+                    price: null,
+                    total: null
                 })
             },
             async reloadTables(){
@@ -609,6 +638,7 @@
                     currency_type_id: 'PEN',
                     sale_unit_price: 0,
                     purchase_unit_price: 0,
+                    cost_price: 0,
                     has_isc: false,
                     system_isc_type_id: null,
                     percentage_isc: 0,
@@ -631,17 +661,19 @@
                     brand_id: null,
                     color_id: null,
                     size_id: null,
-                    date_of_due:null,
-                    lot_code:null,
-                    line:null,
+                    date_of_due: null,
+                    lot_code: null,
+                    line: null,
                     lots_enabled:false,
-                    lots:[],
+                    lots: [],
                     attributes: [],
+                    materials: [],
                     series_enabled: false,
                     purchase_has_igv: true,
-                    web_platform_id:null,
+                    web_platform_id: null,
                     has_plastic_bag_taxes: false,
-                }
+                    cost_price: 0
+                },
                 this.show_has_igv = true
                 this.purchase_show_has_igv = true
                 this.enabled_percentage_of_profit = false
@@ -895,12 +927,36 @@
             clickRemoveAttribute(index) {
                 this.form.attributes.splice(index, 1)
             },
+            changeMaterial(index) {
+                let material_id = this.form.materials[index].material_id
+                let material_type = _.find(this.material_types, {id: material_id})
+                this.form.materials[index].description = material_type.description
+            },
+            clickRemoveMaterial(index) {
+                this.form.materials.splice(index, 1)
+            },
             getCode() {
                 this.$http.get(`/${this.resource}/code`)
                     .then(response => {
                         this.form.internal_id = response.data
                     })
             },
+            calculateTotal(index) {
+
+                this.form.materials[index].total = _.round((this.form.materials[index].qty) * (this.form.materials[index].price), 4)
+
+                var total_cost = []
+                total_cost.push(this.form.materials[index].total)
+
+                for(var i = 0; i < index; i++) {
+                    total_cost.push(this.form.materials[i].total)
+                }
+
+                let total = total_cost.reduce((a, b) => a + b, 0)
+
+                this.form.cost_price = total
+            }
+
         }
     }
 </script>

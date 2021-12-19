@@ -117,7 +117,7 @@ class ItemController extends Controller
         $code = Item::max('id');
         $code = $code + 1;
         $code = str_pad($code,5,"0",STR_PAD_LEFT);
-        $code = 'IA'.$code;
+        $code = 'IAL'.$code;
 
         return $code;
     }
@@ -141,11 +141,11 @@ class ItemController extends Controller
         $brands = Brand::all();
         $sizes = Size::all();
         $colors = Color::orderBy('name', 'asc')->get();
-        $materials = Material::all();
+        $material_types = Material::all();
         $configuration = Configuration::select('affectation_igv_type_id')->firstOrFail();
 
         return compact('unit_types', 'currency_types', 'attribute_types', 'system_isc_types',
-                        'affectation_igv_types','warehouses', 'accounts', 'tags', 'categories', 'brands', 'colors', 'sizes', 'materials', 'configuration');
+                        'affectation_igv_types','warehouses', 'accounts', 'tags', 'categories', 'brands', 'colors', 'sizes', 'material_types', 'configuration');
     }
 
     public function record($id)
@@ -156,12 +156,15 @@ class ItemController extends Controller
     }
 
     public function store(ItemRequest $request) {
+
         $id = $request->input('id');
+
         if (!$request->barcode) {
             $barcode = Item::max('id');
             $barcode = $barcode + 100000000001;
             $request->merge(['barcode' => $barcode ]);
         }
+
         $item = Item::firstOrNew(['id' => $id]);
         $item->item_type_id = '01';
         $item->amount_plastic_bag_taxes = Configuration::firstOrFail()->amount_plastic_bag_taxes;
@@ -460,7 +463,6 @@ class ItemController extends Controller
 
     public function duplicate(Request $request)
     {
-       // return $request->id;
        $obj = Item::find($request->id);
        $new = $obj->replicate();
        $new->save();

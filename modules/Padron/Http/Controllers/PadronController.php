@@ -76,7 +76,7 @@ class PadronController extends Controller
                 'state' => 0
             ]);
 
-            //DOWNLOAD ZIP ------
+            //DOWNLOAD ZIP
             $filepath = str_replace(DIRECTORY_SEPARATOR, '/', public_path("padron_rar".DIRECTORY_SEPARATOR."padron_reducido_ruc.zip"));
             $url = "http://www2.sunat.gob.pe/padron_reducido_ruc.zip";
 

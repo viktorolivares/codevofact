@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Administrador',
             'email' => 'codevo.solutions@gmail.com',
             'password' => bcrypt('123456'),
+            'phone' => '51963310898'
         ]);
 
 
