@@ -32,9 +32,7 @@ class ConfigurationController extends Controller
 		$pdf = new Mpdf();
 		$pdf_margin_top = 15;
 		$pdf_margin_bottom = 15;
-		// $pdf_margin_top = 15;
 		$pdf_margin_right = 15;
-		// $pdf_margin_bottom = 15;
 		$pdf_margin_left = 15;
 
 		$pdf_font_regular = config('tenant.pdf_name_regular');
@@ -82,7 +80,6 @@ class ConfigurationController extends Controller
 
 		$stylesheet = file_get_contents($path_css);
 
-		// $actions = array_key_exists('actions', $request->inputs)?$request->inputs['actions']:[];
 		$actions = [];
 		$html = $template->preprintedpdf($request->base_pdf_template, 'dispatch', Company::active(), 'a4');
 		$pdf->WriteHTML($stylesheet, HTMLParserMode::HEADER_CSS);
@@ -97,33 +94,6 @@ class ConfigurationController extends Controller
 	{
 		return response()->file(storage_path('app' . DIRECTORY_SEPARATOR . 'preprintedpdf' . DIRECTORY_SEPARATOR . $template . '.pdf'));
 	}
-
-	// public function dispatch(Request $request) {
-	//     dd($request);
-	//     return 'prueba';
-
-	//     $fact = DB::connection('tenant')->transaction(function () use($request) {
-	//         $facturalo = new Facturalo();
-	//         $facturalo->save($request->all());
-	//         $facturalo->createXmlUnsigned();
-	//         $facturalo->signXmlUnsigned();
-	//         $facturalo->createPdf();
-	//         $facturalo->senderXmlSignedBill();
-
-	//         return $facturalo;
-	//     });
-
-	//     $document = $fact->getDocument();
-	//     $response = $fact->getResponse();
-
-	//     return [
-	//         'success' => true,
-	//         'message' => "Se creo la guía de remisión {$document->series}-{$document->number}",
-	//         'data' => [
-	//             'id' => $document->id,
-	//         ],
-	//     ];
-	// }
 
 	public function addSeeder()
 	{
@@ -146,7 +116,6 @@ class ConfigurationController extends Controller
 			->insert(['formats' => $insertar[2]]);
 		}
 
-		// revisión custom
 		$exists = Storage::disk('core')->exists('Templates/pdf/custom/style.css');
 		if (!$exists) {
 			Storage::disk('core')->copy('Templates/pdf/default/style.css', 'Templates/pdf/custom/style.css');
@@ -181,7 +150,6 @@ class ConfigurationController extends Controller
 			->insert(['formats' => $insertar[2]]);
 		}
 
-		// revisión custom
 		$exists = Storage::disk('core')->exists('Templates/preprinted_pdf/custom/style.css');
 		if (!$exists) {
 			Storage::disk('core')->copy('Templates/preprinted_pdf/default/style.css', 'Templates/preprinted_pdf/custom/style.css');
@@ -202,9 +170,7 @@ class ConfigurationController extends Controller
 		$format->save();
 
 		$config_format = config(['tenant.pdf_template' => $format->formats]);
-		// $fp = fopen(base_path() .'/config/tenant.php' , 'w');
-		// fwrite($fp, '<?php return ' . var_export(config('tenant'), true) . ';');
-		// fclose($fp);
+
 		return [
 			'success' => true,
 			'message' => 'Configuración actualizada'
@@ -327,28 +293,6 @@ class ConfigurationController extends Controller
 
 	public function getSystemPhone()
 	{
-		// $configuration = Configuration::first();
-		// $ws = $configuration->enable_whatsapp;
-
-		// $current = url('/phone');
-		// $parse_current = parse_url($current);
-		// $explode_current = explode('.', $parse_current['host']);
-		// $app_url = config('app.url');
-		// if(!array_key_exists('port', $parse_current)){
-		//     $path = $app_url.$parse_current['path'];
-		// }else{
-		//     $path = $app_url.':'.$parse_current['port'].$parse_current['path'];
-		// }
-
-		// $http = new Client(['verify' => false]);
-		// $response = $http->request('GET', $path);
-		// if($response->getStatusCode() == '200'){
-		//     $body = $response->getBody();
-
-		//     $configuration->phone_whatsapp = $body;
-		//     $configuration->save();
-		// }
-		// return 'error';
 	}
 
 	public function uploadFile(Request $request)

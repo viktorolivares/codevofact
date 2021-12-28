@@ -27,7 +27,6 @@ class TagController extends Controller
     {
         return [
             'description' => 'Nombre'
-            // 'description' => 'Descripción'
         ];
     }
 
@@ -66,13 +65,9 @@ class TagController extends Controller
 
     public function destroy($id)
     {
-        //return 'sd';
         $item = Tag::findOrFail($id);
-       // $this->deleteRecordInitialKardex($item);
         $item->status = 0;
         $item->save();
-
-       // $item->delete();
 
         return [
             'success' => true,

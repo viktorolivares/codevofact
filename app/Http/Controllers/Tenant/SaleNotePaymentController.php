@@ -200,7 +200,6 @@ class SaleNotePaymentController extends Controller
 
         $this->uploadStorage($document->filename, $pdf->output('', 'S'), 'sale_note');
         return $document->filename;
-//        $this->uploadFile($pdf->output('', 'S'), 'sale_note');
     }
 
     public function toPrint($sale_note_id, $format)

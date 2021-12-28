@@ -94,7 +94,6 @@ class CashController extends Controller
         return compact('cash');
     }
 
-
     public function record($id)
     {
         $record = new CashResource(Cash::findOrFail($id));
@@ -130,7 +129,6 @@ class CashController extends Controller
 
     }
 
-
     public function createCashTransaction($cash, $request){
 
         $this->destroyCashTransaction($cash);
@@ -149,7 +147,6 @@ class CashController extends Controller
         $this->createGlobalPaymentTransaction($cash_transaction, $data);
 
     }
-
 
     public function close($id) {
 
@@ -198,7 +195,6 @@ class CashController extends Controller
 
     }
 
-
     public function cash_document(Request $request) {
 
         $cash = Cash::where([['user_id',auth()->user()->id],['state',true]])->first();
@@ -209,7 +205,6 @@ class CashController extends Controller
             'message' => 'Venta con éxito',
         ];
     }
-
 
     public function destroy($id)
     {
@@ -239,7 +234,6 @@ class CashController extends Controller
 
     }
 
-
     public function destroyCashTransaction($cash){
 
         $ini_cash_transaction = $cash->cash_transaction;
@@ -249,7 +243,6 @@ class CashController extends Controller
         }
 
     }
-
 
     public function report($cash) {
 
@@ -299,8 +292,6 @@ class CashController extends Controller
 
     }
 
-
-
     public function report_products_excel($id)
     {
 
@@ -314,7 +305,6 @@ class CashController extends Controller
                 ->download($filename.'.xlsx');
 
     }
-
 
     public function getDataReport($id){
 
@@ -338,7 +328,6 @@ class CashController extends Controller
         return compact("cash", "company", "documents");
 
     }
-
 
     public function getSaleNotesReportProducts($cash){
 

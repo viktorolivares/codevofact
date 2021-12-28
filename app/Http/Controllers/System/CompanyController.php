@@ -34,7 +34,6 @@ class CompanyController extends Controller
 
     public function store(CompanyRequest $request)
     {
-       // $id = $request->input('id');
         $company = Configuration::first();
         $company->fill($request->all());
         $company->save();

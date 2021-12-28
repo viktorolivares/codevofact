@@ -170,7 +170,10 @@ class ItemController extends Controller
         $item->amount_plastic_bag_taxes = Configuration::firstOrFail()->amount_plastic_bag_taxes;
         $item->fill($request->all());
 
+        $item->materials = json_encode($request->materials);
+
         $temp_path = $request->input('temp_path');
+
         if($temp_path) {
 
             $directory = 'public'.DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'items'.DIRECTORY_SEPARATOR;
@@ -202,8 +205,6 @@ class ItemController extends Controller
             });
             Storage::put($directory.$file_name,  (string) $image->encode('jpg', 20));
             $item->image_small = $file_name;
-
-
 
         }else if(!$request->input('image') && !$request->input('temp_path') && !$request->input('image_url')){
             $item->image = 'imagen-no-disponible.jpg';
@@ -238,66 +239,10 @@ class ItemController extends Controller
 
             $establishment = Establishment::where('id', auth()->user()->establishment_id)->first();
             $warehouse = Warehouse::where('establishment_id',$establishment->id)->first();
-            $v_lots = isset($request->lots) ? $request->lots:[];
 
-            foreach ($v_lots as $lot) {
-
-                $item->lots()->create([
-                    'date' => $lot['date'],
-                    'series' => $lot['series'],
-                    'item_id' => $item->id,
-                    'warehouse_id' => $warehouse ? $warehouse->id:null,
-                    'has_sale' => false,
-                    'state' => $lot['state'],
-                ]);
-            }
-            $lots_enabled = isset($request->lots_enabled) ? $request->lots_enabled:false;
-            if ($lots_enabled) {
-                ItemLotsGroup::create([
-                    'code'  => $request->lot_code,
-                    'quantity'  => $request->stock,
-                    'date_of_due'  => $request->date_of_due,
-                    'item_id' => $item->id
-                ]);
-            }
         } else {
-            $item->lots()->delete();
             $establishment = Establishment::where('id', auth()->user()->establishment_id)->first();
             $warehouse = Warehouse::where('establishment_id',$establishment->id)->first();
-            $v_lots = isset($request->lots) ? $request->lots:[];
-            foreach ($v_lots as $lot) {
-                if ($lot['deleted'] == true) {
-                    ItemLot::find($lot['id'])->delete();
-                } else {
-                    if ( isset( $lot['id'] )) {
-                        ItemLot::find($lot['id'])->update([
-                            'date' => $lot['date'],
-                            'series' => $lot['series'],
-                            'state' => $lot['state'],
-                        ]);
-                    } else {
-                        $item->lots()->create([
-                            'date' => $lot['date'],
-                            'series' => $lot['series'],
-                            'item_id' => $item->id,
-                            'warehouse_id' => $warehouse ? $warehouse->id:null,
-                            'has_sale' => false,
-                            'state' => $lot['state'],
-                        ]);
-                    }
-                }
-            }
-
-            $lots_enabled = isset($request->lots_enabled) ? $request->lots_enabled:false;
-            if ($lots_enabled) {
-                ItemLotsGroup::where('item_id', $item->id)->delete();
-                ItemLotsGroup::create([
-                    'code'  => $request->lot_code,
-                    'quantity'  => $request->stock,
-                    'date_of_due'  => $request->date_of_due,
-                    'item_id' => $item->id
-                ]);
-            }
         }
 
         $directory = 'public'.DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'items'.DIRECTORY_SEPARATOR;
@@ -358,7 +303,6 @@ class ItemController extends Controller
             'message' => 'Registro eliminado con éxito'
         ];
     }
-
 
     public function import(Request $request)
     {

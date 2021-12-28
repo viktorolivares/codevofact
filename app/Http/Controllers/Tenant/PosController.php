@@ -271,7 +271,6 @@ class PosController extends Controller
                         ];
                     }
                 }
-                // dd($individual_item);
             }
 
 

@@ -28,7 +28,6 @@ class SummaryController extends Controller
         });
 
         $document = $fact->getDocument();
-        //$response = $fact->getResponse();
 
         return [
             'success' => true,
@@ -74,7 +73,6 @@ class SummaryController extends Controller
             ],
             'links' => [
                 'xml' => $summary->download_external_xml,
-//                'pdf' => $summary->download_external_pdf,
                 'cdr' => $summary->download_external_cdr,
             ],
             'response' => $response

@@ -15,7 +15,6 @@ class ItemCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-
         $configuration =  Configuration::first();
 
         return $this->collection->transform(function($row, $key) use($configuration){
@@ -45,6 +44,10 @@ class ItemCollection extends ResourceCollection
                 'second_name' => $row->second_name,
                 'model' => $row->model,
                 'barcode' => $row->barcode,
+                'mark_code' => $row->mark_code,
+                'mark_price' => $row->mark_price,
+                'discount' => $row->discount,
+                'cost_price' => $row->cost_price,
                 'warehouse_id' => $row->warehouse_id,
                 'internal_id' => $row->internal_id,
                 'item_code' => $row->item_code,

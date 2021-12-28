@@ -21,9 +21,6 @@ class UpdateController extends Controller
         $id = new Process('git describe --tags');
         $id->run();
         $res_id = $id->getOutput();
-        // $tag = new Process('git tag | sort -V | tail -1');
-        // $tag->run();
-        // $res_tag = $tag->getOutput();
         return json_encode($res_id);
     }
 
@@ -92,38 +89,6 @@ class UpdateController extends Controller
 
     public function keygen()
     {
-        //genero ssh
-        // $process = new Process(['chmod +x ../script-ssh.sh','sh ../script-ssh.sh']);
-        // $process->run();
-        // if (!$process->isSuccessful()) {
-        //     throw new ProcessFailedException($process);
-        // }
-        // $output = $process->getOutput();
 
-        //genero ssh sin validar
-        //ssh-keygen -t rsa -q -P "" -f ../id_rsa
-
-
-        // copio ssh a contenedor
-        //docker cp archivo.txt facturadorpro31_fpm1_1:/root/.ssh/
-
-        //eliminar la clave creada para evitar conflictos con el pull
-        // rm ../id_*
-
-        /* alternativa
-        $process = new Process('sh /folder_name/file_name.sh');
-        $process->run();
-
-        // executes after the command finishes
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        echo $process->getOutput();
-        */
-
-
-
-        // return json_encode($output);
     }
 }

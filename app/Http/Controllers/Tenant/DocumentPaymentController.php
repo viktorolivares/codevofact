@@ -54,8 +54,6 @@ class DocumentPaymentController extends Controller
 
     public function store(DocumentPaymentRequest $request)
     {
-        // dd($request->all());
-
         $id = $request->input('id');
 
         DB::connection('tenant')->transaction(function () use ($id, $request) {
@@ -146,10 +144,6 @@ class DocumentPaymentController extends Controller
             return $pdf->stream($filename.'.pdf');
         } elseif ($type == 'excel') {
             $filename = "Reporte_Pagos";
-
-            // $pdf = PDF::loadView('tenant.document_payments.report', compact("records"))->download($filename.'.xlsx');
-
-            // return $pdf->stream($filename.'.xlsx');
 
             return (new DocumentPaymentExport)
                 ->records($records)

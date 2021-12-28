@@ -16,22 +16,22 @@ class InventoryController extends Controller
     public function index() {
         return view('tenant.inventories.index');
     }
-    
+
     public function columns() {
         return [
             'item_id' => 'Producto'
         ];
     }
-    
+
     public function records(Request $request) {
         $item_description = $request->input('value');
         $records = ItemWarehouse::with(['item', 'warehouse'])
-                                ->whereHas('item', function($query) use($item_description) {
-                                    $query->where('description', 'like', '%' . $item_description . '%');
-                                })->orderBy('item_id');
+                 ->whereHas('item', function($query) use($item_description) {
+                    $query->where('description', 'like', '%' . $item_description . '%');
+                })->orderBy('item_id');
 
-//        dd($records);
         return new InventoryCollection($records->paginate(config('tenant.items_per_page')));
+
     }
 
     public function tables() {
@@ -63,9 +63,6 @@ class InventoryController extends Controller
                     'message' => 'El producto ya se encuentra registrado en el almacén indicado.'
                 ];
             }
-
-            // $item_warehouse->stock = $quantity;
-            // $item_warehouse->save();
 
             $inventory = new Inventory();
             $inventory->type = 1;
@@ -106,18 +103,6 @@ class InventoryController extends Controller
                     'message' => 'La cantidad a trasladar no puede ser mayor al que se tiene en el almacén.'
                 ];
             }
-            
-            //Transaction
-            // $item_warehouse_new = ItemWarehouse::firstOrNew(['item_id' => $item_id,
-            //                                                  'warehouse_id' => $warehouse_new_id]);
-
-            // $stock_new = ($item_warehouse_new)?$item_warehouse_new->stock + $quantity_move:$quantity_move;
-            // $item_warehouse_new->stock = $stock_new;
-            // $item_warehouse_new->save();
-
-            // $item_warehouse = ItemWarehouse::find($id);
-            // $item_warehouse->stock = (float) $quantity - (float)$quantity_move;
-            // $item_warehouse->save();
 
             $inventory = new Inventory();
             $inventory->type = 2;
@@ -145,7 +130,6 @@ class InventoryController extends Controller
             $quantity = $request->input('quantity');
             $quantity_remove = $request->input('quantity_remove');
 
-            //Transaction
             $item_warehouse = ItemWarehouse::where('item_id', $item_id)
                                            ->where('warehouse_id', $warehouse_id)
                                            ->first();
@@ -162,9 +146,6 @@ class InventoryController extends Controller
                     'message' => 'La cantidad a retirar no puede ser mayor al que se tiene en el almacén.'
                 ];
             }
-
-            // $item_warehouse->stock = $quantity - $quantity_remove;
-            // $item_warehouse->save();
 
             $inventory = new Inventory();
             $inventory->type = 3;

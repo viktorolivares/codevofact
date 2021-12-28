@@ -89,7 +89,6 @@ class QuotationController extends Controller
 
     public function records(Request $request)
     {
-        // dd($request->all());
         $records = $this->getRecords($request);
 
         return new QuotationCollection($records->paginate(config('tenant.items_per_page')));
@@ -160,7 +159,6 @@ class QuotationController extends Controller
         $customers = $this->table('customers');
         $establishments = Establishment::where('id', auth()->user()->establishment_id)->get();
         $currency_types = CurrencyType::whereActive()->get();
-        // $document_types_invoice = DocumentType::whereIn('id', ['01', '03'])->get();
         $discount_types = ChargeDiscountType::whereType('discount')->whereLevel('item')->get();
         $charge_types = ChargeDiscountType::whereType('charge')->whereLevel('item')->get();
         $company = Company::active();
@@ -257,8 +255,6 @@ class QuotationController extends Controller
     {
 
          DB::connection('tenant')->transaction(function () use ($request) {
-           // $data = $this->mergeData($request);
-           // return $request['id'];
             $configuration = Configuration::select('terms_condition')->first();
             $request['terms_condition'] = $this->getTermsCondition();
 
@@ -303,7 +299,6 @@ class QuotationController extends Controller
 
     public function duplicate(Request $request)
     {
-       // return $request->id;
        $obj = Quotation::find($request->id);
        $this->quotation = $obj->replicate();
        $this->quotation->external_id = Str::uuid()->toString();
@@ -395,12 +390,8 @@ class QuotationController extends Controller
                 $warehouse = Warehouse::where('establishment_id', auth()->user()->establishment_id)->first();
 
                 $items = Item::orderBy('description')->whereIsActive()
-                    // ->with(['warehouses' => function($query) use($warehouse){
-                    //     return $query->where('warehouse_id', $warehouse->id);
-                    // }])
                     ->take(20)->get()->transform(function($row) {
                     $full_description = $this->getFullDescription($row);
-                    // $full_description = ($row->internal_id)?$row->internal_id.' - '.$row->description:$row->description;
                     return [
                         'id' => $row->id,
                         'full_description' => $full_description,
@@ -818,8 +809,6 @@ class QuotationController extends Controller
 
                 $pdf->SetHTMLFooter($html_footer_term_condition.$html_footer.$html_footer_legend);
             }
-            //$html_footer = $template->pdfFooter();
-            //$pdf->SetHTMLFooter($html_footer);
         }
 
         $this->uploadFile($filename, $pdf->output('', 'S'), 'quotation');
@@ -835,8 +824,6 @@ class QuotationController extends Controller
         $client = Person::find($request->customer_id);
         $quotation = Quotation::find($request->id);
         $customer_email = $request->input('customer_email');
-
-        // $this->reloadPDF($quotation, "a4", $quotation->filename);
 
         Mail::to($customer_email)->send(new QuotationEmail($client, $quotation));
         return [

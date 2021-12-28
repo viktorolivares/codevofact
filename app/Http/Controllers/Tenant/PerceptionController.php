@@ -34,7 +34,6 @@ class PerceptionController extends Controller
     public function columns()
     {
         return [
-            // 'id' => 'Código',
             'number' => 'Número'
         ];
     }
@@ -67,7 +66,7 @@ class PerceptionController extends Controller
 
         return compact('user_id', 'currency_types', 'customers', 'items', 'company', 'establishments','document_types', 'series', 'perception_types');
     }
- 
+
     public function document_tables()
     {
         $perception_types = PerceptionType::get();
@@ -105,7 +104,7 @@ class PerceptionController extends Controller
 
         return $record;
     }
- 
+
 
     public function store(PerceptionRequest $request)
     {

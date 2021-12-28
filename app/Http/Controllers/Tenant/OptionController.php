@@ -15,8 +15,8 @@ use Illuminate\Http\Request;
 use App\Models\Tenant\Configuration;
 use Modules\Expense\Models\Expense;
 use Modules\Purchase\Models\PurchaseOrder;
-use Modules\Finance\Models\GlobalPayment; 
-use Modules\Finance\Models\Income; 
+use Modules\Finance\Models\GlobalPayment;
+use Modules\Finance\Models\Income;
 use Modules\Purchase\Models\PurchaseQuotation;
 use Modules\Order\Models\OrderNote;
 use Modules\Order\Models\OrderForm;
@@ -24,8 +24,8 @@ use Modules\Inventory\Models\{
     ItemWarehouse,
     InventoryKardex
 };
-use Modules\Sale\Models\SaleOpportunity; 
-use Modules\Sale\Models\Contract; 
+use Modules\Sale\Models\SaleOpportunity;
+use Modules\Sale\Models\Contract;
 use Modules\Purchase\Models\FixedAssetPurchase;
 
 class OptionController extends Controller
@@ -45,12 +45,12 @@ class OptionController extends Controller
 
         Summary::where('soap_type_id', '01')->delete();
         Voided::where('soap_type_id', '01')->delete();
-        
+
         //Purchase
         $this->deleteInventoryKardex(Purchase::class);
 
         Purchase::where('soap_type_id', '01')->delete();
-        
+
         PurchaseOrder::where('soap_type_id', '01')->delete();
         PurchaseQuotation::where('soap_type_id', '01')->delete();
 
@@ -60,7 +60,7 @@ class OptionController extends Controller
         $this->deleteInventoryKardex(Document::class);
 
         Document::where('soap_type_id', '01')
-        ->whereIn('document_type_id', ['07', '08'])->delete();        
+        ->whereIn('document_type_id', ['07', '08'])->delete();
         Document::where('soap_type_id', '01')->delete();
 
         $this->update_quantity_documents($quantity);
@@ -73,7 +73,7 @@ class OptionController extends Controller
         SaleNote::where('soap_type_id', '01')->delete();
         $this->deleteInventoryKardex(SaleNote::class, $sale_notes);
 
-        
+
         Contract::where('soap_type_id', '01')->delete();
         Quotation::where('soap_type_id', '01')->delete();
         SaleOpportunity::where('soap_type_id', '01')->delete();
@@ -81,9 +81,9 @@ class OptionController extends Controller
         Expense::where('soap_type_id', '01')->delete();
         OrderNote::where('soap_type_id', '01')->delete();
         OrderForm::where('soap_type_id', '01')->delete();
-        
+
         GlobalPayment::where('soap_type_id', '01')->delete();
-        
+
         Income::where('soap_type_id', '01')->delete();
 
         FixedAssetPurchase::where('soap_type_id', '01')->delete();
@@ -112,23 +112,15 @@ class OptionController extends Controller
         }
     }
 
-    private function updateStockAfterDelete(){
-
-        // if($this->delete_quantity > 0){
-
-        //     ItemWarehouse::latest()->update([
-        //         'stock' => 0
-        //     ]);
-
-        // }
-
+    private function updateStockAfterDelete()
+    {
     }
 
     private function update_quantity_documents($quantity)
-    {  
+    {
         $configuration = Configuration::first();
-        $configuration->quantity_documents -= $quantity; 
-        $configuration->save();        
+        $configuration->quantity_documents -= $quantity;
+        $configuration->save();
     }
-    
+
 }

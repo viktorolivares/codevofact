@@ -22,7 +22,7 @@ class CardBrandRequest extends FormRequest
             ],
             'description' => [
                 'required',
-            ], 
+            ],
         ];
     }
 }

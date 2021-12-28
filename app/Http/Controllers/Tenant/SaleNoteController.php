@@ -225,8 +225,6 @@ class SaleNoteController extends Controller
                 ['id' => $request->input('id')],
                 $data);
 
-
-            // $this->sale_note->payments()->delete();
             $this->deleteAllPayments($this->sale_note->payments);
 
 
@@ -261,10 +259,6 @@ class SaleNoteController extends Controller
 
             }
 
-            //pagos
-            // foreach ($data['payments'] as $row) {
-            //     $this->sale_note->payments()->create($row);
-            // }
 
             $this->savePayments($this->sale_note, $data['payments']);
 
@@ -311,7 +305,6 @@ class SaleNoteController extends Controller
         if(isset($item->item->lots)){
 
             foreach($item->item->lots as $lot) {
-                // dd($lot->id);
                 $record_lot = ItemLot::findOrFail($lot->id);
                 $record_lot->has_sale = false;
                 $record_lot->update();
@@ -383,11 +376,6 @@ class SaleNoteController extends Controller
         return $inputs->all();
     }
 
-//    public function recreatePdf($sale_note_id)
-//    {
-//        $this->sale_note = SaleNote::find($sale_note_id);
-//        $this->createPdf();
-//    }
 
     private function setFilename(){
 

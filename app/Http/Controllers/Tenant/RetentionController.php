@@ -43,8 +43,6 @@ class RetentionController extends Controller
     public function records(Request $request)
     {
         $records = Retention::where($request->column, 'like', "%{$request->value}%")
-                            // ->orderBy('series')
-                            // ->orderBy('number', 'desc');
                             ->latest();
 
         return new RetentionCollection($records->paginate(config('tenant.items_per_page')));
@@ -57,7 +55,7 @@ class RetentionController extends Controller
 
     public function tables()
     {
-        $establishments = Establishment::where('id', auth()->user()->establishment_id)->get();// Establishment::all();
+        $establishments = Establishment::where('id', auth()->user()->establishment_id)->get();
         $retention_types = RetentionType::get();
         $suppliers = $this->table('suppliers');
         $series = Series::all();

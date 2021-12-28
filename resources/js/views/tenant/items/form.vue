@@ -4,7 +4,7 @@
             <div class="form-body">
             <el-tabs v-model="activeName">
                 <el-tab-pane class name="first"><span slot="label">General</span>
-                    <div class="row m-1">
+                    <div class="row m-3">
                         <div class="col-md-3 center-el-checkbox" v-show="show_has_igv">
                             <div class="form-group" :class="{'has-danger': errors.has_igv}">
                                 <el-checkbox v-model="form.has_igv">Incluye Igv {{configuration.include_igv}}</el-checkbox><br>
@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
+                    <div class="row m-3">
                         <div class="col-md-6">
                             <div class="form-group" :class="{'has-danger': errors.description}">
                                 <label class="control-label">Nombre<span class="text-danger">*</span></label>
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row m-3">
                         <div class="col-md-3">
                             <div class="form-group" :class="{'has-danger': errors.model}">
                                 <label class="control-label">Modelo</label>
@@ -69,7 +69,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row m-3">
                         <div class="col-md-6">
                             <div class="form-group" :class="{'has-danger': errors.sale_affectation_igv_type_id}">
                                 <label class="control-label">Tipo de afectación (Venta)</label>
@@ -105,7 +105,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row m-3">
                         <div class="col-md-3" v-show="recordId==null && form.unit_type_id !='ZZ'">
                             <div class="form-group" :class="{'has-danger': errors.stock}">
                                 <label class="control-label">Stock Inicial</label>
@@ -425,31 +425,20 @@
                 </el-tab-pane>
             </el-tabs>
             </div>
-            <div class="form-actions text-right pt-2">
+            <div class="form-actions text-right pt-3 mr-3">
                 <el-button @click.prevent="close()">Cancelar</el-button>
                 <el-button type="primary" native-type="submit" :loading="loading_submit">Guardar</el-button>
             </div>
         </form>
-        <lots-form
-            :showDialog.sync="showDialogLots"
-            :stock="form.stock"
-            :recordId="recordId"
-            :lots="form.lots"
-            @addRowLot="addRowLot">
-        </lots-form>
     </el-dialog>
 </template>
 
 <script>
 
-    import LotsForm from './partials/lots.vue'
     export default {
         props: ['showDialog', 'recordId', 'external'],
-        components: {LotsForm},
-
         data() {
             return {
-                showDialogLots:false,
                 form_category:{ add: false, name: null, id: null },
                 form_brand:{ add: false, name: null, id: null },
                 form_color:{ add: false, name: null, id: null },
@@ -490,7 +479,6 @@
                 },
                 attribute_types:  [],
                 material_types:  [],
-                cost_price: null,
                 activeName: 'first',
             }
         },
@@ -569,15 +557,6 @@
                         this.form.sale_affectation_igv_type_id = (this.affectation_igv_types.length > 0)?this.affectation_igv_types[0].id:null
                         this.form.purchase_affectation_igv_type_id = (this.affectation_igv_types.length > 0)?this.affectation_igv_types[0].id:null
                     })
-            },
-            changeLotsEnabled(){
-            },
-            addRowLot(lots){
-                this.form.lots = lots
-            },
-            clickLotcode(){
-
-                this.showDialogLots = true
             },
             changeHaveAccount(){
                 if(!this.have_account) this.form.account_id = null
@@ -664,8 +643,6 @@
                     date_of_due: null,
                     lot_code: null,
                     line: null,
-                    lots_enabled:false,
-                    lots: [],
                     attributes: [],
                     materials: [],
                     series_enabled: false,
@@ -784,25 +761,6 @@
                 if(this.validateItemUnitTypes() > 0) return this.$message.error('El campo factor no puede ser menor a 0.0001');
 
                 if(this.form.has_perception && !this.form.percentage_perception) return this.$message.error('Ingrese un porcentaje');
-
-                if(this.form.lots_enabled){
-
-                    if(!this.form.lot_code)
-                        return this.$message.error('Código de lote es requerido');
-
-                    if(!this.form.date_of_due)
-                        return this.$message.error('Fecha de vencimiento es requerido si lotes esta habilitado.');
-                }
-
-                if(!this.recordId && this.form.series_enabled)
-                {
-
-                    if(this.form.lots.length > this.form.stock)
-                        return this.$message.error('La cantidad de series registradas es superior al stock');
-
-                    if(this.form.lots.length != this.form.stock)
-                        return this.$message.error('La cantidad de series registradas son diferentes al stock');
-                }
 
                 this.loading_submit = true
                 await this.$http.post(`/${this.resource}`, this.form)

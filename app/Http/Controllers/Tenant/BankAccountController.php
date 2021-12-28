@@ -37,7 +37,6 @@ class BankAccountController extends Controller
         return compact('banks', 'currency_types');
     }
 
-
     public function record($id)
     {
         $record = new BankAccountResource(BankAccount::findOrFail($id));

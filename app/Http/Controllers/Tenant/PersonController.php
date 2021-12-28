@@ -40,7 +40,6 @@ class PersonController extends Controller
 
     public function records($type, Request $request)
     {
-      //  return 'sd';
         $records = Person::where($request->column, 'like', "%{$request->value}%")
                             ->where('type', $type)
                             ->orderBy('name');
@@ -203,8 +202,6 @@ class PersonController extends Controller
 
     public function export($type, Request $request)
     {
-
-        // dd($request->all(), $type);
         $d_start = null;
         $d_end = null;
         $period = $request->period;
@@ -219,11 +216,6 @@ class PersonController extends Controller
                 $d_end = Carbon::parse($request->month_end.'-01')->endOfMonth()->format('Y-m-d');
                 break;
         }
-
-        // $date = $request->month_start.'-01';
-        // $d_start = Carbon::parse($date);
-        // $d_end = Carbon::parse($date)->addMonth()->subDay();
-        // dd($d_start.' - '.$d_end);
 
         $records = ($period == 'all') ? Person::where('type', $type)->get() : Person::where('type', $type)->whereBetween('created_at', [$d_start, $d_end])->get();
 

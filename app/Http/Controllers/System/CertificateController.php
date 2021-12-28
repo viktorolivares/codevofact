@@ -27,7 +27,6 @@ class CertificateController extends Controller
     {
         if ($request->hasFile('file')) {
             try {
-                //$company = Company::active();
                 $configuration = Configuration::first();
 
                 $password = $request->input('password');

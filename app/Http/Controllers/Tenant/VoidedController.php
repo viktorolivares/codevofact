@@ -60,7 +60,6 @@ class VoidedController extends Controller
         });
 
         $document = $fact->getDocument();
-        //$response = $fact->getResponse();
 
         return [
             'success' => true,

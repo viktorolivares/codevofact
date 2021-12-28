@@ -169,15 +169,12 @@ class PurchaseController extends Controller
 
     public function store(PurchaseRequest $request)
     {
-
-        //return 'asd';
         $data = self::convert($request);
 
         $purchase = DB::connection('tenant')->transaction(function () use ($data) {
             $doc = Purchase::create($data);
             foreach ($data['items'] as $row)
             {
-                // $doc->items()->create($row);
                 $p_item = new PurchaseItem;
                 $p_item->fill($row);
                 $p_item->purchase_id = $doc->id;
@@ -359,15 +356,6 @@ class PurchaseController extends Controller
 
     }
 
-    /*public static function deleteLotsSerie($records)
-    {
-        foreach ($records as $row) {
-
-            $it = ItemLot::findOrFail($row->id);
-            $it->delete();
-        }
-    }*/
-
     public static function verifyHasSaleItems($items)
     {
         $validated = true;
@@ -523,18 +511,8 @@ class PurchaseController extends Controller
                             ];
                         }),
                         'series_enabled' => (bool) $row->series_enabled,
-
-                        // 'warehouses' => collect($row->warehouses)->transform(function($row) {
-                        //     return [
-                        //         'warehouse_id' => $row->warehouse->id,
-                        //         'warehouse_description' => $row->warehouse->description,
-                        //         'stock' => $row->stock,
-                        //     ];
-                        // })
                     ];
                 });
-//                return $items;
-
                 break;
             default:
 
@@ -830,30 +808,6 @@ class PurchaseController extends Controller
             'message' => 'Item eliminado'
         ];
     }
-
-    /*public function itemResource($id)
-    {
-        $establishment_id = auth()->user()->establishment_id;
-        $warehouse = Warehouse::where('establishment_id', $establishment_id)->first();
-        $row = Item::find($id);
-        return [
-            'id' => $row->id,
-            'description' => $row->description,
-            'lots' => $row->item_lots->where('has_sale', false)->where('warehouse_id', $warehouse->id)->transform(function($row) {
-                return [
-                    'id' => $row->id,
-                    'series' => $row->series,
-                    'date' => $row->date,
-                    'item_id' => $row->item_id,
-                    'warehouse_id' => $row->warehouse_id,
-                    'has_sale' => (bool)$row->has_sale,
-                    'lot_code' => ($row->item_loteable_type) ? (isset($row->item_loteable->lot_code) ? $row->item_loteable->lot_code:null):null
-                ];
-            })->values(),
-            'series_enabled' => (bool) $row->series_enabled,
-        ];
-    }*/
-
 
     public function download($external_id, $format = 'a4') {
         $purchase = SaleOpportunity::where('external_id', $external_id)->first();

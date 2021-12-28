@@ -97,10 +97,6 @@ class SaleNoteController extends Controller
                 }
 
             }
-            //pagos
-            /*foreach ($data['payments'] as $row) {
-                $this->sale_note->payments()->create($row);
-            }*/
 
             $this->setFilename();
             $this->createPdf($this->sale_note,"a4", $this->sale_note->filename);
