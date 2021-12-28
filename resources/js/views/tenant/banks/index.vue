@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card card-collapsed">
         <div class="card-header bg-info">
             <h3 class="my-0">Listado de bancos</h3>
             <div class="card-actions white-text">

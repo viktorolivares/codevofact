@@ -1,7 +1,11 @@
 <template>
-    <div class="card">
+    <div class="card card-collapsed">
         <div class="card-header bg-info">
             <h3 class="my-0">Listado de cuentas bancarias</h3>
+            <div class="card-actions white-text">
+                <a href="#" class="card-action card-action-toggle text-white" data-card-toggle=""></a>
+                <a href="#" class="card-action card-action-dismiss text-white" data-card-dismiss=""></a>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -11,7 +15,6 @@
                         <th>#</th>
                         <th>Descripción</th>
                         <th class="text-right">Número</th>
-                        <!-- <th class="text-right">CCI</th> -->
                         <th class="text-right">Acciones</th>
                     </tr>
                     </thead>
@@ -20,7 +23,6 @@
                         <td>{{ index + 1 }}</td>
                         <td>{{ row.description }}</td>
                         <td class="text-right">{{ row.number }}</td>
-                        <!-- <td class="text-right">{{ row.cci }}</td> -->
                         <td class="text-right">
                             <button type="button" class="btn waves-effect waves-light btn-xs btn-info" @click.prevent="clickCreate(row.id)">Editar</button>
 

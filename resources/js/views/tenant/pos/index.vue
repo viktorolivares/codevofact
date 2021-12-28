@@ -1,84 +1,37 @@
 <template>
     <div class="container-fluid p-0">
         <div class="row page-header pr-0" style="height: auto">
-            <Keypress
-                key-event="keyup"
-                :key-code="112"
-                @success="handleFn112"
-            />
+            <Keypress key-event="keyup" :key-code="112" @success="handleFn112"/>
             <div class="col-md-4">
                 <h2>
-                    <el-switch
-                        v-model="search_item_by_barcode"
-                        active-text="Buscar con escaner de código de barras"
-                        @change="changeSearchItemBarcode"
-                    ></el-switch>
+                    <el-switch v-model="search_item_by_barcode" active-text="Buscar con escaner de código de barras" @change="changeSearchItemBarcode"></el-switch>
                 </h2>
             </div>
             <div class="col-md-4">
                 <h2>
-                    <el-tooltip
-                        class="item"
-                        effect="dark"
-                        content="Todas las categorías"
-                        placement="top-start"
-                    >
-                        <button
-                            type="button"
-                            @click="back()"
-                            class="btn btn-custom btn-sm mt-2 mr-2 mr-sm-1"
-                        >
+                    <el-tooltip class="item" effect="dark" content="Todas las categorías" placement="top-start">
+                        <button type="button" @click="back()" class="btn btn-custom btn-sm mt-2 mr-2 mr-sm-1">
                             <i class="fa fa-border-all"></i>
                         </button>
                     </el-tooltip>
                 </h2>
                 <h2>
-                    <el-tooltip
-                        class="item"
-                        effect="dark"
-                        content="Categorías y productos"
-                        placement="top-start"
-                    >
-                        <button
-                            type="button"
-                            :disabled="place == 'cat2'"
-                            @click="setView('cat2')"
-                            class="btn btn-custom btn-sm mt-2 mr-2 mr-sm-1"
-                        >
+                    <el-tooltip class="item" effect="dark" content="Categorías y productos" placement="top-start">
+                        <button type="button" :disabled="place == 'cat2'" @click="setView('cat2')" class="btn btn-custom btn-sm mt-2 mr-2 mr-sm-1">
                             <i class="fa fa-bars"></i>
                         </button>
                     </el-tooltip>
                 </h2>
                 <h2>
-                    <el-tooltip
-                        class="item"
-                        effect="dark"
-                        content="Listado de todos los productos"
-                        placement="top-start"
-                    >
-                        <button
-                            type="button"
-                            :disabled="place == 'cat3'"
-                            @click="setView('cat3')"
-                            class="btn btn-custom btn-sm mt-2 mr-2 mr-sm-1"
-                        >
+                    <el-tooltip class="item" effect="dark" content="Listado de todos los productos" placement="top-start">
+                        <button type="button" :disabled="place == 'cat3'" @click="setView('cat3')" class="btn btn-custom btn-sm mt-2 mr-2 mr-sm-1">
                             <i class="fas fa-list-ul"></i>
                         </button>
                     </el-tooltip>
                 </h2>
                 <h2>
-                    <el-tooltip
-                        class="item"
-                        effect="dark"
-                        content="Regresar"
-                        placement="top-start"
-                    >
-                        <button
-                            type="button"
-                            :disabled="place == 'cat'"
-                            @click="back()"
-                            class="btn btn-custom btn-sm mt-2 mr-2 mr-sm-1"
-                        >
+                    <el-tooltip class="item" effect="dark" content="Regresar" placement="top-start">
+                        <button type="button" :disabled="place == 'cat'" @click="back()" class="btn btn-custom btn-sm mt-2 mr-2 mr-sm-1">
                             <i class="fa fa-undo"></i>
                         </button>
                     </el-tooltip>
@@ -93,20 +46,10 @@
                 </div>
             </div>
         </div>
-
-        <div
-            v-if="!is_payment"
-            class="row col-lg-12 m-0 p-0"
-            v-loading="loading"
-        >
+        <div v-if="!is_payment" class="row col-lg-12 m-0 p-0" v-loading="loading">
             <div class="col-lg-8 col-md-6 px-4 pt-3 hyo">
                 <template v-if="!search_item_by_barcode">
-                    <el-input
-                        v-show="
-                            place == 'prod' ||
-                                place == 'cat2' ||
-                                place == 'cat3'
-                        "
+                    <el-input v-show="place == 'prod' || place == 'cat2' || place == 'cat3'"
                         placeholder="Buscar productos"
                         size="medium"
                         v-model="input_item"
@@ -116,21 +59,13 @@
                         class="m-bottom"
                         ref="ref_search_items"
                     >
-                        <el-button
-                            slot="append"
-                            icon="el-icon-plus"
-                            @click.prevent="showDialogNewItem = true"
-                        ></el-button>
                     </el-input>
                 </template>
-
                 <template v-else>
                     <el-input
-                        v-show="
-                            place == 'prod' ||
+                        v-show="place == 'prod' ||
                                 place == 'cat2' ||
-                                place == 'cat3'
-                        "
+                                place == 'cat3' "
                         placeholder="Buscar productos"
                         size="medium"
                         v-model="input_item"
@@ -139,11 +74,6 @@
                         ref="ref_search_items"
                         class="m-bottom"
                     >
-                        <el-button
-                            slot="append"
-                            icon="el-icon-plus"
-                            @click.prevent="showDialogNewItem = true"
-                        ></el-button>
                     </el-input>
                 </template>
 
@@ -739,11 +669,6 @@
                 :external="true"
                 :document_type_id="form.document_type_id"
             ></person-form>
-
-            <item-form
-                :showDialog.sync="showDialogNewItem"
-                :external="true"
-            ></item-form>
         </div>
         <template v-else>
             <payment-form
@@ -754,7 +679,6 @@
                 :exchange-rate-sale="form.exchange_rate_sale"
                 :customer="customer"
                 :soapCompany="soapCompany"
-                :businessTurns="businessTurns"
             ></payment-form>
         </template>
 
@@ -839,7 +763,6 @@
 import Keypress from "vue-keypress";
 import { calculateRowItem } from "../../../helpers/functions";
 import PaymentForm from "./partials/payment.vue";
-import ItemForm from "./partials/form.vue";
 import { functions, exchangeRate } from "../../../mixins/functions";
 import HistorySalesForm from "../../../../../modules/Pos/Resources/assets/js/views/history/sales.vue";
 import HistoryPurchasesForm from "../../../../../modules/Pos/Resources/assets/js/views/history/purchases.vue";
@@ -851,7 +774,6 @@ export default {
     props: ["configuration", "soapCompany", "typeUser"],
     components: {
         PaymentForm,
-        ItemForm,
         HistorySalesForm,
         HistoryPurchasesForm,
         PersonForm,
@@ -872,7 +794,6 @@ export default {
             showDialogHistoryPurchases: false,
             showDialogHistorySales: false,
             showDialogNewPerson: false,
-            showDialogNewItem: false,
             loading: false,
             is_payment: false,
             showWarehousesDetail: false,

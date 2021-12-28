@@ -20,15 +20,18 @@ class TenantItemsTable extends Migration
             $table->char('item_type_id', 2);
             $table->string('internal_id', 30)->nullable();
             $table->string('item_code')->nullable();
+            $table->string('mark_code')->nullable();
             $table->string('item_code_gs1')->nullable();
             $table->string('unit_type_id');
             $table->string('currency_type_id');
             $table->decimal('sale_unit_price', 12, 2);
+            $table->decimal('mark_price', 12, 2)->nullable();
             $table->decimal('purchase_unit_price', 12, 2)->default(0);
             $table->boolean('has_isc')->default(false);
             $table->string('system_isc_type_id')->nullable();
             $table->decimal('percentage_isc', 12, 2)->default(0);
             $table->decimal('suggested_price', 12, 2)->default(0);
+            $table->decimal('discount', 12, 2)->default(0);
             $table->string('sale_affectation_igv_type_id');
             $table->string('purchase_affectation_igv_type_id');
             $table->unsignedInteger('color_id')->nullable();

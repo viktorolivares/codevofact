@@ -6,8 +6,6 @@
                     <div class="col-md-12">
                         <el-tabs v-model="activeName"   type="card">
                             <el-tab-pane label="General" name="first">
-
-
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group" >
