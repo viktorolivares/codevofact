@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\Item\Models;
+namespace App\Models\Tenant;
 
-use App\Models\Tenant\Item;
-use App\Models\Tenant\ModelTenant;
+use Illuminate\Database\Eloquent\Builder;
 
 class Material extends ModelTenant
 {
     public $timestamps = false;
+
     protected $fillable = [
         'id',
         'name',

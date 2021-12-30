@@ -4,7 +4,7 @@
             <div class="form-body">
             <el-tabs v-model="activeName">
                 <el-tab-pane class name="first"><span slot="label">General</span>
-                    <div class="row m-3">
+                    <div class="row m-2">
                         <div class="col-md-3 center-el-checkbox" v-show="show_has_igv">
                             <div class="form-group" :class="{'has-danger': errors.has_igv}">
                                 <el-checkbox v-model="form.has_igv">Incluye Igv {{configuration.include_igv}}</el-checkbox><br>
@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row m-3">
+                    <div class="row m-2">
                         <div class="col-md-6">
                             <div class="form-group" :class="{'has-danger': errors.description}">
                                 <label class="control-label">Nombre<span class="text-danger">*</span></label>
@@ -63,7 +63,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group" :class="{'has-danger': errors.sale_unit_price}">
-                                <label class="control-label">Precio Unitario (Venta) <span class="text-danger">*</span></label>
+                                <label class="control-label">Precio Venta<span class="text-danger">*</span></label>
                                 <el-input v-model="form.sale_unit_price" dusk="sale_unit_price" @input="calculatePercentageOfProfitBySale"></el-input>
                                 <small class="form-control-feedback" v-if="errors.sale_unit_price" v-text="errors.sale_unit_price[0]"></small>
                             </div>
@@ -322,61 +322,32 @@
                                         <small class="form-control-feedback" v-if="errors.size_id" v-text="errors.size_id[0]"></small>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div v-if="material_types.length > 0">
-                                        <h5 class="separator-title ">
-                                        Materiales &nbsp;
-                                            <el-tooltip class="item" effect="dark" content="Diferentes presentaciones para la venta del producto" placement="top">
-                                                <i class="fa fa-info-circle"></i>
-                                            </el-tooltip>
-                                            <a href="#" class="control-label font-weight-bold text-info" @click.prevent="clickAddMaterial">[+ Agregar]</a>
-                                        </h5>
-                                    </div>
-                                    <div v-if="form.materials.length > 0">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-hover table-bordered">
-                                                <thead>
-                                                <tr>
-                                                    <th>Tipo</th>
-                                                    <th>Cantidad</th>
-                                                    <th>Precio</th>
-                                                    <th>Total</th>
-                                                    <th></th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr v-for="(row, index) in form.materials" :key="index">
-                                                    <td>
-                                                        <el-select v-model="row.material_id" filterable @change="changeMaterial(index)">
-                                                            <el-option v-for="option in material_types" :key="option.id" :value="option.id" :label="option.name + ' (' + option.description + ')'"></el-option>
-                                                        </el-select>
-                                                    </td>
-                                                    <td>
-                                                        <el-input v-model="row.qty" @change="calculateTotal(index)"></el-input>
-                                                    </td>
-                                                    <td>
-                                                        <el-input v-model="row.price" @change="calculateTotal(index)"></el-input>
-                                                    </td>
-                                                    <td>
-                                                        <el-input v-model="row.total" disabled></el-input>
-                                                    </td>
-                                                    <td>
-                                                        <div class="mt-1 text-center">
-                                                            <button type="button" class="btn btn-danger btn-xs" @click.prevent="clickRemoveMaterial(index)">x</button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                <hr>
+                                <div class="col-md-3">
+                                    <div class="form-group" :class="{'has-danger': errors.mark_code}">
+                                        <label class="control-label">Código Marca<span class="text-danger"></span></label>
+                                        <el-input v-model="form.mark_code"></el-input>
+                                        <small class="form-control-feedback" v-if="errors.mark_code" v-text="errors.mark_code[0]"></small>
                                     </div>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-3">
+                                    <div class="form-group" :class="{'has-danger': errors.mark_price}">
+                                        <label class="control-label">Precio de Marca<span class="text-danger"></span></label>
+                                        <el-input v-model="form.mark_price"></el-input>
+                                        <small class="form-control-feedback" v-if="errors.price" v-text="errors.price[0]"></small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group" :class="{'has-danger': errors.discount}">
+                                        <label class="control-label">% Descuento<span class="text-danger"></span></label>
+                                        <el-input v-model="form.discount"></el-input>
+                                        <small class="form-control-feedback" v-if="errors.discount" v-text="errors.discount[0]"></small>
+                                    </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group" :class="{'has-danger': errors.cost_price}">
-                                        <label class="control-label">Total Costo<span class="text-danger"></span></label>
-                                        <el-input v-model="form.cost_price" @input="calculateCost()" disabled></el-input>
+                                        <label class="control-label">Precio de Costo<span class="text-danger"></span></label>
+                                        <el-input v-model="form.cost_price"></el-input>
                                         <small class="form-control-feedback" v-if="errors.cost_price" v-text="errors.cost_price[0]"></small>
                                     </div>
                                 </div>
@@ -475,10 +446,7 @@
                         price2:0,
                         price3:0,
                         price_default:2,
-
                 },
-                attribute_types:  [],
-                material_types:  [],
                 activeName: 'first',
             }
         },
@@ -515,33 +483,12 @@
         methods: {
             setDefaultConfiguration(){
                 this.form.sale_affectation_igv_type_id = (this.configuration) ? this.configuration.affectation_igv_type_id : '10'
-
                 this.$http.get(`/configurations/record`) .then(response => {
                     this.form.has_igv = response.data.data.include_igv
                     this.form.purchase_has_igv = response.data.data.include_igv
                 })
             },
-            clickAddAttribute() {
-                this.form.attributes.push({
-                    attribute_type_id: null,
-                    description: null,
-                    value: null,
-                    start_date: null,
-                    end_date: null,
-                    duration: null,
-                })
-            },
-            clickAddMaterial() {
-                this.form.materials.push({
-                    material_id: null,
-                    description: null,
-                    qty: null,
-                    price: null,
-                    total: null
-                })
-            },
             async reloadTables(){
-
                 await this.$http.get(`/${this.resource}/tables`)
                     .then(response => {
                         this.unit_types = response.data.unit_types
@@ -584,7 +531,6 @@
                 if(!this.form.has_perception){
                     this.form.percentage_perception = null
                 }
-
             },
             clickAddRow() {
                 this.form.item_unit_types.push({
@@ -643,13 +589,10 @@
                     date_of_due: null,
                     lot_code: null,
                     line: null,
-                    attributes: [],
-                    materials: [],
                     series_enabled: false,
                     purchase_has_igv: true,
                     web_platform_id: null,
                     has_plastic_bag_taxes: false,
-                    cost_price: 0
                 },
                 this.show_has_igv = true
                 this.purchase_show_has_igv = true
@@ -665,10 +608,8 @@
                 }
             },
             changeAffectationIgvType(){
-
                 let affectation_igv_type_exonerated = [20,21,30,31,32,33,34,35,36,37]
                 let is_exonerated = affectation_igv_type_exonerated.includes((parseInt(this.form.sale_affectation_igv_type_id)));
-
                 if(is_exonerated){
                     this.show_has_igv = false
                     this.form.has_igv = true
@@ -678,10 +619,8 @@
 
             },
             changePurchaseAffectationIgvType(){
-
                 let affectation_igv_type_exonerated = [20,21,30,31,32,33,34,35,36,37]
                 let is_exonerated = affectation_igv_type_exonerated.includes((parseInt(this.form.purchase_affectation_igv_type_id)));
-
                 if(is_exonerated){
                     this.purchase_show_has_igv = false
                     this.form.purchase_has_igv = true
@@ -763,7 +702,9 @@
                 if(this.form.has_perception && !this.form.percentage_perception) return this.$message.error('Ingrese un porcentaje');
 
                 this.loading_submit = true
+
                 await this.$http.post(`/${this.resource}`, this.form)
+                    console.log(this.form)
                     .then(response => {
                         if (response.data.success) {
                             this.$message.success(response.data.message)
@@ -877,44 +818,12 @@
 
                 })
             },
-            changeAttributeType(index) {
-                let attribute_type_id = this.form.attributes[index].attribute_type_id
-                let attribute_type = _.find(this.attribute_types, {id: attribute_type_id})
-                this.form.attributes[index].description = attribute_type.description
-            },
-            clickRemoveAttribute(index) {
-                this.form.attributes.splice(index, 1)
-            },
-            changeMaterial(index) {
-                let material_id = this.form.materials[index].material_id
-                let material_type = _.find(this.material_types, {id: material_id})
-                this.form.materials[index].description = material_type.description
-            },
-            clickRemoveMaterial(index) {
-                this.form.materials.splice(index, 1)
-            },
             getCode() {
                 this.$http.get(`/${this.resource}/code`)
                     .then(response => {
                         this.form.internal_id = response.data
                     })
             },
-            calculateTotal(index) {
-
-                this.form.materials[index].total = _.round((this.form.materials[index].qty) * (this.form.materials[index].price), 4)
-
-                var total_cost = []
-                total_cost.push(this.form.materials[index].total)
-
-                for(var i = 0; i < index; i++) {
-                    total_cost.push(this.form.materials[i].total)
-                }
-
-                let total = total_cost.reduce((a, b) => a + b, 0)
-
-                this.form.cost_price = total
-            }
-
         }
     }
 </script>

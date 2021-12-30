@@ -8,14 +8,13 @@ use App\Models\Tenant\ModelTenant;
 class WebPlatform extends ModelTenant
 {
 
-    protected $fillable = [ 
+    protected $fillable = [
         'name',
     ];
- 
+
     public function items()
     {
         return $this->hasMany(Item::class);
     }
- 
 
 }

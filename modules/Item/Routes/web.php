@@ -35,13 +35,6 @@ if($hostname) {
             Route::get('sizes/columns', 'SizeController@columns');
             Route::delete('sizes/{size}', 'SizeController@destroy');
 
-            Route::get('materials', 'MaterialController@index')->name('tenant.materials.index');
-            Route::get('materials/records', 'MaterialController@records');
-            Route::get('materials/record/{material}', 'MaterialController@record');
-            Route::post('materials', 'MaterialController@store');
-            Route::get('materials/columns', 'MaterialController@columns');
-            Route::delete('materials/{material}', 'MaterialController@destroy');
-
             Route::get('incentives', 'IncentiveController@index')->name('tenant.incentives.index');
             Route::get('incentives/records', 'IncentiveController@records');
             Route::get('incentives/record/{incentive}', 'IncentiveController@record');

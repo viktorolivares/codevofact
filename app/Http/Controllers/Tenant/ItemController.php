@@ -1,18 +1,17 @@
 <?php
 namespace App\Http\Controllers\Tenant;
 
-use App\Imports\ItemsImport;
 use App\Models\Tenant\Catalogs\AffectationIgvType;
-use App\Models\Tenant\Catalogs\AttributeType;
 use App\Models\Tenant\Catalogs\CurrencyType;
 use App\Models\Tenant\Catalogs\SystemIscType;
 use App\Models\Tenant\Catalogs\UnitType;
 use App\Models\Tenant\Item;
+use App\Imports\ItemsImport;
+use Illuminate\Support\Str;
 use App\Models\Tenant\ItemImage;
 use Modules\Item\Models\ItemLot;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use App\Http\Requests\Tenant\ItemRequest;
 use App\Http\Resources\Tenant\ItemCollection;
 use App\Http\Resources\Tenant\ItemResource;
@@ -20,7 +19,6 @@ use App\Models\Tenant\User;
 use App\Models\Tenant\Warehouse;
 use App\Models\Tenant\Configuration;
 use App\Models\Tenant\ItemUnitType;
-Use Throwable;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 use Modules\Account\Models\Account;
@@ -30,25 +28,24 @@ use Modules\Item\Models\Category;
 use Modules\Item\Models\Brand;
 use Modules\Item\Models\Color;
 use Modules\Item\Models\Size;
-use Modules\Item\Models\Material;
 use Modules\Inventory\Models\Warehouse as WarehouseModule;
 use App\Models\Tenant\Establishment;
 use Modules\Item\Models\ItemLotsGroup;
-use Carbon\Carbon;
 use App\Exports\ItemExport;
 use App\Exports\ItemExportWp;
 use App\Exports\ItemExportBarCode;
+use Modules\Inventory\Models\ItemWarehouse;
 use Modules\Finance\Helpers\UploadFileHelper;
 use Mpdf\HTMLParserMode;
+use Carbon\Carbon;
 use Mpdf\Mpdf;
-use Modules\Inventory\Models\ItemWarehouse;
+Use Throwable;
 
 
 class ItemController extends Controller
 {
     public function index()
     {
-
         return view('tenant.items.index');
     }
 
@@ -73,7 +70,6 @@ class ItemController extends Controller
 
         return new ItemCollection($records->paginate(config('tenant.items_per_page')));
     }
-
 
     public function getRecords($request){
 
@@ -111,12 +107,11 @@ class ItemController extends Controller
 
     }
 
-
     public function code()
     {
         $code = Item::max('id');
         $code = $code + 1;
-        $code = str_pad($code,5,"0",STR_PAD_LEFT);
+        $code = str_pad($code,6,"0",STR_PAD_LEFT);
         $code = 'IAL'.$code;
 
         return $code;
@@ -131,7 +126,6 @@ class ItemController extends Controller
     {
         $unit_types = UnitType::whereActive()->orderByDescription()->get();
         $currency_types = CurrencyType::whereActive()->orderByDescription()->get();
-        $attribute_types = AttributeType::whereActive()->orderByDescription()->get();
         $system_isc_types = SystemIscType::whereActive()->orderByDescription()->get();
         $affectation_igv_types = AffectationIgvType::whereActive()->get();
         $warehouses = Warehouse::all();
@@ -140,12 +134,13 @@ class ItemController extends Controller
         $categories = Category::all();
         $brands = Brand::all();
         $sizes = Size::all();
-        $colors = Color::orderBy('name', 'asc')->get();
-        $material_types = Material::all();
+        $colors = Color::orderByName()->get();
         $configuration = Configuration::select('affectation_igv_type_id')->firstOrFail();
 
-        return compact('unit_types', 'currency_types', 'attribute_types', 'system_isc_types',
-                        'affectation_igv_types','warehouses', 'accounts', 'tags', 'categories', 'brands', 'colors', 'sizes', 'material_types', 'configuration');
+        return compact('unit_types', 'currency_types', 'system_isc_types',
+                        'affectation_igv_types','warehouses', 'accounts',
+                        'tags', 'categories', 'brands', 'colors', 'sizes',
+                        'configuration');
     }
 
     public function record($id)
@@ -168,9 +163,8 @@ class ItemController extends Controller
         $item = Item::firstOrNew(['id' => $id]);
         $item->item_type_id = '01';
         $item->amount_plastic_bag_taxes = Configuration::firstOrFail()->amount_plastic_bag_taxes;
-        $item->fill($request->all());
 
-        $item->materials = json_encode($request->materials);
+        $item->fill($request->all());
 
         $temp_path = $request->input('temp_path');
 
@@ -186,7 +180,7 @@ class ItemController extends Controller
             Storage::put($directory.$file_name, $file_content);
             $item->image = $file_name;
 
-            //--- IMAGE SIZE MEDIUM
+            // IMAGE SIZE MEDIUM
             $image = \Image::make($temp_path);
             $file_name = Str::slug($item->description).'-'.$datenow.'_medium'.'.'.$file_name_old_array[1];
             $image->resize(512, null, function ($constraint) {
@@ -196,7 +190,7 @@ class ItemController extends Controller
             Storage::put($directory.$file_name,  (string) $image->encode('jpg', 30));
             $item->image_medium = $file_name;
 
-              //--- IMAGE SIZE SMALL
+            // IMAGE SIZE SMALL
             $image = \Image::make($temp_path);
             $file_name = Str::slug($item->description).'-'.$datenow.'_small'.'.'.$file_name_old_array[1];
             $image->resize(256, null, function ($constraint) {
@@ -274,20 +268,16 @@ class ItemController extends Controller
     public function destroy($id)
     {
         try {
-
             $item = Item::findOrFail($id);
             $this->deleteRecordInitialKardex($item);
             $item->delete();
-
             return [
                 'success' => true,
                 'message' => 'Producto eliminado con éxito'
             ];
 
         } catch (Throwable $e) {
-
-            return ($e->getCode() == '23000') ? ['success' => false,'message' => 'El producto esta siendo usado por otros registros, no puede eliminar'] : ['success' => false,'message' => 'Error inesperado, no se pudo eliminar el producto'];
-
+            return ($e->getCode() == '23000') ? ['success' => false, 'message' => 'El producto esta siendo usado por otros registros, no puede eliminar'] : ['success' => false,'message' => 'Error inesperado, no se pudo eliminar el producto'];
         }
 
 

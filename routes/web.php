@@ -158,6 +158,14 @@ if ($hostname) {
 			Route::get('items/export/barcode/print', 'Tenant\ItemController@printBarCode')->name('tenant.items.export.barcode.print');
 			Route::get('items/export/barcode/last', 'Tenant\ItemController@itemLast')->name('tenant.items.last');
 
+            // Materials
+            Route::get('materials', 'Tenant\MaterialController@index')->name('tenant.materials.index');
+            Route::get('materials/records', 'Tenant\MaterialController@records');
+            Route::get('materials/record/{material}', 'Tenant\MaterialController@record');
+            Route::post('materials', 'Tenant\MaterialController@store');
+            Route::get('materials/columns', 'Tenant\MaterialController@columns');
+            Route::delete('materials/{material}', 'Tenant\MaterialController@destroy');
+
 			//Persons
 			Route::get('persons/columns', 'Tenant\PersonController@columns');
 			Route::get('persons/tables', 'Tenant\PersonController@tables');

@@ -45,8 +45,8 @@
 <script>
 
     import MaterialForm from './form.vue'
-    import DataTable from '../../../../../../../resources/js/components/DataTable.vue'
-    import {deletable} from '../../../../../../../resources/js/mixins/deletable'
+    import DataTable from '../../../components/DataTable.vue'
+    import {deletable} from '../../../mixins/deletable'
 
     export default {
         mixins: [deletable],

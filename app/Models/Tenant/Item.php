@@ -46,8 +46,6 @@ class Item extends ModelTenant
         'stock',
         'stock_min',
         'percentage_of_profit',
-        'attributes',
-        'materials',
         'has_perception',
         'percentage_perception',
         'image',
@@ -74,26 +72,6 @@ class Item extends ModelTenant
         'has_plastic_bag_taxes',
         'barcode',
     ];
-
-    public function getAttributesAttribute($value)
-    {
-        return (is_null($value))?null:json_decode($value);
-    }
-
-    public function setAttributesAttribute($value)
-    {
-        $this->attributes['attributes'] = (is_null($value))?null:json_encode($value);
-    }
-
-    public function getAttributesMaterial($value)
-    {
-        return (is_null($value))?null:json_decode($value);
-    }
-
-    public function setAttributesMaterial($value)
-    {
-        $this->materials['materials'] = (is_null($value))?null:json_encode($value);
-    }
 
     public function account()
     {

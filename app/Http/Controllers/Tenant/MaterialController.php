@@ -1,21 +1,19 @@
 <?php
 
-namespace Modules\Item\Http\Controllers;
+namespace App\Http\Controllers\Tenant;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Routing\Controller;
-use Modules\Item\Models\Material;
-use Modules\Item\Http\Resources\MaterialCollection;
-use Modules\Item\Http\Resources\MaterialResource;
-use Modules\Item\Http\Requests\MaterialRequest;
+use App\Models\Tenant\Material;
+use App\Http\Resources\Tenant\MaterialCollection;
+use App\Http\Requests\Tenant\MaterialRequest;
 
 class MaterialController extends Controller
 {
 
     public function index()
     {
-        return view('item::materials.index');
+        return view('tenant.materials.index');
     }
 
 
@@ -53,7 +51,7 @@ class MaterialController extends Controller
         return [
             'success' => true,
             'message' => ($id)?'Material editado con éxito':'Material registrado con éxito',
-            'data' => $color
+            'data' => $material
         ];
 
     }

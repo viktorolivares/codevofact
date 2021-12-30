@@ -7,8 +7,6 @@ use Modules\Expense\Models\ExpensePayment;
 
 class CashDocument extends ModelTenant
 {
-    // protected $with = ['document'];
-
     public $timestamps = false;
 
     protected $fillable = [

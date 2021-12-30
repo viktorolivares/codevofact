@@ -130,7 +130,7 @@
  Vue.component('tenant-brands-index', require('../../modules/Item/Resources/assets/js/views/brands/index.vue'));
  Vue.component('tenant-colors-index', require('../../modules/Item/Resources/assets/js/views/colors/index.vue'));
  Vue.component('tenant-sizes-index', require('../../modules/Item/Resources/assets/js/views/sizes/index.vue'));
- Vue.component('tenant-materials-index', require('../../modules/Item/Resources/assets/js/views/materials/index.vue'));
+ Vue.component('tenant-materials-index', require('./views/tenant/materials/index.vue'));
  Vue.component('tenant-incentives-index', require('../../modules/Item/Resources/assets/js/views/incentives/index.vue'));
  Vue.component('tenant-item-lots-index', require('../../modules/Item/Resources/assets/js/views/item-lots/index.vue'));
  Vue.component('tenant-purchase-quotations-index', require('../../modules/Purchase/Resources/assets/js/views/purchase-quotations/index.vue'));

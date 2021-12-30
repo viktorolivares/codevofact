@@ -39,8 +39,6 @@ class TenantItemsTable extends Migration
             $table->decimal('cost_price', 12, 2)->default(0);
             $table->decimal('stock', 12, 2)->default(0);
             $table->decimal('stock_min', 12, 2)->default(0);
-            $table->json('attributes')->nullable();
-            $table->json('materials')->nullable();
             $table->timestamps();
 
             $table->foreign('color_id')->references('id')->on('colors');
