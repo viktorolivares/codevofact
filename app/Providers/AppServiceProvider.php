@@ -15,6 +15,8 @@ class AppServiceProvider extends ServiceProvider
 			URL::forceScheme('https');
 		}
 		Document::observe(DocumentObserver::class);
+
+        Schema::defaultStringLength(191);
 	}
 
 	public function register()
