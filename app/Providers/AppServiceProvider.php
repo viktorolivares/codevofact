@@ -6,6 +6,7 @@ use App\Models\Tenant\Document;
 use App\Observers\DocumentObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
