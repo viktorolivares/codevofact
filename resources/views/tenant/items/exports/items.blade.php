@@ -29,7 +29,6 @@
                                 <th>Categoría</th>
                                 <th>Marca</th>
                                 <th>Precio</th>
-                                <th>Fecha de vencimiento</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,7 +45,6 @@
                                 <td class="celda">{{$value->category_id }}</td>
                                 <td class="celda">{{$value->brand_id }}</td>
                                 <td class="celda">{{$value->sale_unit_price }}</td>
-                                <td class="celda">{{$value->date_of_due }}</td>
                             </tr>
                             @endforeach
                         </tbody>

@@ -31,7 +31,9 @@ class TenantItemsTable extends Migration
             $table->string('system_isc_type_id')->nullable();
             $table->decimal('percentage_isc', 12, 2)->default(0);
             $table->decimal('suggested_price', 12, 2)->default(0);
-            $table->decimal('discount', 12, 2)->default(0);
+            $table->decimal('discount_product', 12, 2)->default(0);
+            $table->decimal('discount_mark', 12, 2)->default(0);
+            $table->decimal('price_concept', 12, 2)->default(0);
             $table->string('sale_affectation_igv_type_id');
             $table->string('purchase_affectation_igv_type_id');
             $table->unsignedInteger('color_id')->nullable();

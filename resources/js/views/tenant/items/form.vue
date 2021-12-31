@@ -21,17 +21,17 @@
                     <hr>
                     <div class="row m-2">
                         <div class="col-md-6">
-                            <div class="form-group" :class="{'has-danger': errors.description}">
-                                <label class="control-label">Nombre<span class="text-danger">*</span></label>
-                                <el-input v-model="form.description" dusk="description"></el-input>
-                                <small class="form-control-feedback" v-if="errors.description" v-text="errors.description[0]"></small>
+                            <div class="form-group" :class="{'has-danger': errors.name}">
+                                <label class="control-label">Nombre</label>
+                                <el-input v-model="form.name" dusk="name"></el-input>
+                                <small class="form-control-feedback" v-if="errors.name" v-text="errors.name[0]"></small>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group" :class="{'has-danger': errors.name}">
-                                <label class="control-label">Descripción</label>
-                                <el-input v-model="form.name" dusk="name"></el-input>
-                                <small class="form-control-feedback" v-if="errors.name" v-text="errors.name[0]"></small>
+                            <div class="form-group" :class="{'has-danger': errors.description}">
+                                <label class="control-label">Descripción<span class="text-danger">*</span></label>
+                                <el-input v-model="form.description" dusk="description"></el-input>
+                                <small class="form-control-feedback" v-if="errors.description" v-text="errors.description[0]"></small>
                             </div>
                         </div>
                     </div>
@@ -704,7 +704,6 @@
                 this.loading_submit = true
 
                 await this.$http.post(`/${this.resource}`, this.form)
-                    console.log(this.form)
                     .then(response => {
                         if (response.data.success) {
                             this.$message.success(response.data.message)
