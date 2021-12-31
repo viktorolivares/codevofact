@@ -18,7 +18,7 @@ class TenantSaleOpportunityItemsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('sale_opportunity_id');
             $table->unsignedInteger('item_id');
-            $table->json('item');
+            $table->text('item');
             $table->decimal('quantity',12,4);
             $table->decimal('unit_value', 16, 6);
 
@@ -37,15 +37,15 @@ class TenantSaleOpportunityItemsTable extends Migration
             $table->decimal('total_discount', 12, 2)->default(0);
             $table->decimal('total', 12, 2);
 
-            $table->json('attributes')->nullable();
-            $table->json('discounts')->nullable();
-            $table->json('charges')->nullable();
+            $table->text('attributes')->nullable();
+            $table->text('discounts')->nullable();
+            $table->text('charges')->nullable();
 
             $table->foreign('sale_opportunity_id')->references('id')->on('sale_opportunities')->onDelete('cascade');
             $table->foreign('item_id')->references('id')->on('items');
             $table->foreign('affectation_igv_type_id')->references('id')->on('cat_affectation_igv_types');
             $table->foreign('price_type_id')->references('id')->on('cat_price_types');
-            
+
         });
     }
 
@@ -57,6 +57,6 @@ class TenantSaleOpportunityItemsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('sale_opportunity_items');
-        
+
     }
 }

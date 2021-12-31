@@ -17,7 +17,7 @@ class TenantOrderFormItemsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('order_form_id');
             $table->unsignedInteger('item_id');
-            $table->json('item');
+            $table->text('item');
             $table->decimal('quantity', 12, 4);
 
             $table->foreign('order_form_id')->references('id')->on('order_forms')->onDelete('cascade');

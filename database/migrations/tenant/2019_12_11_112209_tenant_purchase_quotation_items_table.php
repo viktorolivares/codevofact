@@ -17,9 +17,9 @@ class TenantPurchaseQuotationItemsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('purchase_quotation_id');
             $table->unsignedInteger('item_id');
-            $table->json('item');
-            $table->decimal('quantity',12,4); 
- 
+            $table->text('item');
+            $table->decimal('quantity',12,4);
+
             $table->foreign('purchase_quotation_id')->references('id')->on('purchase_quotations')->onDelete('cascade');
             $table->foreign('item_id')->references('id')->on('items');
         });
@@ -33,6 +33,6 @@ class TenantPurchaseQuotationItemsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('purchase_quotation_items');
-        
+
     }
 }

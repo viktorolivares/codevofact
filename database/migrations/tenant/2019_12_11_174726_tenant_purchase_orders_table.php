@@ -17,15 +17,15 @@ class TenantPurchaseOrdersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->uuid('external_id');
-            $table->unsignedInteger('establishment_id'); 
+            $table->unsignedInteger('establishment_id');
             $table->char('soap_type_id', 2);
-            $table->char('state_type_id', 2);  
+            $table->char('state_type_id', 2);
             $table->date('date_of_issue');
             $table->date('date_of_due')->nullable();
             $table->time('time_of_issue');
             $table->unsignedInteger('supplier_id');
-            $table->json('supplier');
-            $table->string('currency_type_id'); 
+            $table->text('supplier');
+            $table->string('currency_type_id');
             $table->decimal('exchange_rate_sale', 12, 2);
             $table->decimal('total_prepayment', 12, 2)->default(0);
             $table->decimal('total_charge', 12, 2)->default(0);
@@ -43,11 +43,11 @@ class TenantPurchaseOrdersTable extends Migration
             $table->decimal('total_taxes', 12, 2)->default(0);
             $table->decimal('total_value', 12, 2)->default(0);
             $table->decimal('total', 12, 2);
-            $table->string('filename')->nullable(); 
-            $table->string('upload_filename')->nullable(); 
-            $table->unsignedInteger('purchase_quotation_id')->nullable(); 
+            $table->string('filename')->nullable();
+            $table->string('upload_filename')->nullable();
+            $table->unsignedInteger('purchase_quotation_id')->nullable();
             $table->char('payment_method_type_id',2);
- 
+
             $table->timestamps();
 
             $table->foreign('purchase_quotation_id')->references('id')->on('purchase_quotations');

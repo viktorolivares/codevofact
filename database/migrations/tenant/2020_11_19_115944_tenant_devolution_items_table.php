@@ -18,12 +18,12 @@ class TenantDevolutionItemsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('devolution_id');
             $table->unsignedInteger('item_id');
-            $table->json('item');
+            $table->text('item');
             $table->decimal('quantity',12,4);
 
             $table->foreign('devolution_id')->references('id')->on('devolutions')->onDelete('cascade');
             $table->foreign('item_id')->references('id')->on('items');
-            
+
         });
     }
 

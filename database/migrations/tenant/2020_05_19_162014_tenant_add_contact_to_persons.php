@@ -14,7 +14,7 @@ class TenantAddContactToPersons extends Migration
     public function up()
     {
         Schema::table('persons', function (Blueprint $table) {
-            $table->json('contact')->nullable()->after('person_type_id');
+            $table->text('contact')->nullable()->after('person_type_id');
         });
     }
 

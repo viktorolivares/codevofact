@@ -14,7 +14,7 @@ class TenantAddSoapShippingResponseToSummaries extends Migration
     public function up()
     {
         Schema::table('summaries', function (Blueprint $table) {
-            $table->json('soap_shipping_response')->nullable()->after('has_cdr');
+            $table->text('soap_shipping_response')->nullable()->after('has_cdr');
         });
     }
 

@@ -14,7 +14,7 @@ class TenantAddResponseRegularizeShippingToDocuments extends Migration
     public function up()
     {
         Schema::table('documents', function (Blueprint $table) {
-            $table->json('response_regularize_shipping')->nullable()->after('regularize_shipping');
+            $table->text('response_regularize_shipping')->nullable()->after('regularize_shipping');
         });
     }
 

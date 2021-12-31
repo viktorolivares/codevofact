@@ -17,7 +17,7 @@ class TenantDispatchItemsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('dispatch_id');
             $table->unsignedInteger('item_id');
-            $table->json('item');
+            $table->text('item');
             $table->integer('quantity');
 
             $table->foreign('dispatch_id')->references('id')->on('dispatches')->onDelete('cascade');

@@ -18,7 +18,7 @@ class TenantRetentionsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->uuid('external_id');
             $table->unsignedInteger('establishment_id');
-            $table->json('establishment');
+            $table->text('establishment');
             $table->char('soap_type_id', 2);
             $table->char('state_type_id', 2);
             $table->string('ubl_version');
@@ -28,15 +28,15 @@ class TenantRetentionsTable extends Migration
             $table->date('date_of_issue');
             $table->time('time_of_issue');
             $table->unsignedInteger('supplier_id');
-            $table->json('supplier');
+            $table->text('supplier');
             $table->string('retention_type_id');
             $table->text('observations')->nullable();
             $table->string('currency_type_id');
             $table->decimal('total_retention', 10, 2);
             $table->decimal('total', 10, 2);
 
-            $table->json('legends')->nullable();
-            $table->json('optional')->nullable();
+            $table->text('legends')->nullable();
+            $table->text('optional')->nullable();
 
             $table->string('filename')->nullable();
             $table->string('hash')->nullable();

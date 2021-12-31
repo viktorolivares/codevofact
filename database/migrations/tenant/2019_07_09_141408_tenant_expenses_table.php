@@ -17,17 +17,17 @@ class TenantExpensesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('expense_type_id');
-            $table->unsignedInteger('establishment_id'); 
+            $table->unsignedInteger('establishment_id');
             $table->unsignedInteger('supplier_id');
-            $table->string('currency_type_id'); 
+            $table->string('currency_type_id');
             $table->uuid('external_id');
             $table->integer('number');
             $table->date('date_of_issue');
             $table->time('time_of_issue');
-            $table->json('supplier');
-            $table->decimal('exchange_rate_sale', 12, 2);  
-            $table->decimal('total', 12, 2); 
- 
+            $table->text('supplier');
+            $table->decimal('exchange_rate_sale', 12, 2);
+            $table->decimal('total', 12, 2);
+
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

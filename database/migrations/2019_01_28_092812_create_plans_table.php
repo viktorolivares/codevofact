@@ -19,7 +19,7 @@ class CreatePlansTable extends Migration
             $table->double('pricing');
             $table->bigInteger('limit_users');
             $table->bigInteger('limit_documents');
-            $table->json('plan_documents'); 
+            $table->text('plan_documents');
             $table->boolean('locked')->default(false);
 
             $table->timestamps();

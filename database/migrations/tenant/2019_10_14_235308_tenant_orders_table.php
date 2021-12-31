@@ -16,9 +16,9 @@ class TenantOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->uuid('external_id');
-            $table->json('customer');
+            $table->text('customer');
             $table->string('shipping_address', 255)->nullable();
-            $table->json('items');
+            $table->text('items');
             $table->decimal('total', 12, 2);
             $table->string('reference_payment');
             $table->uuid('document_external_id')->nullable();
@@ -35,8 +35,8 @@ class TenantOrdersTable extends Migration
      * @return void
      */
     public function down()
-    
+
     {
-        Schema::dropIfExists('orders');  
+        Schema::dropIfExists('orders');
     }
 }

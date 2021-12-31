@@ -19,7 +19,7 @@ class TenantTechnicalServicesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->char('soap_type_id', 2);
             $table->unsignedInteger('customer_id');
-            $table->json('customer');
+            $table->text('customer');
             $table->string('cellphone');
             $table->date('date_of_issue')->index();
             $table->time('time_of_issue');
@@ -29,10 +29,10 @@ class TenantTechnicalServicesTable extends Migration
             $table->string('serial_number')->index();
             $table->string('filename')->nullable();
 
-            $table->decimal('cost', 12, 2)->default(0); 
-            $table->decimal('prepayment', 12, 2)->default(0); 
+            $table->decimal('cost', 12, 2)->default(0);
+            $table->decimal('prepayment', 12, 2)->default(0);
             $table->text('activities')->nullable();
- 
+
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

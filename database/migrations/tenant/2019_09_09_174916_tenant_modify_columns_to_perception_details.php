@@ -16,11 +16,11 @@ class TenantModifyColumnsToPerceptionDetails extends Migration
         Schema::rename('perception_details', 'perception_documents');
 
         Schema::table('perception_documents', function (Blueprint $table) {
-            
-            $table->string('series');            
+
+            $table->string('series');
             $table->dropColumn('total');
             $table->dropColumn('exchange');
-            $table->json('exchange_rate');
+            $table->text('exchange_rate');
             $table->decimal('total_to_pay', 10, 2);
             $table->decimal('total_payment', 10, 2);
             $table->foreign('document_type_id')->references('id')->on('cat_document_types');
@@ -38,8 +38,8 @@ class TenantModifyColumnsToPerceptionDetails extends Migration
     {
 
         Schema::table('perception_documents', function (Blueprint $table) {
-            
-            $table->dropColumn('series');    
+
+            $table->dropColumn('series');
             $table->decimal('total', 10, 2);
             $table->decimal('exchange', 10, 2);
             $table->dropColumn('exchange_rate');

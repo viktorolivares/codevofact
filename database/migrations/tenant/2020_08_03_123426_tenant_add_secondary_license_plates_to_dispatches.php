@@ -14,7 +14,7 @@ class TenantAddSecondaryLicensePlatesToDispatches extends Migration
     public function up()
     {
         Schema::table('dispatches', function (Blueprint $table) {
-            $table->json('secondary_license_plates')->nullable()->after('license_plate');
+            $table->text('secondary_license_plates')->nullable()->after('license_plate');
         });
     }
 

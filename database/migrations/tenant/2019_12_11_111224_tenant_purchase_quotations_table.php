@@ -11,30 +11,30 @@ class TenantPurchaseQuotationsTable extends Migration
      *
      * @return void
      */
-    
+
     public function up()
     {
         Schema::create('purchase_quotations', function (Blueprint $table) {
-           
+
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->uuid('external_id');
             $table->unsignedInteger('establishment_id');
-            $table->json('establishment');
+            $table->text('establishment');
             $table->char('soap_type_id', 2);
-            $table->char('state_type_id', 2);   
-            $table->string('prefix'); 
+            $table->char('state_type_id', 2);
+            $table->string('prefix');
             $table->date('date_of_issue');
             $table->time('time_of_issue');
-            $table->json('suppliers'); 
- 
-            $table->string('filename')->nullable(); 
+            $table->text('suppliers');
+
+            $table->string('filename')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('establishment_id')->references('id')->on('establishments');
             $table->foreign('soap_type_id')->references('id')->on('soap_types');
-            $table->foreign('state_type_id')->references('id')->on('state_types');  
+            $table->foreign('state_type_id')->references('id')->on('state_types');
         });
     }
 
@@ -45,6 +45,6 @@ class TenantPurchaseQuotationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchase_quotations');        
+        Schema::dropIfExists('purchase_quotations');
     }
 }

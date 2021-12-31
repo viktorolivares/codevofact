@@ -14,7 +14,7 @@ class TenantAddPlanToConfigurations extends Migration
     public function up()
     {
         Schema::table('configurations', function (Blueprint $table) {
-            $table->json('plan')->nullable()->after('locked_emission');
+            $table->text('plan')->nullable()->after('locked_emission');
         });
     }
 

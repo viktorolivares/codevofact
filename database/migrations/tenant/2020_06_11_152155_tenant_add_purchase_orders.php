@@ -14,7 +14,7 @@ class TenantAddPurchaseOrders extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->json('purchase')->nullable()->after('status_order_id');
+            $table->text('purchase')->nullable()->after('status_order_id');
         });
     }
 

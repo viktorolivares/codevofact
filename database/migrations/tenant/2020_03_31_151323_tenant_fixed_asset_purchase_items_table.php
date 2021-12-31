@@ -19,7 +19,7 @@ class TenantFixedAssetPurchaseItemsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('fixed_asset_purchase_id');
             $table->unsignedInteger('fixed_asset_item_id');
-            $table->json('item');
+            $table->text('item');
             $table->decimal('quantity',12,4);
             $table->decimal('unit_value', 16, 6);
 
@@ -46,9 +46,9 @@ class TenantFixedAssetPurchaseItemsTable extends Migration
             $table->decimal('total_discount', 12, 2)->default(0);
             $table->decimal('total', 12, 2);
 
-            $table->json('attributes')->nullable();
-            $table->json('discounts')->nullable();
-            $table->json('charges')->nullable();
+            $table->text('attributes')->nullable();
+            $table->text('discounts')->nullable();
+            $table->text('charges')->nullable();
 
             $table->foreign('fixed_asset_purchase_id')->references('id')->on('fixed_asset_purchases')->onDelete('cascade');
             $table->foreign('fixed_asset_item_id')->references('id')->on('fixed_asset_items');

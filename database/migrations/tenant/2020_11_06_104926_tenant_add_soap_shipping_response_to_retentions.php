@@ -14,7 +14,7 @@ class TenantAddSoapShippingResponseToRetentions extends Migration
     public function up()
     {
         Schema::table('retentions', function (Blueprint $table) {
-            $table->json('soap_shipping_response')->nullable()->after('hash');
+            $table->text('soap_shipping_response')->nullable()->after('hash');
         });
     }
 

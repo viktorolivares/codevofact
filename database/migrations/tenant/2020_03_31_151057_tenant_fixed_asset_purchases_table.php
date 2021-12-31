@@ -17,9 +17,9 @@ class TenantFixedAssetPurchasesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->uuid('external_id');
-            $table->unsignedInteger('establishment_id'); 
+            $table->unsignedInteger('establishment_id');
             $table->char('soap_type_id', 2);
-            $table->char('state_type_id', 2); 
+            $table->char('state_type_id', 2);
             $table->char('group_id', 2);
             $table->string('document_type_id');
             $table->char('series', 4);
@@ -28,8 +28,8 @@ class TenantFixedAssetPurchasesTable extends Migration
             $table->date('date_of_due')->nullable();
             $table->time('time_of_issue');
             $table->unsignedInteger('supplier_id');
-            $table->json('supplier');
-            $table->string('currency_type_id'); 
+            $table->text('supplier');
+            $table->string('currency_type_id');
             $table->decimal('exchange_rate_sale', 13, 3);
             $table->decimal('total_prepayment', 12, 2)->default(0);
             $table->decimal('total_charge', 12, 2)->default(0);
@@ -52,15 +52,15 @@ class TenantFixedAssetPurchasesTable extends Migration
             $table->integer('perception_number')->nullable();
             $table->decimal('total_perception', 12, 2)->nullable();
 
-            $table->json('charges')->nullable();
-            $table->json('discounts')->nullable();
-            $table->json('prepayments')->nullable();
-            $table->json('guides')->nullable();
-            $table->json('related')->nullable();
-            $table->json('perception')->nullable();
-            $table->json('detraction')->nullable();
-            $table->json('legends')->nullable();
- 
+            $table->text('charges')->nullable();
+            $table->text('discounts')->nullable();
+            $table->text('prepayments')->nullable();
+            $table->text('guides')->nullable();
+            $table->text('related')->nullable();
+            $table->text('perception')->nullable();
+            $table->text('detraction')->nullable();
+            $table->text('legends')->nullable();
+
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

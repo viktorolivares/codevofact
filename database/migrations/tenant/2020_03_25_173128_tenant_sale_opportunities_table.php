@@ -14,19 +14,19 @@ class TenantSaleOpportunitiesTable extends Migration
     public function up()
     {
         Schema::create('sale_opportunities', function (Blueprint $table) {
-           
+
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->uuid('external_id');
             $table->unsignedInteger('establishment_id');
-            $table->json('establishment');
+            $table->text('establishment');
             $table->char('soap_type_id', 2);
-            $table->char('state_type_id', 2);   
-            $table->string('prefix'); 
+            $table->char('state_type_id', 2);
+            $table->string('prefix');
             $table->date('date_of_issue');
             $table->time('time_of_issue');
             $table->unsignedInteger('customer_id');
-            $table->json('customer');
+            $table->text('customer');
             $table->string('currency_type_id');
             $table->decimal('exchange_rate_sale', 13, 3);
             $table->decimal('total_exportation', 12, 2)->default(0);
@@ -38,9 +38,9 @@ class TenantSaleOpportunitiesTable extends Migration
             $table->decimal('total_taxes', 12, 2)->default(0);
             $table->decimal('total_value', 12, 2)->default(0);
             $table->decimal('total', 12, 2);
-            $table->string('filename')->nullable(); 
-            $table->text('detail')->nullable(); 
-            $table->text('observation')->nullable(); 
+            $table->string('filename')->nullable();
+            $table->text('detail')->nullable();
+            $table->text('observation')->nullable();
 
             $table->timestamps();
 
@@ -48,9 +48,9 @@ class TenantSaleOpportunitiesTable extends Migration
             $table->foreign('establishment_id')->references('id')->on('establishments');
             $table->foreign('customer_id')->references('id')->on('persons');
             $table->foreign('soap_type_id')->references('id')->on('soap_types');
-            $table->foreign('state_type_id')->references('id')->on('state_types');  
+            $table->foreign('state_type_id')->references('id')->on('state_types');
             $table->foreign('currency_type_id')->references('id')->on('cat_currency_types');
-            
+
         });
     }
 
@@ -61,6 +61,6 @@ class TenantSaleOpportunitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sale_opportunities');        
+        Schema::dropIfExists('sale_opportunities');
     }
 }

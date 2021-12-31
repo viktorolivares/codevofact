@@ -14,15 +14,15 @@ class TenantModifyColumnsToPerceptions extends Migration
     public function up()
     {
         Schema::table('perceptions', function (Blueprint $table) {
-            
-            $table->json('establishment')->after('establishment_id');
+
+            $table->text('establishment')->after('establishment_id');
             $table->time('time_of_issue')->after('filename');
-            $table->json('customer')->after('customer_id');
+            $table->text('customer')->after('customer_id');
             $table->dropColumn('observation');
             $table->text('observations')->nullable()->after('perception_type_id');
             $table->dropColumn('percent');
-            $table->json('legends')->nullable()->after('total');
-            $table->json('optional')->nullable()->after('total');
+            $table->text('legends')->nullable()->after('total');
+            $table->text('optional')->nullable()->after('total');
             $table->foreign('customer_id')->references('id')->on('persons');
 
         });
@@ -46,7 +46,7 @@ class TenantModifyColumnsToPerceptions extends Migration
             $table->dropColumn('legends');
             $table->dropColumn('optional');
             $table->dropForeign(['customer_id']);
-            
+
         });
     }
 }

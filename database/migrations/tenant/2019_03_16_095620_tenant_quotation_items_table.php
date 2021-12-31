@@ -17,7 +17,7 @@ class TenantQuotationItemsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('quotation_id');
             $table->unsignedInteger('item_id');
-            $table->json('item');
+            $table->text('item');
             $table->decimal('quantity',12,4);
             $table->decimal('unit_value', 12, 2);
 
@@ -44,9 +44,9 @@ class TenantQuotationItemsTable extends Migration
             $table->decimal('total_discount', 12, 2)->default(0);
             $table->decimal('total', 12, 2);
 
-            $table->json('attributes')->nullable();
-            $table->json('discounts')->nullable();
-            $table->json('charges')->nullable();
+            $table->text('attributes')->nullable();
+            $table->text('discounts')->nullable();
+            $table->text('charges')->nullable();
 
             $table->foreign('quotation_id')->references('id')->on('quotations')->onDelete('cascade');
             $table->foreign('item_id')->references('id')->on('items');
@@ -64,6 +64,6 @@ class TenantQuotationItemsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('quotation_items');
-        
+
     }
 }

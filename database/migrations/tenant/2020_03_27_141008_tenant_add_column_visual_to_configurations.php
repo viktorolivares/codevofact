@@ -14,7 +14,7 @@ class TenantAddColumnVisualToConfigurations extends Migration
     public function up()
     {
         Schema::table('configurations', function (Blueprint $table) {
-            $table->json('visual')->nullable()->after('plan');
+            $table->text('visual')->nullable()->after('plan');
         });
     }
 

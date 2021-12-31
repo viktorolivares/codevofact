@@ -14,8 +14,8 @@ class TenantAddDataAffectedDocumentToNotes extends Migration
     public function up()
     {
         Schema::table('notes', function (Blueprint $table) {
-            $table->json('data_affected_document')->nullable();
-            
+            $table->text('data_affected_document')->nullable();
+
         });
     }
 
@@ -27,8 +27,8 @@ class TenantAddDataAffectedDocumentToNotes extends Migration
     public function down()
     {
         Schema::table('notes', function (Blueprint $table) {
-            $table->dropColumn('data_affected_document');            
-            
+            $table->dropColumn('data_affected_document');
+
         });
     }
 

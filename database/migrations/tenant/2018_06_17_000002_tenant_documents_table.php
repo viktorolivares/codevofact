@@ -18,7 +18,7 @@ class TenantDocumentsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->uuid('external_id');
             $table->unsignedInteger('establishment_id');
-            $table->json('establishment');
+            $table->text('establishment');
             $table->char('soap_type_id', 2);
             $table->char('state_type_id', 2);
             $table->string('ubl_version');
@@ -29,7 +29,7 @@ class TenantDocumentsTable extends Migration
             $table->date('date_of_issue');
             $table->time('time_of_issue');
             $table->unsignedInteger('customer_id');
-            $table->json('customer');
+            $table->text('customer');
             $table->string('currency_type_id');
             $table->string('purchase_order')->nullable();
             $table->decimal('exchange_rate_sale', 12, 2);
@@ -50,14 +50,14 @@ class TenantDocumentsTable extends Migration
             $table->decimal('total_value', 12, 2)->default(0);
             $table->decimal('total', 12, 2);
 
-            $table->json('charges')->nullable();
-            $table->json('discounts')->nullable();
-            $table->json('prepayments')->nullable();
-            $table->json('guides')->nullable();
-            $table->json('related')->nullable();
-            $table->json('perception')->nullable();
-            $table->json('detraction')->nullable();
-            $table->json('legends')->nullable();
+            $table->text('charges')->nullable();
+            $table->text('discounts')->nullable();
+            $table->text('prepayments')->nullable();
+            $table->text('guides')->nullable();
+            $table->text('related')->nullable();
+            $table->text('perception')->nullable();
+            $table->text('detraction')->nullable();
+            $table->text('legends')->nullable();
 
             $table->string('filename')->nullable();
             $table->string('hash')->nullable();

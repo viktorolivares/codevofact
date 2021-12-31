@@ -22,8 +22,8 @@ class TenantRetentionDocumentsTable extends Migration
             $table->date('date_of_issue');
             $table->string('currency_type_id');
             $table->decimal('total_document', 10, 2);
-            $table->json('payments');
-            $table->json('exchange_rate');
+            $table->text('payments');
+            $table->text('exchange_rate');
             $table->date('date_of_retention');
             $table->decimal('total_retention', 10, 2);
             $table->decimal('total_to_pay', 10, 2);

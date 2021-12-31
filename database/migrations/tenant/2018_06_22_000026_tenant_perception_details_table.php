@@ -25,7 +25,7 @@ class TenantPerceptionDetailsTable extends Migration
             $table->decimal('total_perception', 10, 2);
             $table->decimal('total', 10, 2);
             $table->decimal('exchange', 10, 2);
-            $table->json('payments');
+            $table->text('payments');
 
             $table->foreign('perception_id')->references('id')->on('perceptions')->onDelete('cascade');
         });

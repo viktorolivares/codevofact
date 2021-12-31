@@ -19,14 +19,14 @@ class TenantOrderFormsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->uuid('external_id');
             $table->unsignedInteger('establishment_id');
-            $table->json('establishment');
+            $table->text('establishment');
             $table->char('soap_type_id', 2);
             $table->char('state_type_id', 2);
             $table->string('prefix');
             $table->date('date_of_issue')->index();
             $table->time('time_of_issue');
             $table->unsignedInteger('customer_id');
-            $table->json('customer');
+            $table->text('customer');
             $table->text('observations');
             $table->string('transport_mode_type_id');
             $table->string('transfer_reason_type_id');
@@ -38,16 +38,16 @@ class TenantOrderFormsTable extends Migration
             $table->decimal('total_weight', 10, 2);
             $table->integer('packages_number');
             $table->integer('container_number')->nullable();
-            $table->json('origin');
-            $table->json('delivery');
+            $table->text('origin');
+            $table->text('delivery');
 
-            // $table->json('dispatcher')->nullable();
+            // $table->text('dispatcher')->nullable();
             $table->unsignedInteger('dispatcher_id');
             $table->unsignedInteger('driver_id');
-            $table->json('license_plates')->nullable();
+            $table->text('license_plates')->nullable();
 
-            $table->json('legends')->nullable();
-            $table->json('optional')->nullable();
+            $table->text('legends')->nullable();
+            $table->text('optional')->nullable();
 
             $table->string('filename')->nullable();
             $table->timestamps();
@@ -63,7 +63,7 @@ class TenantOrderFormsTable extends Migration
             $table->foreign('unit_type_id')->references('id')->on('cat_unit_types');
             $table->foreign('transport_mode_type_id')->references('id')->on('cat_transport_mode_types');
             $table->foreign('transfer_reason_type_id')->references('id')->on('cat_transfer_reason_types');
-        
+
         });
     }
 

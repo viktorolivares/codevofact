@@ -14,7 +14,7 @@ class TenantAddSoapShippingResponseToDocuments extends Migration
     public function up()
     {
         Schema::table('documents', function (Blueprint $table) {
-            $table->json('soap_shipping_response')->nullable()->after('total_canceled');
+            $table->text('soap_shipping_response')->nullable()->after('total_canceled');
         });
     }
 
