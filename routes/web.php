@@ -1,9 +1,5 @@
 <?php
 
-$hostname = app(Hyn\Tenancy\Contracts\CurrentHostname::class);
-
-if ($hostname) {
-	Route::domain($hostname->fqdn)->group(function () {
 		Auth::routes([
 			'register' => false,
 			'reset'    => false,
@@ -21,7 +17,10 @@ if ($hostname) {
 		Route::get('sale-notes/print/{external_id}/{format?}', 'Tenant\SaleNoteController@toPrint');
 		Route::get('purchases/print/{external_id}/{format?}', 'Tenant\PurchaseController@toPrint');
 
+
+
 		Route::middleware(['auth', 'redirect.module', 'locked.tenant'])->group(function () {
+
 			Route::get('catalogs', 'Tenant\CatalogController@index')->name('tenant.catalogs.index');
 			Route::get('advanced', 'Tenant\AdvancedController@index')->name('tenant.advanced.index');
 
@@ -484,9 +483,9 @@ if ($hostname) {
 			Route::get('templates', 'Tenant\FormatTemplateController@records');
 		});
 
-	});
-} else {
+
 	Route::domain(env('APP_URL_BASE'))->group(function () {
+
 		Route::get('login', 'System\LoginController@showLoginForm')->name('login');
 		Route::post('login', 'System\LoginController@login');
 		Route::post('logout', 'System\LoginController@logout')->name('logout');
@@ -586,4 +585,4 @@ if ($hostname) {
 		});
 
 	});
-}
+

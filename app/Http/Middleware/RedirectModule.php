@@ -73,7 +73,6 @@ class RedirectModule
             default;
                 return redirect()->route('tenant.dashboard.index');
 
-
         }
     }
 
