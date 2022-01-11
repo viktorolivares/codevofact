@@ -114,7 +114,8 @@ class ItemController extends Controller
         $code = str_pad($code,6,"0",STR_PAD_LEFT);
         $code = 'IAL'.$code;
 
-        return $code;
+       return response()->json($code);
+
     }
 
     public function create()

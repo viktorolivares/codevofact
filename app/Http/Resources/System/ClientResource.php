@@ -18,7 +18,6 @@ class ClientResource extends JsonResource
 
         $all_modules = Module::orderBy('description')->get();
         $modules_in_user = $this->modules->pluck('module_id')->toArray();
-        // dd($all_modules,$modules_in_user);
         $modules = [];
         foreach ($all_modules as $module)
         {
@@ -39,14 +38,8 @@ class ClientResource extends JsonResource
                 'plan_id' => $this->plan_id,
                 'locked' => (bool) $this->locked,
                 'locked_emission' => (bool) $this->locked_emission,
-                'modules' => $modules,
-                //'count_doc' => $this->count_doc,
-               // 'max_documents' => (int) $this->plan->limit_documents,
-                //'count_user' => $this->count_user,
-                //'max_users' => (int) $this->plan->limit_users,
                 'created_at' => $this->created_at->format('Y-m-d H:i:s'),
                 'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
-
                 'soap_send_id' => $this->soap_send_id,
                 'soap_type_id' => $this->soap_type_id,
                 'soap_username' => $this->soap_username,

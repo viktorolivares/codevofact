@@ -5,17 +5,12 @@ namespace App\Http\Controllers\System;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 Use Throwable;
-use Hyn\Tenancy\Contracts\Repositories\HostnameRepository;
-use Hyn\Tenancy\Contracts\Repositories\WebsiteRepository;
 use App\Http\Resources\System\ClientCollection;
 use App\Http\Resources\System\ClientResource;
 use App\Http\Requests\System\ClientRequest;
-use Hyn\Tenancy\Environment;
 use App\Models\System\Client;
 use App\Models\System\Module;
 use App\Models\System\Plan;
-use Hyn\Tenancy\Models\Hostname;
-use Hyn\Tenancy\Models\Website;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\System\Configuration;
@@ -35,7 +30,6 @@ class ClientController extends Controller
 
     public function tables()
     {
-
         $url_base = '.'.config('tenant.app_url_base');
         $plans = Plan::all();
         $types = [['type' => 'admin', 'description'=>'Administrador'], ['type' => 'integrator', 'description'=>'Listar Documentos']];
@@ -54,11 +48,10 @@ class ClientController extends Controller
     {
         $records = Client::latest()->get();
         foreach ($records as &$row) {
-            $tenancy = app(Environment::class);
-            $tenancy->tenant($row->hostname->website);
-            $row->count_doc = DB::connection('tenant')->table('configurations')->first()->quantity_documents;
-            $row->soap_type = DB::connection('tenant')->table('companies')->first()->soap_type_id;
-            $row->count_user = DB::connection('tenant')->table('users')->count();
+
+            $row->count_doc = DB::connection('mysql2')->table('configurations')->first()->quantity_documents;
+            $row->soap_type = DB::connection('mysql2')->table('companies')->first()->soap_type_id;
+            $row->count_user = DB::connection('mysql2')->table('users')->count();
 
             if($row->start_billing_cycle)
             {
@@ -71,13 +64,13 @@ class ClientController extends Controller
                     $init = Carbon::parse( date('Y').'-'.((int)date('n') -1).'-'.$day_start_billing );
                     $end = Carbon::parse(date('Y-m-d'));
 
-                    $row->count_doc_month = DB::connection('tenant')->table('documents')->whereBetween('date_of_issue', [ $init, $end  ])->count();
+                    $row->count_doc_month = DB::connection('mysql2')->table('documents')->whereBetween('date_of_issue', [ $init, $end  ])->count();
                 }
                 else{
 
                     $init = Carbon::parse( date('Y').'-'.((int)date('n') ).'-'.$day_start_billing );
                     $end = Carbon::parse(date('Y-m-d'));
-                    $row->count_doc_month = DB::connection('tenant')->table('documents')->whereBetween('date_of_issue', [ $init, $end  ])->count();
+                    $row->count_doc_month = DB::connection('mysql2')->table('documents')->whereBetween('date_of_issue', [ $init, $end  ])->count();
 
                 }
 
@@ -90,15 +83,14 @@ class ClientController extends Controller
     {
 
         $client = Client::findOrFail($id);
-        $tenancy = app(Environment::class);
-        $tenancy->tenant($client->hostname->website);
-        $client->modules = DB::connection('tenant')->table('module_user')->where('user_id', 1)->get();
 
-        $config =  DB::connection('tenant')->table('configurations')->first();
+        $client->modules = DB::connection('mysql')->table('module_user')->where('user_id', 1)->get();
+
+        $config =  DB::connection('mysql')->table('configurations')->first();
 
         $client->config_system_env = $config->config_system_env;
 
-        $company =  DB::connection('tenant')->table('companies')->first();
+        $company =  DB::connection('mysql')->table('companies')->first();
 
         $client->soap_send_id = $company->soap_send_id;
         $client->soap_type_id = $company->soap_type_id;
@@ -119,8 +111,7 @@ class ClientController extends Controller
         $records = Client::all();
         $count_documents = [];
         foreach ($records as $row) {
-            $tenancy = app(Environment::class);
-            $tenancy->tenant($row->hostname->website);
+
             for($i = 1; $i <= 12; $i++)
             {
                 $date_initial = Carbon::parse(date('Y').'-'.$i.'-1');
@@ -129,7 +120,7 @@ class ClientController extends Controller
                 $count_documents[] = [
                     'client' => $row->number,
                     'month' => $i,
-                    'count' => $row->count_doc = DB::connection('tenant')
+                    'count' => $row->count_doc = DB::connection('mysql2')
                                                     ->table('documents')
                                                     ->whereBetween('date_of_issue', [$date_initial, $date_final])
                                                     ->count()
@@ -192,8 +183,6 @@ class ClientController extends Controller
 
             $plan = Plan::find($request->plan_id);
 
-            $tenancy = app(Environment::class);
-            $tenancy->tenant($client->hostname->website);
             DB::connection('tenant')->table('configurations')->where('id', 1)
                 ->update([
                             'plan' => json_encode($plan),

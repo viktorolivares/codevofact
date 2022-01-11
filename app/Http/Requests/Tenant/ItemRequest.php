@@ -15,6 +15,7 @@ class ItemRequest extends FormRequest
     public function rules()
     {
         $id = $this->input('id');
+
         return [
             'internal_id' => [
                 'nullable',

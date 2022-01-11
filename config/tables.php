@@ -9,8 +9,8 @@ return [
             '07' => 'Observado',
             '09' => 'Rechazado',
             '11' => 'Anulado',
-            '13' => 'Anulando',// 'Anulación registrada',
-            '15' => 'Anulando',// 'Anulación enviada',
+            '13' => 'Anulando',     // 'Anulación registrada',
+            '15' => 'Anulando',     // 'Anulación enviada',
         ],
         'soap_sends' => [
             '01' => 'Sunat',
