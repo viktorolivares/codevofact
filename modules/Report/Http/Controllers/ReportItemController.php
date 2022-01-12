@@ -25,9 +25,8 @@ class ReportItemController extends Controller
         $document_types = [];
         $items = $this->getItems('items');
         $establishments = [];
-        $web_platforms = $this->getWebPlatforms();
 
-        return compact('document_types','establishments','items','web_platforms');
+        return compact('document_types','establishments','items');
     }
 
 
@@ -47,7 +46,6 @@ class ReportItemController extends Controller
 
     public function getRecordsItems($request, $model){
 
-        // dd($request['period']);
         $document_type_id = $request['document_type_id'];
         $establishment_id = $request['establishment_id'];
         $period = $request['period'];
@@ -56,7 +54,6 @@ class ReportItemController extends Controller
         $month_start = $request['month_start'];
         $month_end = $request['month_end'];
         $item_id = $request['item_id'];
-        $web_platform_id = $request['web_platform_id'];
 
         $d_start = null;
         $d_end = null;
@@ -65,7 +62,6 @@ class ReportItemController extends Controller
             case 'month':
                 $d_start = Carbon::parse($month_start.'-01')->format('Y-m-d');
                 $d_end = Carbon::parse($month_start.'-01')->endOfMonth()->format('Y-m-d');
-                // $d_end = Carbon::parse($month_end.'-01')->endOfMonth()->format('Y-m-d');
                 break;
             case 'between_months':
                 $d_start = Carbon::parse($month_start.'-01')->format('Y-m-d');
@@ -74,7 +70,6 @@ class ReportItemController extends Controller
             case 'date':
                 $d_start = $date_start;
                 $d_end = $date_start;
-                // $d_end = $date_end;
                 break;
             case 'between_dates':
                 $d_start = $date_start;
@@ -82,14 +77,14 @@ class ReportItemController extends Controller
                 break;
         }
 
-        $records = $this->dataItems($document_type_id, $establishment_id, $d_start, $d_end, $item_id, $model, $web_platform_id);
+        $records = $this->dataItems($document_type_id, $establishment_id, $d_start, $d_end, $item_id, $model);
 
         return $records;
 
     }
 
 
-    private function dataItems($document_type_id, $establishment_id, $date_start, $date_end, $item_id, $model, $web_platform_id)
+    private function dataItems($document_type_id, $establishment_id, $date_start, $date_end, $item_id, $model)
     {
 
         $data = $model::where('item_id', $item_id)
@@ -101,15 +96,6 @@ class ReportItemController extends Controller
                             ->latest()
                             ->whereTypeUser();
                         });
-
-
-        if($web_platform_id){
-
-            $data = $data->whereHas('relation_item', function($q) use($web_platform_id){
-                            $q->where('web_platform_id', $web_platform_id);
-                        });
-                        
-        }
 
         return $data;
 

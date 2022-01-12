@@ -17,8 +17,6 @@
                             <th class="">Cod. Interno</th>
                             <th class="">Descripción</th>
                             <th class="">Cantidad</th>
-                            <th>Series</th>
-                            <th>Plataforma</th>
                             <th class="">Moneda</th>
                             <th class="">Valor unitario</th>
                             <th class="">Total</th>
@@ -38,10 +36,6 @@
                             <td>{{row.internal_id}}</td>
                             <td>{{row.description}}</td>
                             <td>{{row.quantity}}</td>
-                            <td>
-                                {{ row.lot_has_sale | filterLots }}
-                            </td>
-                            <td>{{row.web_platform_name}}</td>
                             <td>{{row.currency_type_id}}</td>
                             <td>{{row.unit_value}}</td>
                             <td>{{row.total}}</td>
