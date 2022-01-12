@@ -25,9 +25,15 @@ class ItemsImport implements ToCollection
             $total = count($rows);
             $registered = 0;
             unset($rows[0]);
+
+            $code = Item::max('id');
+            $code = $code + 1;
+            $code = str_pad($code,6,"0",STR_PAD_LEFT);
+            $code = 'IAL'.$code;
+
             foreach ($rows as $row)
             {
-                $internal_id = ($row[0])?:null;
+                $internal_id = ($row[0])?:$code;
                 $mark_code = $row[1];
                 $brand_name = $row[2];
                 $name = $row[3];
@@ -112,6 +118,12 @@ class ItemsImport implements ToCollection
                     $item->update([
                         'description' => $description,
                         'model' => $model,
+                        'mark_code' => $mark_code,
+                        'mark_price' => $mark_price,
+                        'discount_product' => $discount_product,
+                        'discount_mark' => $discount_mark,
+                        'price_concept' => $price_concept,
+                        'cost_price' => $cost_price,
                         'item_type_id' => $item_type_id,
                         'internal_id' => $internal_id,
                         'item_code' => $item_code,
@@ -122,6 +134,7 @@ class ItemsImport implements ToCollection
                         'has_igv' => $has_igv,
                         'purchase_unit_price' => $purchase_unit_price,
                         'purchase_affectation_igv_type_id' => $purchase_affectation_igv_type_id,
+                        'stock' => $stock,
                         'stock_min' => $stock_min,
                         'name' => $name,
                         'second_name' => $second_name,
@@ -143,5 +156,6 @@ class ItemsImport implements ToCollection
     public function getData()
     {
         return $this->data;
+        //Update
     }
 }

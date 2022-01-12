@@ -15,6 +15,7 @@ class ItemRequest extends FormRequest
     public function rules()
     {
         $id = $this->input('id');
+
         return [
             'internal_id' => [
                 'nullable',
@@ -67,5 +68,7 @@ class ItemRequest extends FormRequest
             'name.max' => 'La descripción debe ser inferior a 600 caracteres.',
             'sale_unit_price.gt' => 'El precio unitario de venta debe ser mayor que 0.',
         ];
+
+        //Update
     }
 }
