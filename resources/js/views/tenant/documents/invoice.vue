@@ -194,9 +194,9 @@
                                                                 </div>
                                                             </td>
                                                         </template>
-
                                                         <br>
                                                     </tr>
+
                                                 </tbody>
                                             </table>
                                     </div>
@@ -600,6 +600,7 @@
                 enabled_payments: true,
                 readonly_date_of_due: false,
                 seller_class: 'col-lg-6 pb-2',
+                payment_conditions: [],
             }
         },
         async created() {
@@ -1089,7 +1090,8 @@
                     pending_amount_prepayment:0,
                     payment_method_type_id:null,
                     show_terms_condition: true,
-                    terms_condition: ''
+                    terms_condition: '',
+                    payment_condition_id: '01',
                 }
 
                 this.form_cash_document = {

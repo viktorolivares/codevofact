@@ -574,32 +574,7 @@
                 this.cleanTotalItem();
                 this.showListStock = true
 
-
-                if(this.form.item.attributes.length > 0) {
-                    const contex = this
-                    this.form.item.attributes.forEach((row)=>{
-
-                        contex.form.attributes.push({
-                            attribute_type_id: row.attribute_type_id,
-                            description: row.description,
-                            value: row.value,
-                            start_date: row.start_date,
-                            end_date: row.end_date,
-                            duration: row.duration ,
-                        })
-                    })
-                }
                 this.form.lots_group = this.form.item.lots_group
-                // if (!this.recordItem) {
-                //     await this.form.item.warehouses.forEach(element => {
-                //         if(element.checked){
-                //             this.form.warehouse_id = element.warehouse_id
-                //         }
-                //     });
-                // }
-
-                //this.item_unit_types = this.form.item.item_unit_types;
-                //(this.item_unit_types.length > 0) ? this.has_list_prices = true : this.has_list_prices = false;
             },
             focusTotalItem(change) {
                 if(!change && this.form.item.calculate_quantity) {

@@ -85,6 +85,7 @@ class Document extends ModelTenant
         'seller_id',
         'reference_data',
         'terms_condition',
+        'payment_condition_id',
     ];
 
     protected $casts = [
@@ -396,4 +397,10 @@ class Document extends ModelTenant
     {
         return $this->belongsTo(User::class);
     }
+
+    public function payment_condition()
+    {
+        return $this->belongsTo(PaymentCondition::class);
+    }
+
 }

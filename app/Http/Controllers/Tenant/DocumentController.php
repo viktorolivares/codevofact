@@ -55,6 +55,7 @@ use Carbon\Carbon;
 use App\Traits\OfflineTrait;
 use Modules\Inventory\Models\Warehouse as ModuleWarehouse;
 use Modules\Finance\Traits\FinanceTrait;
+use App\Models\Tenant\PaymentCondition;
 
 class DocumentController extends Controller
 {
@@ -166,6 +167,7 @@ class DocumentController extends Controller
         $enabled_discount_global = config('tenant.enabled_discount_global');
         $is_client = $this->getIsClient();
         $select_first_document_type_03 = config('tenant.select_first_document_type_03');
+        $payment_conditions = PaymentCondition::all();
 
         $document_types_guide = DocumentType::whereIn('id', ['09', '31'])->get()->transform(function($row) {
             return [
@@ -182,7 +184,7 @@ class DocumentController extends Controller
                         'note_credit_types', 'note_debit_types', 'currency_types', 'operation_types',
                         'discount_types', 'charge_types', 'company', 'document_type_03_filter',
                         'document_types_guide', 'user', 'sellers','payment_method_types','enabled_discount_global',
-                        'is_client','select_first_document_type_03', 'payment_destinations');
+                        'is_client','select_first_document_type_03', 'payment_destinations','payment_conditions');
 
     }
 

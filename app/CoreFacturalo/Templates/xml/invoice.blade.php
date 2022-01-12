@@ -169,6 +169,10 @@
             <cbc:Amount currencyID="PEN">{{ $detraction->amount }}</cbc:Amount>
         </cac:PaymentTerms>
     @endif
+    <cac:PaymentTerms>
+        <cbc:ID>FormaPago</cbc:ID>
+        <cbc:PaymentMeansID>Contado</cbc:PaymentMeansID>
+    </cac:PaymentTerms>
     @if($document->perception)
     @php($perception = $document->perception)
     <cac:PaymentTerms>
@@ -345,7 +349,7 @@
             </cac:TaxCategory>
         </cac:TaxSubtotal>
         @endif
-        @if($document->total_plastic_bag_taxes > 0) 
+        @if($document->total_plastic_bag_taxes > 0)
         <cac:TaxSubtotal>
             <cbc:TaxAmount currencyID="{{ $document->currency_type_id }}">{{ $document->total_plastic_bag_taxes }}</cbc:TaxAmount>
             <cac:TaxCategory>
