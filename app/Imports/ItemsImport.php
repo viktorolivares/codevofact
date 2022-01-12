@@ -41,8 +41,8 @@ class ItemsImport implements ToCollection
                 $size_name = $row[5];
                 $purchase_unit_price = ($row[6])?:0;
                 $cost_price = ($row[7])?:0;
-                $mark_price = $row[8];
-                $discount_mark = $row[9];
+                $mark_price = $row[8]?:0;
+                $discount_mark = $row[9]?:0;
 
                 $sale_affectation_igv_type_id = ($row[20])?:10;
                 $purchase_affectation_igv_type_id = ($row[21])?:10;
@@ -55,7 +55,7 @@ class ItemsImport implements ToCollection
                 }
 
                 $price_concept = ($row[11])?:0;
-                $discount_product = $row[12];
+                $discount_product = $row[12]?:0;
                 $sale_unit_price = ($row[13])?:0;
                 $stock = ($row[14])?:0;
                 $stock_min = ($row[15])?:0;
