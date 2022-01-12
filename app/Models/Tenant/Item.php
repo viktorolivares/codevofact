@@ -71,6 +71,9 @@ class Item extends ModelTenant
         'web_platform_id',
         'has_plastic_bag_taxes',
         'barcode',
+        'discount_product',
+        'discount_mark',
+        'price_concept'
     ];
 
     public function account()

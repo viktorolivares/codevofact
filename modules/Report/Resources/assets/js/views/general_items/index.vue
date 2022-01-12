@@ -16,7 +16,6 @@
                             <th class="">Cliente</th>
                             <th class="">Cod. Interno</th>
                             <th class="">Descripción</th>
-                            <!-- <th class="">U. Medida</th> -->
                             <th class="">Cantidad</th>
                             <th>Series</th>
                             <th>Plataforma</th>
@@ -38,7 +37,6 @@
                             <td>{{row.customer_name}}</td>
                             <td>{{row.internal_id}}</td>
                             <td>{{row.description}}</td>
-                            <!-- <td>{{row.unit_type_id}}</td> -->
                             <td>{{row.quantity}}</td>
                             <td>
                                 {{ row.lot_has_sale | filterLots }}

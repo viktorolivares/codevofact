@@ -10,12 +10,6 @@
                         <el-tab-pane label="General" name="first">
                             <tenant-report-kardex-index></tenant-report-kardex-index>
                         </el-tab-pane>
-                        <el-tab-pane label="Por Lotes" name="second">
-                            <tenant-report-kardex-lots></tenant-report-kardex-lots>
-                        </el-tab-pane>
-                        <el-tab-pane label="Por series" name="third">
-                            <tenant-report-kardex-series></tenant-report-kardex-series>
-                        </el-tab-pane>
                     </el-tabs>
                 </div>
             </div>

@@ -338,10 +338,24 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="form-group" :class="{'has-danger': errors.discount}">
-                                        <label class="control-label">% Descuento<span class="text-danger"></span></label>
-                                        <el-input v-model="form.discount"></el-input>
-                                        <small class="form-control-feedback" v-if="errors.discount" v-text="errors.discount[0]"></small>
+                                    <div class="form-group" :class="{'has-danger': errors.discount_product}">
+                                        <label class="control-label">% Descuento Producto<span class="text-danger"></span></label>
+                                        <el-input v-model="form.discount_product"></el-input>
+                                        <small class="form-control-feedback" v-if="errors.discount_product" v-text="errors.discount_product[0]"></small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group" :class="{'has-danger': errors.mark}">
+                                        <label class="control-label">% Descuento Marca<span class="text-danger"></span></label>
+                                        <el-input v-model="form.discount_mark"></el-input>
+                                        <small class="form-control-feedback" v-if="errors.discount_mark" v-text="errors.discount_mark[0]"></small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group" :class="{'has-danger': errors.price_concept}">
+                                        <label class="control-label">Precio Concept<span class="text-danger"></span></label>
+                                        <el-input v-model="form.price_concept"></el-input>
+                                        <small class="form-control-feedback" v-if="errors.price_concept" v-text="errors.price_concept[0]"></small>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -563,7 +577,6 @@
                     currency_type_id: 'PEN',
                     sale_unit_price: 0,
                     purchase_unit_price: 0,
-                    cost_price: 0,
                     has_isc: false,
                     system_isc_type_id: null,
                     percentage_isc: 0,
@@ -593,6 +606,13 @@
                     purchase_has_igv: true,
                     web_platform_id: null,
                     has_plastic_bag_taxes: false,
+                    mark_code: null,
+                    mark_price: 0,
+                    discount_product: 0,
+                    discount_mark: 0,
+                    price_concept: 0,
+                    cost_price: 0,
+
                 },
                 this.show_has_igv = true
                 this.purchase_show_has_igv = true

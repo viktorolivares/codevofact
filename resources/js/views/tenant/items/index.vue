@@ -56,6 +56,8 @@
                     <tr slot="heading" width="100%">
                         <th>#</th>
                         <th>Cód. Interno</th>
+                        <th>Cód. Marca</th>
+                        <th>Marca</th>
                         <th>Unidad</th>
                         <th>Nombre</th>
                         <th v-if="columns.description.visible">Descripción</th>
@@ -71,10 +73,12 @@
 
                     <tr></tr>
                     <tr slot-scope="{ index, row }" :class="{ disable_color: !row.active }">
-                        <td>{{ index }}</td>
+                        <td>{{ row.id }}</td>
                         <td>{{ row.internal_id }}</td>
+                        <td>{{ row.mark_code }}</td>
+                        <td>{{ row.brand }}</td>
                         <td>{{ row.unit_type_id }}</td>
-                        <td>{{ row.description }}</td>
+                        <td>{{ row.name }}</td>
                         <td v-if="columns.description.visible">{{ row.name }}</td>
                         <td>
                             <div v-if="config.product_only_location == true">

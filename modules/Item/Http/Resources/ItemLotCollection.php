@@ -14,7 +14,7 @@ class ItemLotCollection extends ResourceCollection
      */
     public function toArray($request) {
         return $this->collection->transform(function($row, $key) {
-             
+
             $status = '';
 
             if($row->has_sale){
@@ -34,7 +34,6 @@ class ItemLotCollection extends ResourceCollection
                 'warehouse_id' => $row->warehouse_id,
                 'status' => $status,
                 'has_sale' => (bool)$row->has_sale,
-                // 'lot_code' => ($row->item_loteable_type) ? (isset($row->item_loteable->lot_code) ? $row->item_loteable->lot_code:null):null
             ];
         });
     }

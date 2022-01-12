@@ -75,17 +75,6 @@
                                 </el-select>
                             </div>
                         </div>
-                        <!-- <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="control-label">Establecimiento</label>
-                                <el-select v-model="form.establishment_id" clearable>
-                                    <el-option v-for="option in establishments" :key="option.id" :value="option.id" :label="option.name"></el-option>
-                                </el-select>
-                            </div>
-                        </div> -->
-
-
-
                         <div class="col-lg-4 col-md-6" >
                             <div class="form-group">
                                 <label class="control-label">
@@ -128,16 +117,6 @@
 
                             </div>
                         </div>
-
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label class="control-label">Plataforma</label>
-                                <el-select v-model="form.web_platform_id" clearable>
-                                    <el-option v-for="option in web_platforms" :key="option.id" :value="option.id" :label="option.name"></el-option>
-                                </el-select>
-                            </div>
-                        </div>
-
                         <div class="col-lg-7 col-md-7 col-md-7 col-sm-12" style="margin-top:29px">
                             <el-button class="submit" type="primary" @click.prevent="getRecordsByFilter" :loading="loading_submit" icon="el-icon-search" >Buscar</el-button>
 
@@ -231,7 +210,6 @@
                 loading_search:false,
                 items: [],
                 all_items: [],
-                web_platforms: [],
                 loading_search_items:false,
                 brands: []
             }
@@ -252,14 +230,12 @@
                     this.all_customers = response.data.customers
                     this.all_suppliers = response.data.suppliers
                     this.all_items = response.data.items
-                    this.web_platforms = response.data.web_platforms
                     this.brands = response.data.brands
                 });
 
 
             await this.filterItems()
             await this.filterPersons()
-            // await this.getTotals()
             this.form.type_person = this.form.type == 'sale' ? 'customers':'suppliers'
 
         },
@@ -317,7 +293,6 @@
 
             },
             filterPersons() {
-                // this.persons = this.all_persons
                 this.form.person_id = null
 
                 if(this.form.type == 'sale'){
@@ -344,7 +319,6 @@
                     period: 'month',
                     user: null,
                     person_id: null,
-                    web_platform_id: null,
                     brand_id: null,
                     type_person:null,
                     date_start: moment().format('YYYY-MM-DD'),

@@ -34,7 +34,7 @@ class ItemsImport implements ToCollection
                 $color_name = $row[4];
                 $size_name = $row[5];
                 $purchase_unit_price = ($row[6])?:0;
-                $cost_price = $row[7];
+                $cost_price = ($row[7])?:0;
                 $mark_price = $row[8];
                 $discount_mark = $row[9];
 
@@ -84,7 +84,7 @@ class ItemsImport implements ToCollection
                         'mark_price' => $mark_price,
                         'discount_product' => $discount_product,
                         'discount_mark' => $discount_mark,
-                        'price_concept' => $discount_mark,
+                        'price_concept' => $price_concept,
                         'cost_price' => $cost_price,
                         'item_type_id' => $item_type_id,
                         'internal_id' => $internal_id,
@@ -128,8 +128,10 @@ class ItemsImport implements ToCollection
                         'barcode' => $barcode,
                         'mark_code' => $mark_code,
                         'mark_price' => $mark_price,
-                        'discount' => $discount,
+                        'discount_product' => $discount_product,
+                        'discount_mark' => $discount_mark,
                         'cost_price' => $cost_price,
+                        'price_concept' => $price_concept,
                     ]);
                     $registered += 1;
                 }

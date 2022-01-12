@@ -251,8 +251,6 @@ class DocumentController extends Controller
             $detraction->image_pay_constancy = $set_image_pay_constancy;
 
         }
-
-        // dd($detraction, $request->upload_image_pay_constancy['temp_path']);
         $document->detraction = $detraction;
         $document->save();
 
@@ -277,8 +275,6 @@ class DocumentController extends Controller
                 'series' => $row->series,
                 'number' => $row->number,
                 'document_type_id' => ($row->document_type_id == '01') ? '02':'03',
-                // 'amount' => $row->total_value,
-                // 'total' => $row->total,
                 'amount' => $amount,
                 'total' => $total,
 
@@ -343,7 +339,6 @@ class DocumentController extends Controller
                             'checked' => ($row->warehouse_id == $warehouse->id) ? true : false,
                         ];
                     }),
-                    'attributes' => $row->attributes ? $row->attributes : [],
                     'lots_group' => collect($row->lots_group)->transform(function($row){
                         return [
                             'id'  => $row->id,
@@ -354,17 +349,6 @@ class DocumentController extends Controller
                         ];
                     }),
                     'lots' => [],
-                    // 'lots' => $row->item_lots->where('has_sale', false)->where('warehouse_id', $warehouse->id)->transform(function($row) {
-                    //     return [
-                    //         'id' => $row->id,
-                    //         'series' => $row->series,
-                    //         'date' => $row->date,
-                    //         'item_id' => $row->item_id,
-                    //         'warehouse_id' => $row->warehouse_id,
-                    //         'has_sale' => (bool)$row->has_sale,
-                    //         'lot_code' => ($row->item_loteable_type) ? (isset($row->item_loteable->lot_code) ? $row->item_loteable->lot_code:null):null
-                    //     ];
-                    // }),
                     'lots_enabled' => (bool) $row->lots_enabled,
                     'series_enabled' => (bool) $row->series_enabled,
                     'has_plastic_bag_taxes' => (bool) $row->has_plastic_bag_taxes,
@@ -383,7 +367,6 @@ class DocumentController extends Controller
 
         if($request->document_item_id){
 
-            //proccess credit note
             $document_item = DocumentItem::findOrFail($request->document_item_id);
 
             $records = ItemLot::where('series','like', "%{$request->input}%")
@@ -475,7 +458,6 @@ class DocumentController extends Controller
                         'checked' => ($row->warehouse_id == $warehouse->id) ? true : false,
                     ];
                 }),
-                'attributes' => $row->attributes ? $row->attributes : [],
                 'lots_group' => collect($row->lots_group)->transform(function($row){
                     return [
                         'id'  => $row->id,

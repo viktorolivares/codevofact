@@ -52,13 +52,10 @@ class ItemController extends Controller
     public function columns()
     {
         return [
-            'description' => 'Nombre',
             'internal_id' => 'Código interno',
-            'barcode' => 'Código de barras',
-            'model' => 'Modelo',
+            'mark_code' => 'Código Marca',
+            'name' => 'Nombre',
             'brand' => 'Marca',
-            'date_of_due' => 'Fecha vencimiento',
-            'lot_code' => 'Código lote',
             'active' => 'Habilitados',
             'inactive' => 'Inhabilitados',
         ];
@@ -103,7 +100,7 @@ class ItemController extends Controller
 
         }
 
-        return $records->orderBy('description');
+        return $records->orderBy('id');
 
     }
 

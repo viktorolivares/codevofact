@@ -60,7 +60,6 @@
                         <th class="text-center">Saldo</th>
                         <th class="text-center"></th>
                         <th class="text-center">Descargas</th>
-                        <!--<th class="text-center">Anulación</th>-->
                         <th class="text-right" v-if="typeUser != 'integrator'">Acciones</th>
                     <tr>
                     <tr slot-scope="{ index, row }" :class="{'text-danger': (row.state_type_id === '11'),
@@ -87,11 +86,6 @@
                                 <label class="d-block"   :key="index">{{row.note_type_description}}: {{row.description}}</label>
                             </template>
                         </td>
-
-                        <!-- <td>
-                            {{ row.document_type_id == '07' ?  row.number : ''}}
-                        </td> -->
-
                         <td>
                             <el-tooltip v-if="tooltip(row, false)" class="item" effect="dark" placement="bottom">
                                 <div slot="content">{{tooltip(row)}}</div>
@@ -138,18 +132,6 @@
                                     @click.prevent="clickDownload(row.download_cdr)"
                                     v-if="row.has_cdr">CDR</button>
                         </td>
-                        <!--<td class="text-center">-->
-                            <!--<button type="button" class="btn waves-effect waves-light btn-xs btn-danger"-->
-                                    <!--@click.prevent="clickDownload(row.download_xml_voided)"-->
-                                    <!--v-if="row.has_xml_voided">XML</button>-->
-                            <!--<button type="button" class="btn waves-effect waves-light btn-xs btn-danger"-->
-                                    <!--@click.prevent="clickDownload(row.download_cdr_voided)"-->
-                                    <!--v-if="row.has_cdr_voided">CDR</button>-->
-                            <!--<button type="button" class="btn waves-effect waves-light btn-xs btn-warning"-->
-                                    <!--@click.prevent="clickTicket(row.voided.id, row.group_id)"-->
-                                    <!--v-if="row.btn_ticket">Consultar</button>-->
-                        <!--</td>-->
-
                         <td class="text-right" v-if="typeUser != 'integrator'">
                             <button type="button" class="btn waves-effect waves-light btn-xs btn-danger m-1__2"
                                     @click.prevent="clickDeleteDocument(row.id)"
