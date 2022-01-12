@@ -134,7 +134,6 @@ class ItemsImport implements ToCollection
                         'has_igv' => $has_igv,
                         'purchase_unit_price' => $purchase_unit_price,
                         'purchase_affectation_igv_type_id' => $purchase_affectation_igv_type_id,
-                        'stock' => $stock,
                         'stock_min' => $stock_min,
                         'name' => $name,
                         'second_name' => $second_name,
