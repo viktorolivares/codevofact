@@ -19,7 +19,6 @@
                                 <th>CÓDIGO MARCA</th>
                                 <th>CÓDIGO INTERNO</th>
                                 <th>TALLA</th>
-                                <th>DESCRIPCIÓN</th>
                                 <th>NOMBRE</th>
                                 <th>COLOR</th>
                                 <th>PRECIO CONCEPT</th>
@@ -34,6 +33,7 @@
                                 <th>SUBTOTAL</th>
                                 <th>IGV</th>
                                 <th>TOTAL</th>
+                                <th>UTILIDAD</th>
                                 <th>ANULADO</th>
                             </tr>
                         </thead>
@@ -101,6 +101,7 @@
 
                                             $total_item_purchase = \Modules\Report\Http\Resources\GeneralItemCollection::getPurchaseUnitPrice($value);
                                             $utility_item = $value->total - $total_item_purchase;
+                                            $ganancia = $value->total - $value->relation_item->mark_price;
                                         @endphp
 
                                     <tr>
@@ -109,8 +110,7 @@
                                         <td class="celda">{{$value->relation_item->mark_code}}</td>
                                         <td class="celda">{{$value->item->internal_id}}</td>
                                         <td class="celda">{{$value->relation_item->size->name}}</td>
-                                        <td class="celda">{{$value->item->description}}</td>
-                                        <td class="celda">{{$value->relation_item->description}}</td>
+                                        <td class="celda">{{$value->relation_item->name}}</td>
                                         <td class="celda">{{$value->relation_item->color->name}}</td>
                                         <td class="celda">{{$value->relation_item->price_concept}}</td>
                                         <td class="celda">{{$value->relation_item->mark_price}}</td>
@@ -124,6 +124,7 @@
                                         <td class="celda">{{$value->total_value}}</td>
                                         <td class="celda">{{$value->total_igv}}</td>
                                         <td class="celda">{{$value->total}}</td>
+                                        <td class="celda">{{$ganancia}}</td>
                                         <td class="celda">{{$value->document->state_type_id == '11' ? 'SI':'NO'}}</td>
                                     </tr>
                                     @endforeach
@@ -149,7 +150,7 @@
                                     <td class="celda">{{$value->relation_item ? $value->relation_item->internal_id:''}}</td>
                                     <td class="celda">{{$$value->relation_item->mark_code}}</td>
                                     <td class="celda">{{$value->item->description}}</td>
-                                    <td class="celda">{{$$value->relation_item->name}}</td>
+                                    <td class="celda">{{$value->relation_item->name}}</td>
                                     <td class="celda">{{$value->quantity}}</td>
                                     <td class="celda"></td>
                                     <td class="celda"></td>
