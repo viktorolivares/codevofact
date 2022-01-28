@@ -26,7 +26,7 @@ class ReportSaleConsolidatedController extends Controller
     public function filter() {
 
 
-        $persons = $this->getPersons('customers'); 
+        $persons = $this->getPersons('customers');
         $date_range_types = $this->getDateRangeTypes(true);
         $order_state_types = [];
         $sellers = $this->getSellers();
@@ -51,14 +51,14 @@ class ReportSaleConsolidatedController extends Controller
 
     public function totalsByItem(Request $request)
     {
-        
+
         $records = $this->getRecordsSalesConsolidated($request->all())->get()->groupBy('item_id');
 
         return $records->map(function($row, $key){
 
             return [
                 'item_id' => $key,
-                'item_internal_id' => $row->first()->relation_item->internal_id,  
+                'item_internal_id' => $row->first()->relation_item->internal_id,
                 'item_unit_type_id' => $row->first()->relation_item->unit_type_id,
                 'item_description' => $row->first()->item->description,
                 'quantity' => number_format($row->sum('quantity'), 4, ".", ""),
@@ -70,7 +70,6 @@ class ReportSaleConsolidatedController extends Controller
 
     public function getRecordsSalesConsolidated($request){
 
-        // dd($request);
         $records = $this->dataSalesConsolidated($request);
 
         return $records;
@@ -81,7 +80,7 @@ class ReportSaleConsolidatedController extends Controller
     private function dataSalesConsolidated($request)
     {
 
-        $document_type_id = $request['document_type_id']; 
+        $document_type_id = $request['document_type_id'];
 
         switch ($document_type_id) {
 
@@ -93,8 +92,8 @@ class ReportSaleConsolidatedController extends Controller
             case '80':
                 $data = SaleNoteItem::whereDefaultDocumentType($request);
                 break;
-    
-            default: 
+
+            default:
                 $document_items = DocumentItem::whereDefaultDocumentType($request);
                 $sale_note_items = SaleNoteItem::whereDefaultDocumentType($request);
                 $data = $document_items->union($sale_note_items);
@@ -172,5 +171,5 @@ class ReportSaleConsolidatedController extends Controller
                 ->download($filename.'.xlsx');
 
     }
-    
+
 }

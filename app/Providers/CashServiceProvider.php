@@ -41,7 +41,7 @@ class CashServiceProvider extends ServiceProvider
                 $cash = self::getCash();
 
                 if(!$cash){
-                    throw new Exception("Para el método de gasto usado, primero debe aperturar caja chica");
+                    throw new \ErrorException("Para el método de gasto usado, primero debe aperturar caja chica");
                 }
 
                 $cash->cash_documents()->create(['expense_payment_id' => $expense_payment->id]);
@@ -51,12 +51,10 @@ class CashServiceProvider extends ServiceProvider
 
     }
 
-
     private static function getCash(){
 
         return  Cash::where([['user_id',auth()->user()->id],['state',true]])->first();
 
     }
-
 
 }

@@ -23,28 +23,21 @@ class GeneralItemCollection extends ResourceCollection
                 'unit_type_id' => $row->item->unit_type_id,
                 'internal_id' => $row->relation_item->internal_id,
                 'description' => $row->item->description,
+                'internal_id' => $row->relation_item->mark_code,
                 'currency_type_id' => $resource['currency_type_id'],
-
                 'lot_has_sale' => self::getLotsHasSale($row),
-
                 'date_of_issue' => $resource['date_of_issue'],
                 'customer_name' => $resource['customer_name'],
                 'customer_number' => $resource['customer_number'],
-
                 'series' => $resource['series'],
                 'alone_number' => $resource['alone_number'],
                 'quantity' => number_format($row->quantity, 2),
-
                 'unit_value' => number_format($row->unit_value, 2),
-
                 'total' => number_format($row->total, 2),
-
                 'total_item_purchase' => number_format($total_item_purchase, 2),
                 'utility_item' => number_format($utility_item, 2),
-
                 'document_type_description' => $resource['document_type_description'],
                 'document_type_id' => $resource['document_type_id'],
-                'web_platform_name' => optional($row->relation_item->web_platform)->name,
             ];
         });
     }
@@ -81,13 +74,6 @@ class GeneralItemCollection extends ResourceCollection
             $purchase_unit_price = $record->relation_item->purchase_unit_price;
         }
 
-        // if ($record->relation_item->purchase_unit_price > 0) {
-        //     $purchase_unit_price = $record->relation_item->purchase_unit_price;
-        // } else {
-        //     $purchase_item = PurchaseItem::select('unit_price')->where('item_id', $record->item_id)->latest('id')->first();
-        //     $purchase_unit_price = ($purchase_item) ? $purchase_item->unit_price : $record->unit_price;
-        // }
-
         return $purchase_unit_price;
     }
 
@@ -104,10 +90,6 @@ class GeneralItemCollection extends ResourceCollection
     {
 
         $data = [];
-        /*$data['quantity'] = number_format($row->quantity,2);
-        $data['total'] = number_format($row->total,2);
-        $data['unit_type_id'] = $row->item->unit_type_id;
-        $data['description'] = $row->item->description;*/
 
         if ($row->document) {
 

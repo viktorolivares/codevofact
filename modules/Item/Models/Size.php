@@ -14,7 +14,7 @@ class Size extends ModelTenant
 
     public function items()
     {
-        return $this->hasMany(Size::class);
+        return $this->hasMany(Item::class);
     }
 
 }

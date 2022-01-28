@@ -3,7 +3,6 @@
 namespace Modules\Report\Traits;
 
 use App\Models\Tenant\Catalogs\DocumentType;
-use App\Models\Tenant\Establishment;
 use App\Models\Tenant\Document;
 use App\Models\Tenant\SaleNote;
 use Carbon\Carbon;
@@ -12,6 +11,8 @@ use App\Models\Tenant\Item;
 use App\Models\Tenant\User;
 use App\Models\Tenant\StateType;
 use Modules\Item\Models\Brand;
+use Modules\Item\Models\Size;
+use Modules\Item\Models\Color;
 use Modules\Item\Models\WebPlatform;
 
 
@@ -21,7 +22,6 @@ trait ReportTrait
 
     public function getRecords($request, $model){
 
-        // dd($request['period']);
         $document_type_id = $request['document_type_id'];
         $establishment_id = $request['establishment_id'];
         $period = $request['period'];
@@ -42,7 +42,6 @@ trait ReportTrait
             case 'month':
                 $d_start = Carbon::parse($month_start.'-01')->format('Y-m-d');
                 $d_end = Carbon::parse($month_start.'-01')->endOfMonth()->format('Y-m-d');
-                // $d_end = Carbon::parse($month_end.'-01')->endOfMonth()->format('Y-m-d');
                 break;
             case 'between_months':
                 $d_start = Carbon::parse($month_start.'-01')->format('Y-m-d');
@@ -51,7 +50,6 @@ trait ReportTrait
             case 'date':
                 $d_start = $date_start;
                 $d_end = $date_start;
-                // $d_end = $date_end;
                 break;
             case 'between_dates':
                 $d_start = $date_start;
@@ -328,6 +326,18 @@ trait ReportTrait
     public function getBrands()
     {
         return Brand::orderBy('name')
+            ->get();
+    }
+
+    public function getSizes()
+    {
+        return Size::orderBy('name')
+            ->get();
+    }
+
+    public function getColors()
+    {
+        return Color::orderBy('name')
             ->get();
     }
 }

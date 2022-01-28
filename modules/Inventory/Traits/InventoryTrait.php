@@ -204,16 +204,8 @@ trait InventoryTrait
         $item_warehouse = ItemWarehouse::firstOrNew(['item_id' => $item_id, 'warehouse_id' => $warehouse_id]);
         $item_warehouse->stock = $item_warehouse->stock + $quantity;
 
-        // dd($item_warehouse->item->unit_type_id);
-
         if($quantity < 0 && $item_warehouse->item->unit_type_id !== 'ZZ'){
             if (($inventory_configuration->stock_control) && ($item_warehouse->stock < 0)){
-                // return [
-                //     'success' => false,
-                //     'message' => 'El producto {$item_warehouse->item->description} no tiene suficiente stock!'
-                // ];
-                // dd('hasta aqui');
-                // return response()->json(['success' => false, 'message' => El producto {$item_warehouse->item->description} no tiene suficiente stock!]);
                 throw new Exception("El producto {$item_warehouse->item->description} no tiene suficiente stock!");
             }
         }
@@ -229,21 +221,12 @@ trait InventoryTrait
     }
 
     public function initializeInventory() {
-//        $establishments = Establishment::all();
-//        foreach ($establishments as $establishment)
-//        {
-//            Warehouse::firstOrCreate(['establishment_id' => $establishment->id],
-//                                     ['description' => $establishment->description]);
-//        }
-
         $warehouse = $this->findWarehouse();
         $items = Item::all();
 
         foreach ($items as $item) {
             if (!$this->checkInventory($item->id, $warehouse->id)) {
                 $inventory = $this->createInitialInventory($item->id, $item->stock, $warehouse->id);
-//                $this->createInventoryKardex($inventory, $item->id, $item->stock, $warehouse->id);
-//                $this->updateStock($item->id, $item->stock, $warehouse->id);
             }
         }
     }
@@ -252,8 +235,6 @@ trait InventoryTrait
         return Warehouse::findOrFail($warehouse_id);
     }
 
-
-    ////kardex sale note
     public function findSaleNoteItem($sale_note_item_id) {
         return SaleNoteItem::find($sale_note_item_id);
     }
@@ -275,15 +256,12 @@ trait InventoryTrait
     private function deleteInventoryKardex($model, $inventory_kardex_id) {
         $model->inventory_kardex()->where('id',$inventory_kardex_id)->delete();
     }
-    ////kardex sale note
 
     private function deleteAllInventoryKardexByModel($model) {
         $model->inventory_kardex()->delete();
     }
 
     private function updateDataLots($document_item){
-
-        // dd($document_item);
 
         if(isset($document_item->item->IdLoteSelected) )
         {
@@ -374,7 +352,6 @@ trait InventoryTrait
 
         foreach ($items as $element) {
 
-            //$lot_has_sale = collect($element->lots)->firstWhere('has_sale', 1);
             if($element->has_sale == 1)
             {
                 $validated = false;

@@ -15,38 +15,26 @@
                         <thead>
                             <tr>
                                 <th>FECHA DE EMISIÓN</th>
-                                <th>TIPO DOCUMENTO</th>
-                                <th>ID TIPO</th>
-                                <th>SERIE</th>
-                                <th>NÚMERO</th>
-                                <th>ANULADO</th>
-                                <th>DOC ENTIDAD TIPO DNI RUC</th>
-                                <th>DOC ENTIDAD NÚMERO</th>
-                                <th>DENOMINACIÓN ENTIDAD</th>
-                                <th>MONEDA</th>
-                                <th>TIPO DE CAMBIO</th>
-                                <th>UNIDAD DE MEDIDA</th>
-                                <th>CÓDIGO INTERNO</th>
-                                <th>DESCRIPCIÓN</th>
-                                <th>CANTIDAD</th>
-                                <th>SERIES</th>
-                                <th>COSTO UNIDAD</th>
-                                <th>VALOR UNITARIO</th>
-                                <th>PRECIO UNITARIO</th>
-                                <th>DESCUENTO</th>
-                                <th>SUBTOTAL</th>
-                                <th>TIPO DE IGV</th>
-                                <th>IGV</th>
-                                <th>TIPO DE ISC</th>
-                                <th>ISC</th>
-                                <th>IMPUESTO BOLSAS</th>
-                                <th>TOTAL</th>
-                                @if($type == 'sale')
-                                <th>TOTAL COMPRA</th>
-                                <th>GANANCIA</th>
-                                @endif
-                                <th>PLATAFORMA</th>
                                 <th>MARCA</th>
+                                <th>CÓDIGO MARCA</th>
+                                <th>CÓDIGO INTERNO</th>
+                                <th>TALLA</th>
+                                <th>DESCRIPCIÓN</th>
+                                <th>NOMBRE</th>
+                                <th>COLOR</th>
+                                <th>PRECIO CONCEPT</th>
+                                <th>PRECIO MARCA</th>
+                                <th>DESCUENTO MARCA</th>
+                                <th>DESCUENTO PRODUCTO</th>
+                                <th>PRECIO COSTO</th>
+                                <th>CANTIDAD</th>
+                                <th>METODO PAGO</th>
+                                <th>VALOR UNITARIO</th>
+                                <th>PRECIO VENTA</th>
+                                <th>SUBTOTAL</th>
+                                <th>IGV</th>
+                                <th>TOTAL</th>
+                                <th>ANULADO</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,17 +52,7 @@
                                                 $series = implode(" - ", $series_data);
                                             }
 
-                                            // $purchase_unit_price = 0;
-
-                                            // if($value->relation_item->purchase_unit_price > 0){
-                                            //     $purchase_unit_price = $value->relation_item->purchase_unit_price;
-                                            // }else{
-                                            //     $purchase_item = \App\Models\Tenant\PurchaseItem::select('unit_price')->where('item_id', $value->item_id)->latest('id')->first();
-                                            //     $purchase_unit_price = ($purchase_item) ? $purchase_item->unit_price : $value->unit_price;
-                                            // }
-
                                             $total_item_purchase = \Modules\Report\Http\Resources\GeneralItemCollection::getPurchaseUnitPrice($value);
-                                            // $total_item_purchase = $purchase_unit_price * $value->quantity;
                                             $utility_item = $value->total - $total_item_purchase;
 
                                         @endphp
@@ -94,29 +72,17 @@
                                             <td class="celda">{{$value->relation_item->brand->name}}</td>
                                             <td class="celda">{{$value->item->description}}</td>
                                             <td class="celda">{{$value->quantity}}</td>
-
                                             <td class="celda">{{$series}}</td>
-
                                             <td class="celda">{{($value->relation_item) ? $value->relation_item->purchase_unit_price:0}}</td>
-
                                             <td class="celda">{{$value->unit_value}}</td>
                                             <td class="celda">{{$value->unit_price}}</td>
-
                                             <td class="celda">{{$value->total_discount}}</td>
-
                                             <td class="celda">{{$value->total_value}}</td>
-                                            <td class="celda">{{$value->affectation_igv_type_id}}</td>
                                             <td class="celda">{{$value->total_igv}}</td>
-                                            <td class="celda">{{$value->system_isc_type_id}}</td>
-                                            <td class="celda">{{$value->total_isc}}</td>
                                             <td class="celda">{{$value->total_plastic_bag_taxes}}</td>
-
                                             <td class="celda">{{$value->total}}</td>
-
                                             <td class="celda">{{ number_format($total_item_purchase,2) }}</td>
                                             <td class="celda">{{ number_format($utility_item ,2) }}</td>
-
-                                            <td class="celda">{{ optional($value->relation_item->web_platform)->name }}</td>
                                             <td class="celda">{{$value->relation_item->brand->name}}</td>
                                         </tr>
                                     @endforeach
@@ -133,63 +99,34 @@
                                                 $series = implode(" - ", $series_data);
                                             }
 
-                                            // $purchase_unit_price = 0;
-
-                                            // if($value->relation_item->purchase_unit_price > 0){
-                                            //     $purchase_unit_price = $value->relation_item->purchase_unit_price;
-                                            // }else{
-                                            //     $purchase_item = \App\Models\Tenant\PurchaseItem::select('unit_price')->where('item_id', $value->item_id)->latest('id')->first();
-                                            //     $purchase_unit_price = ($purchase_item) ? $purchase_item->unit_price : $value->unit_price;
-                                            // }
-
                                             $total_item_purchase = \Modules\Report\Http\Resources\GeneralItemCollection::getPurchaseUnitPrice($value);
                                             $utility_item = $value->total - $total_item_purchase;
                                         @endphp
 
                                     <tr>
                                         <td class="celda">{{$value->document->date_of_issue->format('Y-m-d')}}</td>
-                                        <td class="celda">{{$value->document->document_type->description}}</td>
-                                        <td class="celda">{{$value->document->document_type_id}}</td>
-                                        <td class="celda">{{$value->document->series}}</td>
-                                        <td class="celda">{{$value->document->number}}</td>
-                                        <td class="celda">{{$value->document->state_type_id == '11' ? 'SI':'NO'}}</td>
-                                        <td class="celda">{{$value->document->customer->identity_document_type->description}}</td>
-                                        <td class="celda">{{$value->document->customer->number}}</td>
-                                        <td class="celda">{{$value->document->customer->name}}</td>
-                                        <td class="celda">{{$value->document->currency_type_id}}</td>
-                                        <td class="celda">{{$value->document->exchange_rate_sale}}</td>
-                                        <td class="celda">{{$value->item->unit_type_id}}</td>
-                                        <td class="celda">{{$value->item->internal_id}}</td>
-                                        <td class="celda">{{$value->item->description}}</td>
-                                        <td class="celda">{{$value->quantity}}</td>
-
-                                        <td class="celda">{{$series}}</td>
-
-
-                                        <td class="celda">{{($value->relation_item) ? $value->relation_item->purchase_unit_price:0}}</td>
-
-                                        <td class="celda">{{$value->unit_value}}</td>
-                                        <td class="celda">{{$value->unit_price}}</td>
-
-                                        <td class="celda">{{$value->total_discount}}</td>
-
-                                        <td class="celda">{{$value->total_value}}</td>
-                                        <td class="celda">{{$value->affectation_igv_type_id}}</td>
-                                        <td class="celda">{{$value->total_igv}}</td>
-                                        <td class="celda">{{$value->system_isc_type_id}}</td>
-                                        <td class="celda">{{$value->total_isc}}</td>
-                                        <td class="celda">{{$value->total_plastic_bag_taxes}}</td>
-
-                                        <td class="celda">{{$value->total}}</td>
-
-                                        <td class="celda">{{ number_format($total_item_purchase,2) }}</td>
-                                        <td class="celda">{{ number_format($utility_item ,2) }}</td>
-
-                                        <td class="celda">{{ optional($value->relation_item->web_platform)->name }}</td>
                                         <td class="celda">{{$value->relation_item->brand->name}}</td>
+                                        <td class="celda">{{$value->relation_item->mark_code}}</td>
+                                        <td class="celda">{{$value->item->internal_id}}</td>
+                                        <td class="celda">{{$value->relation_item->size->name}}</td>
+                                        <td class="celda">{{$value->item->description}}</td>
+                                        <td class="celda">{{$value->relation_item->description}}</td>
+                                        <td class="celda">{{$value->relation_item->color->name}}</td>
+                                        <td class="celda">{{$value->relation_item->price_concept}}</td>
+                                        <td class="celda">{{$value->relation_item->mark_price}}</td>
+                                        <td class="celda">{{$value->relation_item->discount_mark}}</td>
+                                        <td class="celda">{{$value->relation_item->discount_product}}</td>
+                                        <td class="celda">{{$value->relation_item->cost_price}}</td>
+                                        <td class="celda">{{$value->quantity}}</td>
+                                        <td class="celda">{{$value->document->payment_method_type}}</td>
+                                        <td class="celda">{{($value->relation_item) ? $value->relation_item->purchase_unit_price:0}}</td>
+                                        <td class="celda">{{$value->unit_price}}</td>
+                                        <td class="celda">{{$value->total_value}}</td>
+                                        <td class="celda">{{$value->total_igv}}</td>
+                                        <td class="celda">{{$value->total}}</td>
+                                        <td class="celda">{{$value->document->state_type_id == '11' ? 'SI':'NO'}}</td>
                                     </tr>
                                     @endforeach
-
                                 @endif
 
 
@@ -209,18 +146,15 @@
                                     <td class="celda">{{$value->purchase->currency_type_id}}</td>
                                     <td class="celda">{{$value->purchase->exchange_rate_sale}}</td>
                                     <td class="celda">{{$value->item->unit_type_id}}</td>
-
                                     <td class="celda">{{$value->relation_item ? $value->relation_item->internal_id:''}}</td>
-
+                                    <td class="celda">{{$$value->relation_item->mark_code}}</td>
                                     <td class="celda">{{$value->item->description}}</td>
+                                    <td class="celda">{{$$value->relation_item->name}}</td>
                                     <td class="celda">{{$value->quantity}}</td>
-
                                     <td class="celda"></td>
                                     <td class="celda"></td>
-
                                     <td class="celda">{{$value->unit_value}}</td>
                                     <td class="celda">{{$value->unit_price}}</td>
-
                                     <td class="celda">
                                     @if($value->discounts)
                                         {{collect($value->discounts)->sum('amount')}}

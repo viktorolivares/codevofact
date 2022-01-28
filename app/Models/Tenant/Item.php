@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models\Tenant;
-use Illuminate\Database\Eloquent\Builder;
 use App\Models\Tenant\Catalogs\AffectationIgvType;
 use App\Models\Tenant\Catalogs\CurrencyType;
 use App\Models\Tenant\Catalogs\SystemIscType;
@@ -9,6 +8,8 @@ use App\Models\Tenant\Catalogs\UnitType;
 use Modules\Account\Models\Account;
 use Modules\Item\Models\Category;
 use Modules\Item\Models\Brand;
+use Modules\Item\Models\Size;
+use Modules\Item\Models\Color;
 use Modules\Item\Models\ItemLot;
 use Modules\Item\Models\ItemLotsGroup;
 use Modules\Item\Models\WebPlatform;

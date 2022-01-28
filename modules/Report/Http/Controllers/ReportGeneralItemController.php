@@ -7,12 +7,10 @@ use App\Http\Controllers\Controller;
 use Barryvdh\DomPDF\Facade as PDF;
 use Modules\Report\Exports\GeneralItemExport;
 use Illuminate\Http\Request;
-use App\Models\Tenant\Establishment;
-use App\Models\Tenant\Document;
 use App\Models\Tenant\PurchaseItem;
 use App\Models\Tenant\DocumentItem;
+use App\Models\Tenant\DocumentPayment;
 use App\Models\Tenant\SaleNoteItem;
-use App\Models\Tenant\Company;
 use Carbon\Carbon;
 use Modules\Report\Http\Resources\GeneralItemCollection;
 use Modules\Report\Traits\ReportTrait;
@@ -32,10 +30,12 @@ class ReportGeneralItemController extends Controller
         $suppliers = $this->getPersons('suppliers');
         $items = $this->getItems('items');
         $brands = $this->getBrands();
+        $sizes = $this->getSizes();
+        $colors = $this->getColors();;
 
         $document_types = DocumentType::whereIn('id', ['01', '03', '80'])->get();
 
-        return compact('document_types', 'suppliers', 'customers', 'items', 'brands');
+        return compact('document_types', 'suppliers', 'customers', 'items', 'brands', 'sizes', 'colors');
     }
 
 

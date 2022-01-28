@@ -14,7 +14,7 @@ class Color extends ModelTenant
 
     public function items()
     {
-        return $this->hasMany(Color::class);
+        return $this->hasMany(Item::class);
     }
 
 
