@@ -36,13 +36,13 @@ return [
      * The package middleware. Removing a middleware here will disable it.
      * You can of course extend/replace them or add your own.
      */
-    // 'middleware' => [
-    //     // The eager identification middleware.
-    //     \Hyn\Tenancy\Middleware\EagerIdentification::class,
+    'middleware' => [
+        // The eager identification middleware.
+        \Hyn\Tenancy\Middleware\EagerIdentification::class,
 
-    //     // The hostname actions middleware (redirects, https, maintenance).
-    //     \Hyn\Tenancy\Middleware\HostnameActions::class,
-    // ],
+        // The hostname actions middleware (redirects, https, maintenance).
+        \Hyn\Tenancy\Middleware\HostnameActions::class,
+    ],
     'website' => [
         /**
          * Each website has a short random hash that identifies this entity
