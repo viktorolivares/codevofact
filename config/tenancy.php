@@ -52,7 +52,7 @@ return [
          * tenant folder structure, disable this and implement
          * your own id generation logic.
          */
-        'disable-random-id' => true,
+        'disable-random-id' => false,
 
         /**
          * The random Id generator is responsible for creating the hash as mentioned
@@ -235,7 +235,7 @@ return [
          *
          * @info set to false to disable.
          */
-        'auto-create-tenant-database' => false,
+        'auto-create-tenant-database' => true,
 
         /**
          * Automatically generate the user needed to access the database.
@@ -246,7 +246,7 @@ return [
          *
          * @info set to false to disable.
          */
-        'auto-create-tenant-database-user' => false,
+        'auto-create-tenant-database-user' => true,
 
         /**
          * Automatically rename the tenant database when the random id of the
