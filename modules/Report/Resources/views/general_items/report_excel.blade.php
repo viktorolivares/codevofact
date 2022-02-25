@@ -14,6 +14,23 @@
                     <table>
                         <thead>
                             <tr>
+                              <th>Reporte de Ventas - Productos</th>
+                                <th></th>
+                                <th></th>  
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            <tr>
+                               <td><p><strong>Exportado: {{date('Y-m-d h:m:s')}}</strong></p></td>
+                                <td></td>
+                                <td></td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <thead class="bg-primary">
+                            <tr>
                                 <th>FECHA DE EMISIÓN</th>
                                 <th>MARCA</th>
                                 <th>CÓDIGO MARCA</th>
@@ -109,7 +126,7 @@
                                             $metodo_pago = \App\Models\Tenant\DocumentPayment::with('payment_method_type')
                                             ->where('document_id', $value->document->id)
                                             ->first();
-                                            $marca_cantidad = $value->relation_item->mark_price * $value->quantity
+                                            $marca_cantidad = $value->total * (1 - $value->relation_item->discount_mark)
                                         @endphp
 
                                     <tr>
