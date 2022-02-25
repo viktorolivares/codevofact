@@ -122,11 +122,11 @@
 
                                             $total_item_purchase = \Modules\Report\Http\Resources\GeneralItemCollection::getPurchaseUnitPrice($value);
                                             $utility_item = $value->total - $total_item_purchase;
-                                            $ganancia = $value->total - ($value->relation_item->mark_price*$value->quantity);
                                             $metodo_pago = \App\Models\Tenant\DocumentPayment::with('payment_method_type')
                                             ->where('document_id', $value->document->id)
                                             ->first();
                                             $marca_cantidad = $value->total * (1 - $value->relation_item->discount_mark)
+                                            $ganancia = $value->total - $marca_cantidad
                                         @endphp
 
                                     <tr>
