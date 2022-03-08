@@ -10,9 +10,26 @@
     <body>
         @if(!empty($records))
             <div>
-                <div class=" ">
+                <div class="">
                     <table>
                         <thead>
+                            <tr>
+                              <th>Reporte de Ventas - Productos</th>
+                                <th></th>
+                                <th></th>  
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            <tr>
+                               <td><p><strong>Exportado: {{date('Y-m-d h:m:s')}}</strong></p></td>
+                                <td></td>
+                                <td></td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <thead class="bg-primary">
                             <tr>
                                 <th>FECHA DE EMISIÓN</th>
                                 <th>MARCA</th>
@@ -33,8 +50,12 @@
                                 <th>SUBTOTAL</th>
                                 <th>IGV</th>
                                 <th>TOTAL</th>
+                                <th>TOTAL MARCA</th>
                                 <th>UTILIDAD</th>
-                                <th>ANULADO</th>
+                                <th>ESTADO DOC.</th>
+                                <th>TIPO DE DOCUMENTO</th>
+                                <th>SERIE</th>
+                                <th>NÚMERO</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -101,7 +122,11 @@
 
                                             $total_item_purchase = \Modules\Report\Http\Resources\GeneralItemCollection::getPurchaseUnitPrice($value);
                                             $utility_item = $value->total - $total_item_purchase;
-                                            $ganancia = $value->total - $value->relation_item->mark_price;
+                                            $metodo_pago = \App\Models\Tenant\DocumentPayment::with('payment_method_type')
+                                                ->where('document_id', $value->document->id)
+                                                ->first();
+                                            $marca_cantidad = 
+                                            $ganancia = $value->total - ($value->total * (1 - $value->relation_item->discount_mark))
                                         @endphp
 
                                     <tr>
@@ -118,19 +143,37 @@
                                         <td class="celda">{{$value->relation_item->discount_product}}</td>
                                         <td class="celda">{{$value->relation_item->cost_price}}</td>
                                         <td class="celda">{{$value->quantity}}</td>
-                                        <td class="celda">{{$value->document->payment_method_type}}</td>
+                                        <td class="celda">{{$metodo_pago->payment_method_type->description}}</td>
                                         <td class="celda">{{($value->relation_item) ? $value->relation_item->purchase_unit_price:0}}</td>
                                         <td class="celda">{{$value->unit_price}}</td>
                                         <td class="celda">{{$value->total_value}}</td>
                                         <td class="celda">{{$value->total_igv}}</td>
                                         <td class="celda">{{$value->total}}</td>
+                                        <td class="celda">{{$marca_cantidad}}</td>
                                         <td class="celda">{{$ganancia}}</td>
-                                        <td class="celda">{{$value->document->state_type_id == '11' ? 'SI':'NO'}}</td>
+                                        <td class="celda">
+                                            @if ($value->document->state_type_id == '01')
+                                                    REGISTRADO
+                                                 @elseif ($value->document->state_type_id == '03')
+                                                    ENVIADO
+                                                 @elseif ($value->document->state_type_id == '05')
+                                                    ACEPTADO
+                                                @elseif ($value->document->state_type_id == '07')
+                                                    OBSERVADO
+                                                @elseif ($value->document->state_type_id == '09')
+                                                    RECHAZADO
+                                                @elseif ($value->document->state_type_id == '11')
+                                                    ANULADO
+                                                @elseif ($value->document->state_type_id == '13')
+                                                    POR ANULAR
+                                            @endif
+                                        </td>
+                                        <td class="celda">{{$value->document->document_type->description}}</td>
+                                        <td class="celda">{{$value->document->series}}</td>
+                                        <td class="celda">{{$value->document->number}}</td>
                                     </tr>
                                     @endforeach
                                 @endif
-
-
                             @else
 
                                 @foreach($records as $key => $value)
@@ -161,14 +204,12 @@
                                         {{collect($value->discounts)->sum('amount')}}
                                     @endif
                                     </td>
-
                                     <td class="celda">{{$value->total_value}}</td>
                                     <td class="celda">{{$value->affectation_igv_type_id}}</td>
                                     <td class="celda">{{$value->total_igv}}</td>
                                     <td class="celda">{{$value->system_isc_type_id}}</td>
                                     <td class="celda">{{$value->total_isc}}</td>
                                     <td class="celda">{{$value->total_plastic_bag_taxes}}</td>
-
                                     <td class="celda">{{$value->total}}</td>
                                     <td class="celda"></td>
 

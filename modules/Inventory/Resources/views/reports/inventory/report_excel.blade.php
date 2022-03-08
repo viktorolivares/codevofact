@@ -56,6 +56,8 @@
                                 <th>Costo Total</th>
                                 <th>Precio de venta</th>
                                 <td>Marca</td>
+                                <th>Color</th>
+                                <th>Talla</th>
                                 <td>F. vencimiento</td>
                                 <th>Almacén</th>
                             </tr>
@@ -78,7 +80,9 @@
                                     <td>{{$value->item->purchase_unit_price}}</td>
                                     <td>{{number_format($total_line, 6)}}</td>
                                     <td>{{$value->item->sale_unit_price}}</td>
-                                    <td>{{ $value->item->brand->name }}</td>
+                                    <td>{{ isset($value->item->brand['name']) ? $value->item->brand['name'] : '' }}</td>
+                                    <td>{{ isset($value->item->color['name']) ? $value->item->color['name'] : ''  }}</td>
+                                    <td>{{ isset($value->item->size['name']) ? $value->item->size['name'] : '' }}</td>
                                     <td>{{ $value->item->date_of_due }}</td>
                                     <td>{{$value->warehouse->description}}</td>
                                 </tr>

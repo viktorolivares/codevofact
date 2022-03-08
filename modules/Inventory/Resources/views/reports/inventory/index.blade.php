@@ -13,11 +13,6 @@
                     <div>
                         <form action="{{route('reports.inventory.search')}}" class="el-form demo-form-inline el-form--inline" method="POST">
                             {{csrf_field()}}
-                            {{-- <div class="el-form-item col-xs-12">
-                                <div class="el-form-item__content">
-                                    <button class="btn btn-custom" type="submit"><i class="fa fa-search"></i> Buscar</button>
-                                </div>
-                            </div> --}}
                         </form>
                     </div>
                     @if(!empty($reports) && $reports->count())
@@ -48,14 +43,12 @@
                                             {{csrf_field()}}
                                             <input type="hidden" name="warehouse_id" value="{{request()->warehouse_id ? request()->warehouse_id : 'all'}}">
                                             <button class="btn btn-custom   mt-2 mr-2" type="submit"><i class="fa fa-file-pdf"></i> Exportar PDF</button>
-                                            {{-- <label class="pull-right">Se encontraron {{$reports->count()}} registros.</label> --}}
                                         </form>
 
                                         <form action="{{route('reports.inventory.report_excel')}}" class="d-inline" method="POST">
                                             {{csrf_field()}}
                                             <input type="hidden" name="warehouse_id" value="{{request()->warehouse_id ? request()->warehouse_id : 'all'}}">
                                             <button class="btn btn-custom   mt-2 mr-2" type="submit"><i class="fa fa-file-excel"></i> Exportar Excel</button>
-                                            {{-- <label class="pull-right">Se encontraron {{$reports->count()}} registros.</label> --}}
                                         </form>
                                     </div>
 
@@ -74,6 +67,8 @@
                                             <th>Precio de venta</th>
                                             <th>Costo</th>
                                             <th>Marca</th>
+                                            <th>Color</th>
+                                            <th>Talla</th>
                                             <th>F. vencimiento</th>
                                             <th>Almacén</th>
                                         </tr>
@@ -87,7 +82,9 @@
                                             <td class="celda">{{$value->stock}}</td>
                                             <td class="celda">{{$value->item->sale_unit_price}}</td>
                                             <td class="celda">{{$value->item->purchase_unit_price}}</td>
-                                            <td class="celda">{{ $value->item->brand->name }}</td>
+                                            <td class="celda">{{ $value->item->brand['name'] }}</td>
+                                            <td class="celda">{{ $value->item->color['name'] }}</td>
+                                            <td class="celda">{{ $value->item->size['name'] }}</td>
                                             <td class="celda">{{ $value->item->date_of_due }}</td>
                                             <td class="celda">{{$value->warehouse->description}}</td>
                                         </tr>
