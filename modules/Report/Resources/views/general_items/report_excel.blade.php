@@ -134,9 +134,9 @@
                                         <td class="celda">{{$value->relation_item->brand->name}}</td>
                                         <td class="celda">{{$value->relation_item->mark_code}}</td>
                                         <td class="celda">{{$value->item->internal_id}}</td>
-                                        <td class="celda">{{$value->relation_item->size->name}}</td>
-                                        <td class="celda">{{$value->relation_item->name}}</td>
-                                        <td class="celda">{{$value->relation_item->color->name}}</td>
+                                        <td class="celda">{{  isset($value->relation_item->size) ? $value->relation_item->size->name : ''}}</td>
+                                        <td class="celda">{{ $value->relation_item->name}}</td>
+                                        <td class="celda">{{ isset($value->relation_item->color) ? $value->relation_item->color->name : ''}}</td>
                                         <td class="celda">{{$value->relation_item->price_concept}}</td>
                                         <td class="celda">{{$value->relation_item->mark_price}}</td>
                                         <td class="celda">{{$value->relation_item->discount_mark}}</td>
