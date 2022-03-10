@@ -82,9 +82,9 @@
                                             <td class="celda">{{$value->stock}}</td>
                                             <td class="celda">{{$value->item->sale_unit_price}}</td>
                                             <td class="celda">{{$value->item->purchase_unit_price}}</td>
-                                            <td class="celda">{{ $value->item->brand['name'] }}</td>
-                                            <td class="celda">{{ $value->item->color['name'] }}</td>
-                                            <td class="celda">{{ $value->item->size['name'] }}</td>
+                                            <td class="celda">{{ isset($value->item->brand['name']) ? $value->item->brand['name'] : '' }}</td>
+                                            <td class="celda">{{ isset($value->item->color['name']) ? $value->item->color['name'] : ''  }}</td>
+                                            <td class="celda">{{ isset($value->item->size['name']) ? $value->item->size['name'] : '' }}</td>
                                             <td class="celda">{{ $value->item->date_of_due }}</td>
                                             <td class="celda">{{$value->warehouse->description}}</td>
                                         </tr>
