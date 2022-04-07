@@ -143,7 +143,7 @@
                                         <td class="celda">{{$value->relation_item->discount_product}}</td>
                                         <td class="celda">{{$value->relation_item->cost_price}}</td>
                                         <td class="celda">{{$value->quantity}}</td>
-                                        <td class="celda">{{$metodo_pago->payment_method_type->description}}</td>
+                                        <td class="celda">{{ isset($metodo_pago->payment_method_type) ? $metodo_pago->payment_method_type->description : ''}}</td>
                                         <td class="celda">{{($value->relation_item) ? $value->relation_item->purchase_unit_price:0}}</td>
                                         <td class="celda">{{$value->unit_price}}</td>
                                         <td class="celda">{{$value->total_value}}</td>
