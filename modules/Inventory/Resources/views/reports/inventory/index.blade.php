@@ -47,9 +47,9 @@
                                                         <span class="input-group-text" id="basic-addon1">Marca</span>
                                                     </div>
                                                     <select class="form-control" name="brand_id" id="">
-                                                        <option {{ request()->item_id == 'all' ?  'selected' : ''}} selected value="all">Todos</option>
+                                                        <option {{ request()->brand_id == 'all' ?  'selected' : ''}} selected value="all">Todos</option>
                                                         @foreach($brands as $item)
-                                                        <option {{ request()->id == $item->id ?  'selected' : ''}} value="{{$item->id}}">{{$item->name}}
+                                                        <option {{ request()->brand_id == $item->id ?  'selected' : ''}} value="{{$item->id}}">{{$item->name}}
                                                         </option>
                                                         @endforeach
                                                     </select>

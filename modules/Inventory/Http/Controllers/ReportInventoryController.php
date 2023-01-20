@@ -27,16 +27,25 @@ class ReportInventoryController extends Controller
         {
             $reports = ItemWarehouse::with(['item', 'item.brand', 'item.color', 'item.size'])
             ->where('warehouse_id', $request->warehouse_id)
-            ->whereHas('item',function($q){
-                $q->where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ']]);
-                $q->whereNotIsSet();
+            ->whereHas('item',function($q) use($request){
+                if ($request->brand_id && $request->brand_id != 'all') {
+                    $q->where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ'], ['brand_id', $request->brand_id]]);
+                    $q->whereNotIsSet();
+                } else {
+                    $q->where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ']]);
+                }
             })->latest()->paginate(config('tenant.items_per_page'));
         }
         else{
+
             $reports = ItemWarehouse::with(['item', 'item.brand', 'item.color', 'item.size'])
-            ->whereHas('item',function($q){
-                $q->where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ']]);
-                $q->whereNotIsSet();
+            ->whereHas('item',function($q) use($request){
+                if ($request->brand_id && $request->brand_id != 'all') {
+                    $q->where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ'], ['brand_id', $request->brand_id]]);
+                    $q->whereNotIsSet();
+                } else {
+                    $q->where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ']]);
+                }
             })->latest()->paginate(config('tenant.items_per_page'));
         }
 
@@ -108,17 +117,28 @@ class ReportInventoryController extends Controller
         {
             $records = ItemWarehouse::with(['item', 'item.brand', 'item.color', 'item.size'])
             ->where('warehouse_id', $request->warehouse_id)
-            ->whereHas('item', function($q){
-                $q->where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ']]);
-                $q->whereNotIsSet();
+            ->whereHas('item', function($q) use ($request){
+                if ($request->brand_id && $request->brand_id != 'all') {
+                    $q->where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ'], ['brand_id', $request->brand_id]]);
+                    $q->whereNotIsSet();
+                } else {
+                    $q->where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ']]);
+                    $q->whereNotIsSet();
+                }
+
             })->latest()->get();
 
         }
         else{
             $records = ItemWarehouse::with(['item', 'item.brand', 'item.color', 'item.size'])
-            ->whereHas('item', function($q){
-                $q->where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ']]);
-                $q->whereNotIsSet();
+            ->whereHas('item', function($q) use($request){
+                if ($request->brand_id && $request->brand_id != 'all') {
+                    $q->where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ'], ['brand_id', $request->brand_id]]);
+                    $q->whereNotIsSet();
+                } else {
+                    $q->where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ']]);
+                    $q->whereNotIsSet();
+                }
             })->latest()->get();
 
         }
