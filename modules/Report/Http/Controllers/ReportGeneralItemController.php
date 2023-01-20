@@ -2,27 +2,22 @@
 
 namespace Modules\Report\Http\Controllers;
 
-use App\Models\Tenant\Catalogs\DocumentType;
-use App\Http\Controllers\Controller;
-use Barryvdh\DomPDF\Facade as PDF;
+use Modules\Report\Http\Resources\GeneralItemCollection;
 use Modules\Report\Exports\GeneralItemExport;
-use Illuminate\Http\Request;
+use App\Models\Tenant\Catalogs\DocumentType;
+use Modules\Report\Traits\ReportTrait;
+use App\Http\Controllers\Controller;
 use App\Models\Tenant\PurchaseItem;
 use App\Models\Tenant\DocumentItem;
-use App\Models\Tenant\DocumentPayment;
 use App\Models\Tenant\SaleNoteItem;
+use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Modules\Report\Http\Resources\GeneralItemCollection;
-use Modules\Report\Traits\ReportTrait;
 
 
 class ReportGeneralItemController extends Controller
 {
     use ReportTrait;
-
-    public function __construct()
-    {
-    }
 
     public function filter() {
 

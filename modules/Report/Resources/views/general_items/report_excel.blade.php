@@ -35,6 +35,7 @@
                                 <th>MARCA</th>
                                 <th>CÓDIGO MARCA</th>
                                 <th>CÓDIGO INTERNO</th>
+                                <th>CLIENTE</th>
                                 <th>TALLA</th>
                                 <th>NOMBRE</th>
                                 <th>COLOR</th>
@@ -73,38 +74,46 @@
                                                 $series = implode(" - ", $series_data);
                                             }
 
+
                                             $total_item_purchase = \Modules\Report\Http\Resources\GeneralItemCollection::getPurchaseUnitPrice($value);
                                             $utility_item = $value->total - $total_item_purchase;
+
+                                            $metodo_pago = \App\Models\Tenant\SaleNotePayment::with('payment_method_type')
+                                            ->where('sale_note_id', $value->sale_note->id)
+                                            ->first();
+
+                                            $marca_cantidad = $value->total - ($value->total * ($value->relation_item->discount_mark));
+                                            $ganancia = $value->total - ($value->total * (1 - $value->relation_item->discount_mark));
+
 
                                         @endphp
                                         <tr>
                                             <td class="celda">{{$value->sale_note->date_of_issue->format('Y-m-d')}}</td>
-                                            <td class="celda">NOTA DE VENTA</td>
-                                            <td class="celda">80</td>
-                                            <td class="celda">{{$value->sale_note->series}}</td>
-                                            <td class="celda">{{$value->sale_note->number}}</td>
-                                            <td class="celda">{{$value->sale_note->state_type_id == '11' ? 'SI':'NO'}}</td>
-                                            <td class="celda">{{$value->sale_note->customer->identity_document_type->description}}</td>
-                                            <td class="celda">{{$value->sale_note->customer->number}}</td>
-                                            <td class="celda">{{$value->sale_note->customer->name}}</td>
-                                            <td class="celda">{{$value->sale_note->currency_type_id}}</td>
-                                            <td class="celda">{{$value->sale_note->exchange_rate_sale}}</td>
-                                            <td class="celda">{{$value->sale_note->unit_type_id}}</td>
                                             <td class="celda">{{$value->relation_item->brand->name}}</td>
-                                            <td class="celda">{{$value->item->description}}</td>
+                                            <td class="celda">{{$value->relation_item->mark_code}}</td>
+                                            <td class="celda">{{$value->relation_item->internal_id}}</td>
+                                            <td class="celda">{{$value->sale_note->customer->name}}</td>
+                                            <td class="celda">{{  isset($value->relation_item->size) ? $value->relation_item->size->name : ''}}</td>
+                                            <td class="celda">{{ $value->relation_item->name}}</td>
+                                            <td class="celda">{{ isset($value->relation_item->color) ? $value->relation_item->color->name : ''}}</td>
+                                            <td class="celda">{{$value->relation_item->price_concept}}</td>
+                                            <td class="celda">{{$value->relation_item->mark_price}}</td>
+                                            <td class="celda">{{$value->relation_item->discount_mark}}</td>
+                                            <td class="celda">{{$value->relation_item->discount_product}}</td>
+                                            <td class="celda">{{$value->relation_item->cost_price}}</td>
                                             <td class="celda">{{$value->quantity}}</td>
-                                            <td class="celda">{{$series}}</td>
+                                            <td class="celda">{{ isset($metodo_pago->payment_method_type) ? $metodo_pago->payment_method_type->description : ''}}</td>
                                             <td class="celda">{{($value->relation_item) ? $value->relation_item->purchase_unit_price:0}}</td>
-                                            <td class="celda">{{$value->unit_value}}</td>
                                             <td class="celda">{{$value->unit_price}}</td>
-                                            <td class="celda">{{$value->total_discount}}</td>
                                             <td class="celda">{{$value->total_value}}</td>
                                             <td class="celda">{{$value->total_igv}}</td>
-                                            <td class="celda">{{$value->total_plastic_bag_taxes}}</td>
                                             <td class="celda">{{$value->total}}</td>
-                                            <td class="celda">{{ number_format($total_item_purchase,2) }}</td>
-                                            <td class="celda">{{ number_format($utility_item ,2) }}</td>
-                                            <td class="celda">{{$value->relation_item->brand->name}}</td>
+                                            <td class="celda">{{$marca_cantidad}}</td>
+                                            <td class="celda">{{$ganancia}}</td>
+                                            <td class="celda">REGISTRADO</td>
+                                            <td class="celda">NOTA DE VENTA</td>
+                                            <td class="celda">{{$value->sale_note->number}}</td>
+                                            <td class="celda">{{$value->sale_note->series}}</td>
                                         </tr>
                                     @endforeach
 
@@ -134,6 +143,7 @@
                                         <td class="celda">{{$value->relation_item->brand->name}}</td>
                                         <td class="celda">{{$value->relation_item->mark_code}}</td>
                                         <td class="celda">{{$value->item->internal_id}}</td>
+                                        <td class="celda">{{$value->document->customer->name}}</td>
                                         <td class="celda">{{  isset($value->relation_item->size) ? $value->relation_item->size->name : ''}}</td>
                                         <td class="celda">{{ $value->relation_item->name}}</td>
                                         <td class="celda">{{ isset($value->relation_item->color) ? $value->relation_item->color->name : ''}}</td>
@@ -175,7 +185,6 @@
                                     @endforeach
                                 @endif
                             @else
-
                                 @foreach($records as $key => $value)
                                 <tr>
                                     <td class="celda">{{$value->purchase->date_of_issue->format('Y-m-d')}}</td>

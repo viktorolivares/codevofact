@@ -7,14 +7,11 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use App\Models\Tenant\Establishment;
 use App\Models\Tenant\Company;
-use App\Models\Tenant\Item;
 use Modules\Inventory\Models\ItemWarehouse;
 use Modules\Inventory\Exports\InventoryExport;
 use Modules\Inventory\Models\Warehouse;
-
-
-
 use Carbon\Carbon;
+use Modules\Item\Models\Brand;
 
 class ReportInventoryController extends Controller
 {
@@ -36,7 +33,6 @@ class ReportInventoryController extends Controller
             })->latest()->paginate(config('tenant.items_per_page'));
         }
         else{
-
             $reports = ItemWarehouse::with(['item', 'item.brand', 'item.color', 'item.size'])
             ->whereHas('item',function($q){
                 $q->where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ']]);
@@ -45,8 +41,9 @@ class ReportInventoryController extends Controller
         }
 
         $warehouses = Warehouse::select('id', 'description')->get();
+        $brands = Brand::select('id', 'name')->get();
 
-        return view('inventory::reports.inventory.index', compact('reports', 'warehouses'));
+        return view('inventory::reports.inventory.index', compact('reports', 'warehouses', 'brands'));
     }
 
     /**
@@ -89,8 +86,6 @@ class ReportInventoryController extends Controller
                 $q->whereNotIsSet();
             })->latest()->get();
         }
-
-
 
         $pdf = PDF::loadView('inventory::reports.inventory.report_pdf', compact("reports", "company", "establishment"));
         $pdf->setPaper('A4', 'landscape');
