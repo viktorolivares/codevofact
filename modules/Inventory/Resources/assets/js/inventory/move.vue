@@ -44,7 +44,6 @@
                         </div>
                     </div>
                     <div class="col-md-4 mt-4" v-if="form.item_id && form.warehouse_id && form.series_enabled">
-                        <!-- <el-button type="primary" native-type="submit" icon="el-icon-check">Elegir serie</el-button> -->
                         <a href="#"  class="text-center font-weight-bold text-info" @click.prevent="clickLotcodeOutput">[&#10004; Seleccionar series]</a>
                     </div>
                 </div>

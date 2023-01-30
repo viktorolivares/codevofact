@@ -33,7 +33,10 @@ trait InventoryTrait
     }
 
     public function optionsItem() {
-        $records = Item::where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ']])->whereNotIsSet()->get();
+        $records = Item::where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ']])
+        ->whereIsActive()
+        ->whereNotIsSet()
+        ->get();
 
         return collect($records)->transform(function($row) {
             return  [
@@ -70,8 +73,6 @@ trait InventoryTrait
     }
 
     public function optionsItemWareHousexId($warehouse_id) {
-        //$establishment_id = auth()->user()->establishment_id;
-        //$current_warehouse = Warehouse::where('establishment_id', $establishment_id)->first();
 
         $records = Item::whereHas('warehouses', function($query) use ($warehouse_id){
             $query->where('warehouse_id', $warehouse_id);
@@ -99,9 +100,11 @@ trait InventoryTrait
         });
     }
 
-
     public function optionsItemFull() {
-        $records = Item::where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ']])->whereNotIsSet()->get();
+        $records = Item::where([['item_type_id', '01'], ['unit_type_id', '!=','ZZ']])
+        ->whereNotIsSet()
+        ->whereIsActive()
+        ->get();
 
         return collect($records)->transform(function($row) {
             return  [
@@ -138,7 +141,6 @@ trait InventoryTrait
         return InventoryTransaction::findOrFail($id);
 
     }
-
 
     public function optionsInventoryTransaction($type) {
 

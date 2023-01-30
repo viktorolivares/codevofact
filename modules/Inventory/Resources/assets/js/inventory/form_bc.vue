@@ -74,10 +74,6 @@
             },
             create() {
                 this.titleDialog = 'Registrar producto en almacén'
-//                this.$http.get(`/${this.resource}/record/${this.recordId}`)
-//                    .then(response => {
-//                        this.form = response.data.data
-//                    })
             },
             submit() {
                 this.loading_submit = true

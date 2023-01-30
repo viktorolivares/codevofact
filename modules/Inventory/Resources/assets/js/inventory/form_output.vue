@@ -34,22 +34,9 @@
                         <a href="#"  class="text-center font-weight-bold text-info" @click.prevent="clickLotGroup">[&#10004; Seleccionar lote]</a>
                     </div>
                      <div style="padding-top: 3%;" class="col-md-3 col-sm-3" v-if="form.item_id && form.series_enabled">
-                        <!-- <el-button type="primary" native-type="submit" icon="el-icon-check">Elegir serie</el-button> -->
                         <a href="#"  class="text-center font-weight-bold text-info" @click.prevent="clickSelectLots">[&#10004; Seleccionar series]</a>
                     </div>
 
-                    <!--<div class="col-md-3" v-show="form.lots_enabled">
-                        <div class="form-group" :class="{'has-danger': errors.date_of_due}">
-                            <label class="control-label">Fec. Vencimiento</label>
-                            <el-date-picker v-model="form.date_of_due" type="date" value-format="yyyy-MM-dd" :clearable="true"></el-date-picker>
-                            <small class="form-control-feedback" v-if="errors.date_of_due" v-text="errors.date_of_due[0]"></small>
-                        </div>
-                    </div> -->
-
-                    <!--<div style="padding-top: 3%" class="col-md-4" v-if="form.warehouse_id && form.series_enabled">
-
-                        <a href="#"  class="text-center font-weight-bold text-info" @click.prevent="clickLotcode">[&#10004; Ingresar series]</a>
-                    </div>  -->
                     <div class="col-md-8">
                         <div class="form-group" :class="{'has-danger': errors.inventory_transaction_id}">
                             <label class="control-label">Motivo traslado</label>
@@ -87,8 +74,7 @@
 </template>
 
 <script>
-  //  import InputLotsForm from '../../../../../../resources/js/views/tenant/items/partials/lots.vue'
-   // import OutputLotsForm from './partials/lots.vue'
+
     import LotsGroup from './lots_group.vue'
      import SelectLotsForm from './lots.vue'
 
@@ -122,7 +108,6 @@
                     let item = await _.find(this.items,{'id':this.form.item_id})
                     this.form.lots_enabled = item.lots_enabled
                     let lots = await _.filter(item.lots,{'warehouse_id':this.form.warehouse_id})
-                   // console.log(item)
                     this.form.lots = lots
                     this.form.lots_enabled = item.lots_enabled
                     this.form.series_enabled = item.series_enabled

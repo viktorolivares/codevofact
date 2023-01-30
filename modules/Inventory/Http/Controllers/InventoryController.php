@@ -3,7 +3,6 @@
 namespace Modules\Inventory\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-//use App\Models\Tenant\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Modules\Inventory\Http\Resources\InventoryCollection;
@@ -12,7 +11,6 @@ use Modules\Inventory\Models\Inventory;
 use Modules\Inventory\Models\InventoryTransaction;
 use Modules\Inventory\Traits\InventoryTrait;
 use Modules\Inventory\Models\ItemWarehouse;
-use Modules\Inventory\Models\Warehouse;
 use Modules\Inventory\Http\Requests\InventoryRequest;
 use Modules\Item\Models\ItemLot;
 use Modules\Item\Models\ItemLotsGroup;
@@ -108,9 +106,6 @@ class InventoryController extends Controller
                 ];
             }
 
-            // $item_warehouse->stock = $quantity;
-            // $item_warehouse->save();
-
             $inventory = new Inventory();
             $inventory->type = 1;
             $inventory->description = 'Stock inicial';
@@ -132,7 +127,6 @@ class InventoryController extends Controller
     public function store_transaction(InventoryRequest $request)
     {
         $result = DB::connection('tenant')->transaction(function () use ($request) {
-            // dd($request->all());
             $type = $request->input('type');
             $item_id = $request->input('item_id');
             $warehouse_id = $request->input('warehouse_id');
@@ -168,14 +162,6 @@ class InventoryController extends Controller
 
             if($type == 'input'){
                 foreach ($lots as $lot){
-
-                    /*$inventory->lots()->create([
-                        'date' => $lot['date'],
-                        'series' => $lot['series'],
-                        'item_id' => $item_id,
-                        'warehouse_id' => $warehouse_id,
-                        'has_sale' => false
-                    ]);*/
 
                     $inventory->lots()->create([
                         'date' => $lot['date'],
@@ -237,7 +223,6 @@ class InventoryController extends Controller
     public function move(Request $request)
     {
         $result = DB::connection('tenant')->transaction(function () use ($request) {
-            // dd($request->all());
             $id = $request->input('id');
             $item_id = $request->input('item_id');
             $warehouse_id = $request->input('warehouse_id');
@@ -266,18 +251,6 @@ class InventoryController extends Controller
                     'message' => 'La cantidad a trasladar no puede ser mayor al que se tiene en el almacén.'
                 ];
             }
-
-            //Transaction
-            // $item_warehouse_new = ItemWarehouse::firstOrNew(['item_id' => $item_id,
-            //                                                  'warehouse_id' => $warehouse_new_id]);
-
-            // $stock_new = ($item_warehouse_new)?$item_warehouse_new->stock + $quantity_move:$quantity_move;
-            // $item_warehouse_new->stock = $stock_new;
-            // $item_warehouse_new->save();
-
-            // $item_warehouse = ItemWarehouse::find($id);
-            // $item_warehouse->stock = (float) $quantity - (float)$quantity_move;
-            // $item_warehouse->save();
 
             $inventory = new Inventory();
             $inventory->type = 2;
@@ -314,14 +287,12 @@ class InventoryController extends Controller
     public function remove(Request $request)
     {
         $result = DB::connection('tenant')->transaction(function () use ($request) {
-            // dd($request->all());
             $item_id = $request->input('item_id');
             $warehouse_id = $request->input('warehouse_id');
             $quantity = $request->input('quantity');
             $quantity_remove = $request->input('quantity_remove');
             $lots = ($request->has('lots')) ? $request->input('lots'):[];
 
-            //Transaction
             $item_warehouse = ItemWarehouse::where('item_id', $item_id)
                                            ->where('warehouse_id', $warehouse_id)
                                            ->first();
@@ -338,9 +309,6 @@ class InventoryController extends Controller
                     'message' => 'La cantidad a retirar no puede ser mayor al que se tiene en el almacén.'
                 ];
             }
-
-            // $item_warehouse->stock = $quantity - $quantity_remove;
-            // $item_warehouse->save();
 
             $inventory = new Inventory();
             $inventory->type = 3;
@@ -375,7 +343,7 @@ class InventoryController extends Controller
         $this->initializeInventory();
     }
 
-    
+
     public function regularize_stock()
     {
 

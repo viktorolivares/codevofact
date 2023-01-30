@@ -34,7 +34,6 @@ class MovesController extends Controller
             $records = $records
             ->whereHas('item', function($query) use($request) {
                 $query->where('name', 'like', '%' . $request->value . '%');
-
             });
 
         }

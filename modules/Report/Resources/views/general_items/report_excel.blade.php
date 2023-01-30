@@ -57,6 +57,7 @@
                                 <th>TIPO DE DOCUMENTO</th>
                                 <th>SERIE</th>
                                 <th>NÚMERO</th>
+                                <th>OBSERVACIONES</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -114,6 +115,7 @@
                                             <td class="celda">NOTA DE VENTA</td>
                                             <td class="celda">{{$value->sale_note->number}}</td>
                                             <td class="celda">{{$value->sale_note->series}}</td>
+                                            <td class="celda">{{$value->sale_note->observation}}</td>
                                         </tr>
                                     @endforeach
 
@@ -181,6 +183,7 @@
                                         <td class="celda">{{$value->document->document_type->description}}</td>
                                         <td class="celda">{{$value->document->series}}</td>
                                         <td class="celda">{{$value->document->number}}</td>
+                                        <td class="celda">{{$value->document->additional_information[0]}}</td>
                                     </tr>
                                     @endforeach
                                 @endif

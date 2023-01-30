@@ -36,7 +36,6 @@
                                 Código lote
                             </label>
                             <el-input v-model="form.lot_code" >
-                               <!-- <el-button slot="append" icon="el-icon-edit-outline"  @click.prevent="clickLotcode"></el-button> -->
                             </el-input>
                             <small class="form-control-feedback" v-if="errors.lot_code" v-text="errors.lot_code[0]"></small>
                         </div>
@@ -51,7 +50,6 @@
                     </div>
 
                     <div style="padding-top: 3%" class="col-md-4" v-if="form.warehouse_id && form.series_enabled">
-                        <!-- <el-button type="primary" native-type="submit" icon="el-icon-check">Elegir serie</el-button> -->
                         <a href="#"  class="text-center font-weight-bold text-info" @click.prevent="clickLotcode">[&#10004; Ingresar series]</a>
                     </div>
                     <div class="col-md-8">
@@ -122,7 +120,6 @@
                     let item = await _.find(this.items,{'id':this.form.item_id})
                     this.form.lots_enabled = item.lots_enabled
                     let lots = await _.filter(item.lots,{'warehouse_id':this.form.warehouse_id})
-                   // console.log(item)
                     this.form.lots = lots
                     this.form.lots_enabled = item.lots_enabled
                     this.form.series_enabled = item.series_enabled
@@ -176,9 +173,6 @@
 
             },
             async submit() {
-
-                // if(this.form.quantity<0)
-                //     return this.$message.error('No puede ingresar cantidad negativa')
                 if(this.type == 'input'){
 
                     if(this.form.lots_enabled){
@@ -200,15 +194,6 @@
                             return this.$message.error('La cantidad de series registradas son diferentes al stock');
                     }
 
-                    /*if(this.form.lots_enabled){
-
-                        if(!this.form.lot_code)
-                            return this.$message.error('Código de lote es requerido');
-
-                        if(this.form.lots.length != this.form.quantity)
-                            return this.$message.error('La cantidad de series registradas son diferentes a la cantidad a ingresar');
-
-                    }*/
 
                 }else{
 
@@ -221,14 +206,10 @@
                         }
                     }
 
-                    // console.log(this.form)
-                    // return
-
                 }
 
                 this.loading_submit = true
                 this.form.type = this.type
-                // console.log(this.form)
                 await this.$http.post(`/${this.resource}/transaction`, this.form)
                     .then(response => {
                         if (response.data.success) {
@@ -242,7 +223,6 @@
                     .catch(error => {
                         if (error.response.status === 422) {
                             this.errors = error.response.data
-                            // console.log(error.response.data)
                         } else {
                             console.log(error)
                         }

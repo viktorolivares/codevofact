@@ -30,6 +30,7 @@ class GeneralItemCollection extends ResourceCollection
                 'customer_name' => $resource['customer_name'],
                 'customer_number' => $resource['customer_number'],
                 'series' => $resource['series'],
+                'additional_information' => $resource['additional_information'],
                 'alone_number' => $resource['alone_number'],
                 'quantity' => number_format($row->quantity, 2),
                 'unit_value' => number_format($row->unit_value, 2),
@@ -97,6 +98,7 @@ class GeneralItemCollection extends ResourceCollection
             $data['customer_name'] = $row->document->customer->name;
             $data['customer_number'] = $row->document->customer->number;
             $data['series'] = $row->document->series;
+            $data['additional_information'] = $row->document->additional_information;
             $data['alone_number'] = $row->document->number;
             $data['document_type_description'] = $row->document->document_type->description;
             $data['document_type_id'] = $row->document->document_type->id;
