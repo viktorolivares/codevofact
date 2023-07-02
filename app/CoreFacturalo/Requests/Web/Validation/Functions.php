@@ -9,6 +9,7 @@ use App\Models\Tenant\{
     Person,
     Item
 };
+
 Use Throwable;
 
 class Functions
@@ -108,7 +109,7 @@ class Functions
                 ->with('identity_document_type')
                 ->find($inputs['customer_id']);
 
-            if (!in_array($person->identity_document_type_id, ['1','6','4','7'], true)) throw new Exception("El tipo doc. identidad {$person->identity_document_type->description} del cliente no es valido.");
+            if (!in_array($person->identity_document_type_id, ['1','6','4','7'], true)) throw new Throwable("El tipo doc. identidad {$person->identity_document_type->description} del cliente no es valido.");
         }
 
     }
@@ -121,7 +122,7 @@ class Functions
 
             if (($inputs['operation_type_id'] == '0101')) {
                 if (($inputs['document_type_id'] == '01')) {
-                    if (!in_array($person->identity_document_type_id, ['6'], true)) throw new Exception("El tipo doc. identidad {$person->identity_document_type->description} del cliente no es válido.");
+                    if (!in_array($person->identity_document_type_id, ['6'], true)) throw new Throwable("El tipo doc. identidad {$person->identity_document_type->description} del cliente no es válido.");
                 }
             }
 
