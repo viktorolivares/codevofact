@@ -24,6 +24,7 @@ class GeneralItemCollection extends ResourceCollection
                 'internal_id' => $row->relation_item->internal_id,
                 'description' => $row->item->description,
                 'internal_id' => $row->relation_item->mark_code,
+                'brand' => $row->relation_item->brand,
                 'currency_type_id' => $resource['currency_type_id'],
                 'lot_has_sale' => self::getLotsHasSale($row),
                 'date_of_issue' => $resource['date_of_issue'],
