@@ -180,7 +180,7 @@
                                                             </td>
                                                             <td>
                                                                 <div class="form-group mb-3 mr-3"  >
-                                                                    <el-input v-model="row.reference"></el-input>
+                                                                    <el-input v-model="row.reference" required></el-input>
                                                                 </div>
                                                             </td>
                                                             <td>
