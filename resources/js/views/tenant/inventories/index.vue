@@ -21,7 +21,7 @@
                         <th>Almacén</th>
                         <th class="text-right">Stock</th>
                         <th class="text-right">Acciones</th>
-                    <tr>
+                    </tr>
                     <tr slot-scope="{ index, row }">
                         <td>{{ index }}</td>
                         <td>{{ row.item_description }}</td>

@@ -23,7 +23,6 @@
                             <small class="form-control-feedback" v-if="errors.file" v-text="errors.file[0]"></small>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="form-actions text-right mt-4">

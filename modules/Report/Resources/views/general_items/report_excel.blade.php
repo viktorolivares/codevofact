@@ -58,6 +58,7 @@
                                 <th>SERIE</th>
                                 <th>NÚMERO</th>
                                 <th>OBSERVACIONES</th>
+                                <th>REFERENCIA</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -132,11 +133,17 @@
                                             }
 
                                             $total_item_purchase = \Modules\Report\Http\Resources\GeneralItemCollection::getPurchaseUnitPrice($value);
+
                                             $utility_item = $value->total - $total_item_purchase;
+
                                             $metodo_pago = \App\Models\Tenant\DocumentPayment::with('payment_method_type')
                                                 ->where('document_id', $value->document->id)
                                                 ->first();
+
+                                            $reference = \App\Models\Tenant\DocumentPayment::where('document_id', $value->document->id)->first();
+
                                             $marca_cantidad = $value->total - ($value->total * ($value->relation_item->discount_mark));
+
                                             $ganancia = $value->total - ($value->total * (1 - $value->relation_item->discount_mark));
                                         @endphp
 
@@ -184,6 +191,7 @@
                                         <td class="celda">{{$value->document->series}}</td>
                                         <td class="celda">{{$value->document->number}}</td>
                                         <td class="celda">{{$value->document->additional_information[0]}}</td>
+                                        <td class="celda">{{ isset($reference) ? $reference->reference: ''}}</td>
                                     </tr>
                                     @endforeach
                                 @endif

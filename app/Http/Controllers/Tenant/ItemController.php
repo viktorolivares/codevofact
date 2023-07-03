@@ -297,7 +297,7 @@ class ItemController extends Controller
         if ($request->hasFile('file')) {
             try {
                 $import = new ItemsImport();
-                $import->import($request->file('file'), null, Excel::XLSX);
+                $import->import($request->file, null, Excel::XLSX);
                 $data = $import->getData();
                 return [
                     'success' => true,

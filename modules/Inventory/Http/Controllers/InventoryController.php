@@ -130,8 +130,8 @@ class InventoryController extends Controller
             $type = $request->input('type');
             $item_id = $request->input('item_id');
             $warehouse_id = $request->input('warehouse_id');
-            $inventory_transaction_id = $request->input('inventory_transaction_id');
-            $quantity = $request->input('quantity');
+            $inventory_transaction_id = 99;
+            $quantity = $request->input('quantity_add');
             $lot_code = $request->input('lot_code');
             $lots = ($request->has('lots')) ? $request->input('lots'):[];
 

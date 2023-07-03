@@ -20,13 +20,6 @@ class EstablishmentRequest extends FormRequest
                 'required',
                 Rule::unique('tenant.establishments')->ignore($id),
             ],
-            'number' => [
-                'required',
-                Rule::unique('tenant.establishments')->ignore($id),
-            ],
-            'identity_document_type_id' => [
-                'required',
-            ],
             'department_id' => [
                 'required',
             ],
@@ -39,9 +32,17 @@ class EstablishmentRequest extends FormRequest
             'address' => [
                 'required',
             ],
+            'email' => [
+                'required',
+                'email'
+            ],
+            'telephone' => [
+                'required',
+            ],
             'code' => [
                 'required',
             ],
         ];
     }
 }
+

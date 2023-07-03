@@ -78,11 +78,11 @@
                                         Comprobantes no enviados
                                     </a>
                                 </li>
-                                <li class="{{ ($path[0] === 'documents' && $path[1] === 'regularize-shipping')?'nav-active':'' }}">
+                                <!-- <li class="{{ ($path[0] === 'documents' && $path[1] === 'regularize-shipping')?'nav-active':'' }}">
                                     <a class="nav-link" href="{{route('tenant.documents.regularize_shipping')}}">
                                         CPE pendientes de rectificación
                                     </a>
-                                </li>
+                                </li> -->
                             @endif
 
                             @if(auth()->user()->type != 'integrator' && in_array('documents', $vc_modules) )
@@ -124,7 +124,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="{{ ($path[0] === 'sale-opportunities')?'nav-active':'' }}">
+                                    <!-- <li class="{{ ($path[0] === 'sale-opportunities')?'nav-active':'' }}">
                                         <a class="nav-link" href="{{route('tenant.sale_opportunities.index')}}">
                                             Oportunidad de venta
                                         </a>
@@ -159,12 +159,12 @@
                                         <a class="nav-link" href="{{route('tenant.order_notes.index')}}">
                                             Pedidos
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <li class="{{ ($path[0] === 'sale-notes')?'nav-active':'' }}">
                                         <a class="nav-link" href="{{route('tenant.sale_notes.index')}}">
                                             Notas de Venta
                                         </a>
-                                    </li>
+                                    <!-- </li>
                                     <li class="nav-parent
                                         {{ ($path[0] === 'incentives')?'nav-active nav-expanded':'' }}
                                         {{ ($path[0] === 'user-commissions')?'nav-active nav-expanded':'' }}
@@ -184,7 +184,7 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                    </li>
+                                    </li> -->
                             @endif
 
                         </ul>
@@ -204,11 +204,11 @@
                                 <span>POS</span>
                             </a>
                             <ul class="nav nav-children">
-                                <li class="{{ ($path[0] === 'pos'  )?'nav-active':'' }}">
+                                <!-- <li class="{{ ($path[0] === 'pos'  )?'nav-active':'' }}">
                                     <a class="nav-link" href="{{route('tenant.pos.index')}}">
                                         Punto de venta
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="{{ ($path[0] === 'cash'  )?'nav-active':'' }}">
                                     <a class="nav-link" href="{{route('tenant.cash.index')}}">
                                         Caja chica
@@ -222,7 +222,7 @@
                     <!--Purchase-->
                     @if(auth()->user()->type != 'integrator')
                         @if(in_array('purchases', $vc_modules))
-                        <li class="
+                        <!-- <li class="
                             nav-parent
                             {{ ($path[0] === 'purchases')?'nav-active nav-expanded':'' }}
                             {{ ($path[0] === 'persons' && $path[1] === 'suppliers')?'nav-active nav-expanded':'' }}
@@ -303,7 +303,7 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
                         @endif
 
                         @if(in_array('inventory', $vc_modules))
@@ -827,7 +827,7 @@
 
                     <!--Subscription-->
                     @if(in_array('subscription', $vc_modules))
-                    <li class=" nav-parent
+                    <!-- <li class=" nav-parent
                         {{ ($path[0] === 'subscription')?'nav-active nav-expanded':'' }}">
                         <a class="nav-link" href="#">
                             <i class="fas fa-dollar-sign" aria-hidden="true"></i>
@@ -846,7 +846,7 @@
                             </li>
 
                         </ul>
-                    </li>
+                    </li> -->
                     @endif
 
                 </ul>

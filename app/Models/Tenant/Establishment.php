@@ -7,11 +7,10 @@ use App\Models\Tenant\Catalogs\Department;
 use App\Models\Tenant\Catalogs\District;
 use App\Models\Tenant\Catalogs\Province;
 use Modules\Inventory\Models\Warehouse;
-use App\Models\Tenant\Catalogs\IdentityDocumentType;
 
 class Establishment extends ModelTenant
 {
-    protected $with = ['country', 'department', 'province', 'district','identity_document_type'];
+    protected $with = ['country', 'department', 'province', 'district'];
     protected $fillable = [
         'description',
         'country_id',
@@ -22,14 +21,10 @@ class Establishment extends ModelTenant
         'email',
         'telephone',
         'code',
-        'number',
         'trade_address',
         'web_address',
         'aditional_information',
-        'logo',
-        'identity_document_type_id',
-        'active',
-        'is_own'
+        'customer_id',
     ];
 
     public function country()
@@ -58,14 +53,14 @@ class Establishment extends ModelTenant
         return "{$address} {$this->department->description} - {$this->province->description} - {$this->district->description}";
     }
 
+    public function customer()
+    {
+        return $this->belongsTo(Person::class, 'customer_id');
+    }
+
     public function warehouse()
     {
         return $this->hasOne(Warehouse::class);
-    }
-
-    public function identity_document_type()
-    {
-        return $this->belongsTo(IdentityDocumentType::class, 'identity_document_type_id');
     }
 
 }

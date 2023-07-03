@@ -10,11 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\EstablishmentRequest;
 use App\Http\Resources\Tenant\EstablishmentResource;
 use App\Http\Resources\Tenant\EstablishmentCollection;
-use App\Models\Tenant\Catalogs\IdentityDocumentType;
 use App\Models\Tenant\Warehouse;
-use App\Models\System\Configuration;
-use Illuminate\Http\Request;
-
+use App\Models\Tenant\Person;
 
 class EstablishmentController extends Controller
 {
@@ -28,27 +25,24 @@ class EstablishmentController extends Controller
         return view('tenant.establishments.form');
     }
 
-    public function code()
-    {
-        $code = Establishment::max('code');
-        $code = $code + 1;
-        $code = str_pad($code,4,"0",STR_PAD_LEFT);
-
-        return $code;
-    }
-
     public function tables()
     {
         $countries = Country::whereActive()->orderByDescription()->get();
         $departments = Department::whereActive()->orderByDescription()->get();
         $provinces = Province::whereActive()->orderByDescription()->get();
         $districts = District::whereActive()->orderByDescription()->get();
-        $identity_document_types = IdentityDocumentType::whereActive()->get();
 
-        $configuration = Configuration::first();
-        $api_service_token = $configuration->token_apiruc == 'false' ? config('configuration.api_service_token') : $configuration->token_apiruc;
+        $customers = Person::whereType('customers')->orderBy('name')->take(1)->get()->transform(function($row) {
+            return [
+                'id' => $row->id,
+                'description' => $row->number.' - '.$row->name,
+                'name' => $row->name,
+                'number' => $row->number,
+                'identity_document_type_id' => $row->identity_document_type_id,
+            ];
+        });
 
-        return compact('countries', 'departments', 'provinces', 'districts','api_service_token','identity_document_types');
+        return compact('countries', 'departments', 'provinces', 'districts', 'customers');
     }
 
     public function record($id)
@@ -56,31 +50,12 @@ class EstablishmentController extends Controller
         $record = new EstablishmentResource(Establishment::findOrFail($id));
 
         return $record;
-
     }
 
     public function store(EstablishmentRequest $request)
     {
         $id = $request->input('id');
         $establishment = Establishment::firstOrNew(['id' => $id]);
-
-        if ($request->hasFile('file') && $request->file('file')->isValid()) {
-            $request->validate(['file' => 'mimes:jpeg,png,jpg|max:1024']);
-            $file = $request->file('file');
-            $ext = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $ext;
-            $file->storeAs('public/uploads/logos', $filename);
-            $path = 'storage/uploads/logos/' . $filename;
-            $request->merge(['logo' => $path]);
-        }
-
-        if ($request->input('is_own') == true) {
-            $request->merge(['is_own' => 1]);
-        }
-        else{
-            $request->merge(['is_own' => 0]);
-        };
-
         $establishment->fill($request->all());
         $establishment->save();
 
@@ -97,20 +72,11 @@ class EstablishmentController extends Controller
         ];
     }
 
-    public function columns()
+    public function records()
     {
-        return [
-            'description' => 'Descripción',
-            'number' => 'RUC',
-            'code' => 'Código',
-            'active' => 'Activo'
-        ];
-    }
+        $records = Establishment::all();
 
-    public function records(Request $request)
-    {
-        $records = Establishment::where($request->column, 'like', "%{$request->value}%");
-        return new EstablishmentCollection($records->paginate(config('tenant.items_per_page')));
+        return new EstablishmentCollection($records);
     }
 
     public function destroy($id)

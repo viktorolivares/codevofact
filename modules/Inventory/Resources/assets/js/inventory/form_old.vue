@@ -4,19 +4,13 @@
         <form autocomplete="off" @submit.prevent="submit">
             <div class="form-body">
                 <div class="row">
-                    <!-- <div class="col-md-8">
+                    <div class="col-md-8">
                         <div class="form-group" :class="{'has-danger': errors.item_id}">
                             <label class="control-label">Producto</label>
                             <el-select v-model="form.item_id" filterable @change="changeItem">
                                 <el-option v-for="option in items" :key="option.id" :value="option.id" :label="option.description"></el-option>
                             </el-select>
                             <small class="form-control-feedback" v-if="errors.item_id" v-text="errors.item_id[0]"></small>
-                        </div>
-                    </div> -->
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <label class="control-label">Producto</label>
-                            <el-input v-model="form.item_description" :readonly="true"></el-input>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -28,15 +22,12 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <div class="form-group">
-                            <label class="control-label">Almacén Inicial</label>
-                            <el-input v-model="form.warehouse_description" :readonly="true"></el-input>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="control-label">Cantidad a ingresar</label>
-                            <el-input v-model="form.quantity_add"></el-input>
+                        <div class="form-group" :class="{'has-danger': errors.warehouse_id}">
+                            <label class="control-label">Almacén</label>
+                            <el-select v-model="form.warehouse_id" filterable @change="changeItem">
+                                <el-option v-for="option in warehouses" :key="option.id" :value="option.id" :label="option.description"></el-option>
+                            </el-select>
+                            <small class="form-control-feedback" v-if="errors.warehouse_id" v-text="errors.warehouse_id[0]"></small>
                         </div>
                     </div>
                     <div class="col-md-4" v-if="type == 'input' && form.lots_enabled">
@@ -61,7 +52,7 @@
                     <div style="padding-top: 3%" class="col-md-4" v-if="form.warehouse_id && form.series_enabled">
                         <a href="#"  class="text-center font-weight-bold text-info" @click.prevent="clickLotcode">[&#10004; Ingresar series]</a>
                     </div>
-                    <!-- <div class="col-md-8">
+                    <div class="col-md-8">
                         <div class="form-group" :class="{'has-danger': errors.inventory_transaction_id}">
                             <label class="control-label">Motivo traslado</label>
                             <el-select v-model="form.inventory_transaction_id" filterable>
@@ -69,7 +60,7 @@
                             </el-select>
                             <small class="form-control-feedback" v-if="errors.inventory_transaction_id" v-text="errors.inventory_transaction_id[0]"></small>
                         </div>
-                    </div> -->
+                    </div>
 
                 </div>
             </div>
@@ -117,19 +108,9 @@
                 inventory_transactions: [],
             }
         },
-        // created() {
-        //     this.initForm()
-        // },
-
-        create() {
-                this.$http.get(`/${this.resource}/record/${this.recordId}`)
-                    .then(response => {
-                        this.form = response.data.data
-                        this.form.lots = Object.values(response.data.data.lots)
-                    })
-
-                    console.log(response.data.data)
-            },
+        created() {
+            this.initForm()
+        },
         methods: {
             async changeItem(){
 
@@ -181,23 +162,14 @@
             },
             async create() {
 
-                this.titleDialog = (this.type == 'input') ? 'Ingreso de producto al almacén' : 'Salida de producto del almacén';
+                this.titleDialog = (this.type == 'input') ? 'Ingreso de producto al almacén' : 'Salida de producto del almacén'
 
-
-                this.$http.get(`/${this.resource}/record/${this.recordId}`)
+                await this.$http.get(`/${this.resource}/tables/transaction/${this.type}`)
                     .then(response => {
-                        this.form = response.data.data
-                        this.form.lots = Object.values(response.data.data.lots)
+                        this.items = response.data.items
+                        this.warehouses = response.data.warehouses
+                        this.inventory_transactions = response.data.inventory_transactions
                     })
-
-                    console.log(response.data.data)
-
-                // await this.$http.get(`/${this.resource}/tables/transaction/${this.type}`)
-                //     .then(response => {
-                //         this.items = response.data.items
-                //         this.warehouses = response.data.warehouses
-                //         this.inventory_transactions = response.data.inventory_transactions
-                //     })
 
             },
             async submit() {

@@ -64,6 +64,7 @@ class ItemsImport implements ToCollection
                 $unit_type_id = ($row[18])?:'NIU';
                 $currency_type_id = ($row[19])?:'PEN';
                 $barcode = $row[22] ?? null;
+                $warehouse_id = $row[23] ?? null;
 
                 $item_type_id = '01';
                 $item_code = null;
@@ -111,6 +112,7 @@ class ItemsImport implements ToCollection
                         'name' => $name,
                         'second_name' => $second_name,
                         'barcode' => $barcode,
+                        'warehouse_id' => $warehouse_id
                         ]);
                     $registered += 1;
 
@@ -148,6 +150,7 @@ class ItemsImport implements ToCollection
                     $registered += 1;
                 }
             }
+
             $this->data = compact('total', 'registered');
 
     }
@@ -155,6 +158,5 @@ class ItemsImport implements ToCollection
     public function getData()
     {
         return $this->data;
-        //Update
     }
 }

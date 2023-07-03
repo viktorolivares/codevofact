@@ -20,22 +20,16 @@ class TenantEstablishmentsTable extends Migration
             $table->char('department_id', 2);
             $table->char('province_id', 4);
             $table->char('district_id', 6);
-            $table->string('email')->nullable();
-            $table->string('address')->nullable();
-            $table->string('telephone')->nullable();
-            $table->string('code')->nullable();
-            $table->string('number')->nullable();
-            $table->string('logo', 150)->nullable();
-            $table->string('identity_document_type_id')->default(6);
-            $table->boolean('active')->default(true);
-            $table->boolean('is_own')->default(false);
+            $table->string('address');
+            $table->string('email');
+            $table->string('telephone');
+            $table->string('code');
             $table->timestamps();
 
             $table->foreign('country_id')->references('id')->on('countries');
             $table->foreign('department_id')->references('id')->on('departments');
             $table->foreign('province_id')->references('id')->on('provinces');
             $table->foreign('district_id')->references('id')->on('districts');
-            $table->foreign('identity_document_type_id')->references('id')->on('cat_identity_document_types');
         });
     }
 

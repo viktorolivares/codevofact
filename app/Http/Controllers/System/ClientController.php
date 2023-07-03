@@ -361,7 +361,7 @@ class ClientController extends Controller
 
 
         $establishment_id = DB::connection('tenant')->table('establishments')->insertGetId([
-            'description' => $request->input('name'),
+            'description' => 'Oficina Principal',
             'country_id' => 'PE',
             'department_id' => '13',
             'province_id' => '1301',
@@ -369,14 +369,12 @@ class ClientController extends Controller
             'address' => '-',
             'email' => $request->input('email'),
             'telephone' => '-',
-            'code' => '0001',
-            'number' => $request->input('number'),
-            'is_own' => true,
+            'code' => '0000'
         ]);
 
         DB::connection('tenant')->table('warehouses')->insertGetId([
             'establishment_id' => $establishment_id,
-            'description' => 'Almacén - '.$request->input('name'),
+            'description' => 'Almacén Oficina Principal',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

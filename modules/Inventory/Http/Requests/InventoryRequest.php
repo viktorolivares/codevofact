@@ -22,9 +22,6 @@ class InventoryRequest extends FormRequest
             'warehouse_id' => [
                 'required',
             ],
-            'inventory_transaction_id' => [
-                'required',
-            ],
             'quantity' => [
                 'required',
                 'numeric',
