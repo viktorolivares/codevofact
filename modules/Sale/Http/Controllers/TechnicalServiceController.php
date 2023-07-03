@@ -203,7 +203,7 @@ class TechnicalServiceController extends Controller
 
         $technical_service = TechnicalService::find($id);
 
-        if (!$technical_service) throw new Exception("El código es inválido, no se encontró el servicio técnico relacionado");
+        if (!$technical_service) throw new \Throwable("El código es inválido, no se encontró el servicio técnico relacionado");
 
         $this->reloadPDF($technical_service, $format, $technical_service->filename);
         $temp = tempnam(sys_get_temp_dir(), 'technical_service');

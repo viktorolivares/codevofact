@@ -25,7 +25,7 @@ class DomCdrReader
 
         $cdr = $this->getResponseByXpath($xpt);
         if (!$cdr) {
-            throw new \Exception('Not found cdr response in xml', 'ERROR_CDR');
+            throw new \Throwable('Not found cdr response in xml', 'ERROR_CDR');
         }
         $cdr->setNotes($this->getNotes($xpt));
 

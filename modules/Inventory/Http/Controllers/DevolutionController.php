@@ -261,7 +261,7 @@ class DevolutionController extends Controller
 
         $devolution = Devolution::where('external_id', $external_id)->first();
 
-        if (!$devolution) throw new Exception("El código {$external_id} es inválido, no se encontro el documento relacionado");
+        if (!$devolution) throw new \Throwable("El código {$external_id} es inválido, no se encontro el documento relacionado");
 
         return $this->downloadStorage($devolution->filename, 'devolution');
     }

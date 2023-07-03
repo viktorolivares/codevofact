@@ -20,7 +20,7 @@ class Functions
             return $establishment->id;
         }
 
-        throw new Exception("El código ingresado del establecimiento es incorrecto.");
+        throw new \Throwable("El código ingresado del establecimiento es incorrecto.");
     }
 
     public static function person($inputs, $type) {
@@ -54,12 +54,12 @@ class Functions
 
     public static function validateUbigeo($ubigeo) {
 
-        if (strlen($ubigeo) > 0 && strlen($ubigeo) != 6 ) throw new Exception("El código ubigeo debe contener 6 dígitos");
+        if (strlen($ubigeo) > 0 && strlen($ubigeo) != 6 ) throw new \Throwable("El código ubigeo debe contener 6 dígitos");
 
         if (strlen($ubigeo) == 6) {
             $query_distric = District::where('id', $ubigeo)->first();
 
-            if (!$query_distric) throw new Exception("El código ubigeo es incorrecto");
+            if (!$query_distric) throw new \Throwable("El código ubigeo es incorrecto");
         }
     }
 
@@ -113,14 +113,14 @@ class Functions
         $document = Document::where('external_id', $external_id)
             ->first();
 
-        if (!$document) throw new Exception("No se encontró el documento con código externo {$external_id}.");
+        if (!$document) throw new \Throwable("No se encontró el documento con código externo {$external_id}.");
 
         return $document;
     }
 
     public static function voidedDocuments($inputs, $type) {
         if (count($inputs['documents']) === 0) {
-            throw new Exception("No se enviaron documentos para la anulación.");
+            throw new \Throwable("No se enviaron documentos para la anulación.");
         }
 
         $documents = [];
@@ -130,7 +130,7 @@ class Functions
                 ->where('group_id', ($type === 'summary')?'02':'01')
                 ->first();
 
-            if (!$document) throw new Exception("El código externo {$row['external_id']} no fue encontrado o la fecha indica no corresponde al documento.");
+            if (!$document) throw new \Throwable("El código externo {$row['external_id']} no fue encontrado o la fecha indica no corresponde al documento.");
 
             $documents[] = [
                 'document_id' => $document->id,
@@ -148,7 +148,7 @@ class Functions
             ->first();
 
         if (!$series) {
-            throw new Exception("La serie ingresada {$inputs['series']}, es incorrecta.");
+            throw new \Throwable("La serie ingresada {$inputs['series']}, es incorrecta.");
         }
     }
 
@@ -158,7 +158,7 @@ class Functions
                 ->with('identity_document_type')
                 ->find($inputs['customer_id']);
 
-            if (!in_array($person->identity_document_type_id, ['01','04','06','07'])) throw new Exception("El tipo doc. identidad {$person->identity_document_type->description} del cliente no es valido.");
+            if (!in_array($person->identity_document_type_id, ['01','04','06','07'])) throw new \Throwable("El tipo doc. identidad {$person->identity_document_type->description} del cliente no es valido.");
         }
     }
 
@@ -168,7 +168,7 @@ class Functions
             if($inputs['operation_type_id'] === '0101') {
                 $person = Person::find($inputs['customer_id']);
                 if (!in_array($person->identity_document_type_id, ['6'], true)) {
-                    throw new Exception("El tipo doc. identidad {$person->identity_document_type->description} del cliente no es válido.");
+                    throw new \Throwable("El tipo doc. identidad {$person->identity_document_type->description} del cliente no es válido.");
                 }
             }
         }

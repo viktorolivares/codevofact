@@ -385,7 +385,7 @@ class ContractController extends Controller
     public function download($external_id, $format) {
         $contract = Contract::where('external_id', $external_id)->first();
 
-        if (!$contract) throw new Exception("El código {$external_id} es inválido, no se encontro la cotización relacionada");
+        if (!$contract) throw new \Throwable("El código {$external_id} es inválido, no se encontro la cotización relacionada");
 
         $this->reloadPDF($contract, $format, $contract->filename);
 
@@ -396,7 +396,7 @@ class ContractController extends Controller
     public function toPrint($external_id, $format) {
         $contract = Contract::where('external_id', $external_id)->first();
 
-        if (!$contract) throw new Exception("El código {$external_id} es inválido, no se encontro la cotización relacionada");
+        if (!$contract) throw new \Throwable("El código {$external_id} es inválido, no se encontro la cotización relacionada");
 
         $this->reloadPDF($contract, $format, $contract->filename);
         $temp = tempnam(sys_get_temp_dir(), 'Contract');

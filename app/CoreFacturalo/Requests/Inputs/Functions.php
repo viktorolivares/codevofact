@@ -62,7 +62,7 @@ class Functions
                         ->where('number', $number)
                         ->first();
         if($document) {
-            throw new Exception("El documento: {$document_type_id} {$series}-{$number} ya se encuentra registrado.");
+            throw new \Throwable("El documento: {$document_type_id} {$series}-{$number} ya se encuentra registrado.");
         }
     }
 

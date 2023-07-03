@@ -291,7 +291,7 @@ class PurchaseOrderController extends Controller
 
         $purchase_order = PurchaseOrder::where('external_id', $external_id)->first();
 
-        if (!$purchase_order) throw new Exception("El código {$external_id} es inválido, no se encontro la cotización de compra relacionada");
+        if (!$purchase_order) throw new \Throwable("El código {$external_id} es inválido, no se encontro la cotización de compra relacionada");
 
         $this->reloadPDF($purchase_order, $format, $purchase_order->filename);
 
@@ -303,7 +303,7 @@ class PurchaseOrderController extends Controller
 
         $purchase_order = PurchaseOrder::where('external_id', $external_id)->first();
 
-        if (!$purchase_order) throw new Exception("El código {$external_id} es inválido, no se encontro la orden de compra relacionada");
+        if (!$purchase_order) throw new \Throwable("El código {$external_id} es inválido, no se encontro la orden de compra relacionada");
 
         return Storage::disk('tenant')->download('purchase_order_attached'.DIRECTORY_SEPARATOR.$purchase_order->upload_filename);
 
@@ -313,7 +313,7 @@ class PurchaseOrderController extends Controller
 
         $purchase_order = PurchaseOrder::where('external_id', $external_id)->first();
 
-        if (!$purchase_order) throw new Exception("El código {$external_id} es inválido, no se encontro la cotización de compra relacionada");
+        if (!$purchase_order) throw new \Throwable("El código {$external_id} es inválido, no se encontro la cotización de compra relacionada");
 
         $this->reloadPDF($purchase_order, $format, $purchase_order->filename);
         $temp = tempnam(sys_get_temp_dir(), 'purchase_order');

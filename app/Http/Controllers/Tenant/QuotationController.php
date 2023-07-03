@@ -576,7 +576,7 @@ class QuotationController extends Controller
     public function download($external_id, $format) {
         $quotation = Quotation::where('external_id', $external_id)->first();
 
-        if (!$quotation) throw new Exception("El código {$external_id} es inválido, no se encontro la cotización relacionada");
+        if (!$quotation) throw new \Throwable("El código {$external_id} es inválido, no se encontro la cotización relacionada");
 
         $this->reloadPDF($quotation, $format, $quotation->filename);
 
@@ -586,7 +586,7 @@ class QuotationController extends Controller
     public function toPrint($external_id, $format) {
         $quotation = Quotation::where('external_id', $external_id)->first();
 
-        if (!$quotation) throw new Exception("El código {$external_id} es inválido, no se encontro la cotización relacionada");
+        if (!$quotation) throw new \Throwable("El código {$external_id} es inválido, no se encontro la cotización relacionada");
 
         $this->reloadPDF($quotation, $format, $quotation->filename);
         $temp = tempnam(sys_get_temp_dir(), 'quotation');

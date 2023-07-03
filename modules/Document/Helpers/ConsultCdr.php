@@ -57,7 +57,7 @@ class ConsultCdr
                 'success' => false,
                 'message' => "Code: {$res->getError()->getCode()}; Description: {$res->getError()->getMessage()}"
             ];
-            // throw new Exception("Code: {$res->getError()->getCode()}; Description: {$res->getError()->getMessage()}");
+            // throw new \Throwable("Code: {$res->getError()->getCode()}; Description: {$res->getError()->getMessage()}");
 
         } else {
 
@@ -95,7 +95,7 @@ class ConsultCdr
         }
 
         if($code === 'HTTP') {
-            throw new Exception("Code: {$code}; Description: {$message}");
+            throw new \Throwable("Code: {$code}; Description: {$message}");
         }
 
         if((int)$code === 0) {
@@ -111,7 +111,7 @@ class ConsultCdr
 
         if((int)$code < 2000) {
             //Excepciones
-            throw new Exception("Code: {$code}; Description: {$message}");
+            throw new \Throwable("Code: {$code}; Description: {$message}");
 
         } elseif ((int)$code < 4000) {
             //Rechazo

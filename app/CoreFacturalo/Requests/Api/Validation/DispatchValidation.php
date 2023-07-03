@@ -33,7 +33,7 @@ class DispatchValidation
             /*$item = Item::where('internal_id', $row['internal_id'])->first();
 
             if(!$item) {
-                //throw new Exception("El código interno {$row['internal_id']} no fue encontrado.");
+                //throw new \Throwable("El código interno {$row['internal_id']} no fue encontrado.");
             }
             else{
                 $id = $item->id;

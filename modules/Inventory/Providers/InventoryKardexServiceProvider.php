@@ -356,7 +356,7 @@ class InventoryKardexServiceProvider extends ServiceProvider
 
             if((bool)$item_lot->has_sale)
             {
-                throw new Exception("La serie {$item_lot->series} ha sido vendida!");
+                throw new \Throwable("La serie {$item_lot->series} ha sido vendida!");
             }
         });*/
     }
@@ -373,7 +373,7 @@ class InventoryKardexServiceProvider extends ServiceProvider
 
             //$this->createInventory($devolution_item->item_id, $factor * $devolution_item->quantity, $warehouse->id);
             $this->createInventoryKardex($devolution_item->devolution, $devolution_item->item_id, -$devolution_item->quantity, $warehouse->id);
-            
+
             $this->updateStock($devolution_item->item_id, -$devolution_item->quantity, $warehouse->id);
 
             if(isset($devolution_item->item->IdLoteSelected))

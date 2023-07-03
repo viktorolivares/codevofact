@@ -253,7 +253,7 @@ class DispatchController extends Controller
 		$retention = Dispatch::where('external_id', $external_id)->first();
 
 		if (!$retention) {
-			throw new Exception("El código {$external_id} es inválido, no se encontro documento relacionado");
+			throw new \Throwable("El código {$external_id} es inválido, no se encontro documento relacionado");
 		}
 
 		switch ($type) {
@@ -267,7 +267,7 @@ class DispatchController extends Controller
 				$folder = 'cdr';
 				break;
 			default:
-				throw new Exception('Tipo de archivo a descargar es inválido');
+				throw new \Throwable('Tipo de archivo a descargar es inválido');
 		}
 
 		return $this->downloadStorage($retention->filename, $folder);

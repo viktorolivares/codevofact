@@ -145,7 +145,7 @@ class ServiceController extends Controller
             }
 
             if(!$document) {
-                throw new Exception("El documento con código externo {$external_id} o numero {$request_serie}, no se encuentra registrado.");
+                throw new \Throwable("El documento con código externo {$external_id} o numero {$request_serie}, no se encuentra registrado.");
             }
             return [
                 'success' => true,

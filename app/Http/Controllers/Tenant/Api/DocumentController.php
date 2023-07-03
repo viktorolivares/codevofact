@@ -67,10 +67,10 @@ class DocumentController extends Controller
             $external_id = $request->input('external_id');
             $document = Document::where('external_id', $external_id)->first();
             if (!$document) {
-                throw new Exception("El documento con código externo {$external_id}, no se encuentra registrado.");
+                throw new \Throwable("El documento con código externo {$external_id}, no se encuentra registrado.");
             }
             if ($document->group_id !== '01') {
-                throw new Exception("El tipo de documento {$document->document_type_id} es inválido, no es posible enviar.");
+                throw new \Throwable("El tipo de documento {$document->document_type_id} es inválido, no es posible enviar.");
             }
             $fact = new Facturalo();
             $fact->setDocument($document);

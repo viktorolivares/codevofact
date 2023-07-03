@@ -389,7 +389,7 @@ class SaleNoteController extends Controller
 
         $sale_note = SaleNote::where('external_id', $external_id)->first();
 
-        if (!$sale_note) throw new Exception("El código {$external_id} es inválido, no se encontro la nota de venta relacionada");
+        if (!$sale_note) throw new \Throwable("El código {$external_id} es inválido, no se encontro la nota de venta relacionada");
 
         $this->reloadPDF($sale_note, $format, $sale_note->filename);
         $temp = tempnam(sys_get_temp_dir(), 'sale_note');

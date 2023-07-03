@@ -11,7 +11,7 @@ class DispatchValidation
     public static function validation($inputs)
     {
         $series = Functions::findSeries($inputs);
-        if (!$series) throw new Exception("La serie no fue encontrada.");
+        if (!$series) throw new \Throwable("La serie no fue encontrada.");
         $inputs['series'] = $series->number;
         unset($inputs['series_id']);
 
@@ -39,7 +39,7 @@ class DispatchValidation
 
     //         // $item = Item::where('internal_id', $row['internal_id'])->first();
 
-    //         // if (!$item) throw new Exception("El código interno {$row['internal_id']} no fue encontrado.");
+    //         // if (!$item) throw new \Throwable("El código interno {$row['internal_id']} no fue encontrado.");
 
     //         $items[] = [
     //             'item_id' => $row['id'],
