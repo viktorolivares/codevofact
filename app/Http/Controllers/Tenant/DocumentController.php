@@ -465,7 +465,7 @@ class DocumentController extends Controller
         $api_url = $this->getUrlServer();
         $client = new Client(['base_uri' => $api_url, 'verify' => false]);
 
-        if(!$document->data_json) throw new \Throwable("Campo data_json nulo o inválido - Comprobante: {$document->fullnumber}");
+        if(!$document->data_json) throw new \RuntimeException("Campo data_json nulo o inválido - Comprobante: {$document->fullnumber}");
 
         $data_json = (array) $document->data_json;
         $data_json['numero_documento'] = $document->number;

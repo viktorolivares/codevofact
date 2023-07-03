@@ -290,7 +290,7 @@ class OrderFormController extends Controller
 
         $order_form = OrderForm::where('external_id', $external_id)->first();
 
-        if (!$order_form) throw new \Throwable("El código {$external_id} es inválido, no se encontro el registro relacionado");
+        if (!$order_form) throw new \RuntimeException("El código {$external_id} es inválido, no se encontro el registro relacionado");
 
         $this->reloadPDF($order_form, $format, $order_form->filename);
 
@@ -302,7 +302,7 @@ class OrderFormController extends Controller
 
         $order_form = OrderForm::where('external_id', $external_id)->first();
 
-        if (!$order_form) throw new \Throwable("El código {$external_id} es inválido, no se encontro el registro relacionado");
+        if (!$order_form) throw new \RuntimeException("El código {$external_id} es inválido, no se encontro el registro relacionado");
 
         $this->reloadPDF($order_form, $format, $order_form->filename);
         $temp = tempnam(sys_get_temp_dir(), 'order_form');

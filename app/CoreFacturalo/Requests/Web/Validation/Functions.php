@@ -21,7 +21,7 @@ class Functions
             return $establishment->id;
         }
 
-        throw new \Throwable("El código ingresado del establecimiento es incorrecto.");
+        throw new \RuntimeException("El código ingresado del establecimiento es incorrecto.");
     }
 
     public static function validateSeries($inputs) {
@@ -32,7 +32,7 @@ class Functions
             ->first();
 
         if (!$series) {
-            throw new \Throwable("La serie ingresada {$inputs['series']}, es incorrecta.");
+            throw new \RuntimeException("La serie ingresada {$inputs['series']}, es incorrecta.");
         }
     }
 
@@ -83,7 +83,7 @@ class Functions
             ->first();
 
         if (!$document) {
-            throw new \Throwable("No se encontró el documento con código externo {$external_id}.");
+            throw new \RuntimeException("No se encontró el documento con código externo {$external_id}.");
         }
         return $document;
     }
@@ -94,7 +94,7 @@ class Functions
     }
 
     // public static function findSeries($inputs) {
-    //     if(!$inputs['series_id']) throw new \Throwable("La serie no existe");
+    //     if(!$inputs['series_id']) throw new \RuntimeException("La serie no existe");
     //     return Series::find($inputs['series_id']);
     // }
 
@@ -128,14 +128,14 @@ class Functions
 
             // if ($inputs['document_type_id'] === '01') {
             //     if (!in_array($person->identity_document_type_id, ['6'], true)) {
-            //         throw new \Throwable("El tipo doc. identidad {$person->identity_document_type->description} del cliente no es válido.");
+            //         throw new \RuntimeException("El tipo doc. identidad {$person->identity_document_type->description} del cliente no es válido.");
             //     }
             // }
 
             if ($inputs['document_type_id'] === '03') {
                 if ($inputs['total'] >= 700) {
                     if (in_array($person->identity_document_type_id, ['0'], true)) {
-                        throw new \Throwable("El tipo doc. identidad {$person->identity_document_type->description} del cliente no es válido, el monto supera el monto base.");
+                        throw new \RuntimeException("El tipo doc. identidad {$person->identity_document_type->description} del cliente no es válido, el monto supera el monto base.");
                     }
                 }
             }

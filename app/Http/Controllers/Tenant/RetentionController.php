@@ -132,7 +132,7 @@ class RetentionController extends Controller
     {
         $retention = Retention::where('external_id', $external_id)->first();
         if(!$retention) {
-            throw new \Throwable("El código {$external_id} es inválido, no se encontro documento relacionado");
+            throw new \RuntimeException("El código {$external_id} es inválido, no se encontro documento relacionado");
         }
 
         switch ($type) {
@@ -146,7 +146,7 @@ class RetentionController extends Controller
                 $folder = 'cdr';
                 break;
             default:
-                throw new \Throwable('Tipo de archivo a descargar es inválido');
+                throw new \RuntimeException('Tipo de archivo a descargar es inválido');
         }
 
         return $this->downloadStorage($retention->filename, $folder);

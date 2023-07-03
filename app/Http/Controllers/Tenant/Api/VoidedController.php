@@ -45,17 +45,17 @@ class VoidedController extends Controller
             $summary = Voided::where('external_id', $external_id)
                             ->first();
             if(!$summary) {
-                throw new \Throwable("El código externo {$external_id} es inválido, no se encontró anulación relacionada");
+                throw new \RuntimeException("El código externo {$external_id} es inválido, no se encontró anulación relacionada");
             }
         } elseif ($request->has('ticket')) {
             $ticket = $request->input('ticket');
             $summary = Voided::where('ticket', $ticket)
                             ->first();
             if(!$summary) {
-                throw new \Throwable("El ticket {$ticket} es inválido, no se encontró anulación relacionada");
+                throw new \RuntimeException("El ticket {$ticket} es inválido, no se encontró anulación relacionada");
             }
         } else {
-            throw new \Throwable('Es requerido el código externo o ticket');
+            throw new \RuntimeException('Es requerido el código externo o ticket');
         }
 
         $facturalo = new Facturalo();

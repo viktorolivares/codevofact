@@ -514,7 +514,7 @@ class OrderNoteController extends Controller
     public function download($external_id, $format) {
         $order_note = OrderNote::where('external_id', $external_id)->first();
 
-        if (!$order_note) throw new \Throwable("El código {$external_id} es inválido, no se encontro el pedido relacionado");
+        if (!$order_note) throw new \RuntimeException("El código {$external_id} es inválido, no se encontro el pedido relacionado");
 
         $this->reloadPDF($order_note, $format, $order_note->filename);
 
@@ -524,7 +524,7 @@ class OrderNoteController extends Controller
     public function toPrint($external_id, $format) {
         $order_note = OrderNote::where('external_id', $external_id)->first();
 
-        if (!$order_note) throw new \Throwable("El código {$external_id} es inválido, no se encontro el pedido relacionado");
+        if (!$order_note) throw new \RuntimeException("El código {$external_id} es inválido, no se encontro el pedido relacionado");
 
         $this->reloadPDF($order_note, $format, $order_note->filename);
         $temp = tempnam(sys_get_temp_dir(), 'order_note');

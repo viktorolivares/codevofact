@@ -57,7 +57,7 @@ class LockedEmissionProvider extends ServiceProvider
 
             if($configuration->locked_emission && $configuration->limit_documents !== 0){
                 if($quantity_documents >= $configuration->limit_documents)
-                    throw new \Throwable("Ha superado el límite permitido para la emisión de comprobantes");
+                    throw new \RuntimeException("Ha superado el límite permitido para la emisión de comprobantes");
 
             }
 
@@ -78,7 +78,7 @@ class LockedEmissionProvider extends ServiceProvider
 
                 if($quantity_users >= $configuration->plan->limit_users )
                 {
-                    throw new \Throwable("Ha superado el límite permitido para la creación de usuarios");
+                    throw new \RuntimeException("Ha superado el límite permitido para la creación de usuarios");
                 }
             }
 

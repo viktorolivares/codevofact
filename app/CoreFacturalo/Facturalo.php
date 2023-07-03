@@ -598,7 +598,7 @@ class Facturalo
         if($code === 'HTTP') {
 
             if(in_array($this->type, ['retention', 'dispatch'])){
-                throw new \Throwable("Code: {$code}; Description: {$message}");
+                throw new \RuntimeException("Code: {$code}; Description: {$message}");
             }
 
             $this->updateRegularizeShipping($code, $message);
@@ -612,7 +612,7 @@ class Facturalo
             //Excepciones
 
             if(in_array($this->type, ['retention', 'dispatch'])){
-                throw new \Throwable("Code: {$code}; Description: {$message}");
+                throw new \RuntimeException("Code: {$code}; Description: {$message}");
             }
 
             $this->updateRegularizeShipping($code, $message);
@@ -665,7 +665,7 @@ class Facturalo
                 'sent' => true
             ];
         } else {
-            throw new \Throwable("Code: {$res->getError()->getCode()}; Description: {$res->getError()->getMessage()}");
+            throw new \RuntimeException("Code: {$res->getError()->getCode()}; Description: {$res->getError()->getMessage()}");
         }
     }
 
@@ -683,7 +683,7 @@ class Facturalo
         $extService->setCodeProvider(new XmlErrorCodeProvider());
         $res = $extService->getStatus($ticket);
         if(!$res->isSuccess()) {
-            throw new \Throwable("Code: {$res->getError()->getCode()}; Description: {$res->getError()->getMessage()}");
+            throw new \RuntimeException("Code: {$res->getError()->getCode()}; Description: {$res->getError()->getMessage()}");
         } else {
             $cdrResponse = $res->getCdrResponse();
             $this->uploadFile($res->getCdrZip(), 'cdr');
@@ -747,7 +747,7 @@ class Facturalo
                                                 $this->document->series, $this->document->number);
 
         if(!$res->isSuccess()) {
-            throw new \Throwable("Code: {$res->getError()->getCode()}; Description: {$res->getError()->getMessage()}");
+            throw new \RuntimeException("Code: {$res->getError()->getCode()}; Description: {$res->getError()->getMessage()}");
         } else {
             $cdrResponse = $res->getCdrResponse();
             $this->uploadFile($res->getCdrZip(), 'cdr');

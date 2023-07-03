@@ -210,7 +210,7 @@ class PurchaseQuotationController extends Controller
 
         $purchase_quotation = PurchaseQuotation::where('external_id', $external_id)->first();
 
-        if (!$purchase_quotation) throw new \Throwable("El código {$external_id} es inválido, no se encontro la cotización de compra relacionada");
+        if (!$purchase_quotation) throw new \RuntimeException("El código {$external_id} es inválido, no se encontro la cotización de compra relacionada");
 
         $this->reloadPDF($purchase_quotation, $format, $purchase_quotation->filename);
 
@@ -222,7 +222,7 @@ class PurchaseQuotationController extends Controller
 
         $purchase_quotation = PurchaseQuotation::where('external_id', $external_id)->first();
 
-        if (!$purchase_quotation) throw new \Throwable("El código {$external_id} es inválido, no se encontro la cotización de compra relacionada");
+        if (!$purchase_quotation) throw new \RuntimeException("El código {$external_id} es inválido, no se encontro la cotización de compra relacionada");
 
         $this->reloadPDF($purchase_quotation, $format, $purchase_quotation->filename);
         $temp = tempnam(sys_get_temp_dir(), 'purchase_quotation');

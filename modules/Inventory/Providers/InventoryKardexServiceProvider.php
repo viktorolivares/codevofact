@@ -356,7 +356,7 @@ class InventoryKardexServiceProvider extends ServiceProvider
 
             if((bool)$item_lot->has_sale)
             {
-                throw new \Throwable("La serie {$item_lot->series} ha sido vendida!");
+                throw new \RuntimeException("La serie {$item_lot->series} ha sido vendida!");
             }
         });*/
     }

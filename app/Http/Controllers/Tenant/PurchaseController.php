@@ -251,7 +251,7 @@ class PurchaseController extends Controller
     public function toPrint($external_id, $format) {
         $purchase = Purchase::where('external_id', $external_id)->first();
 
-        if (!$purchase) throw new \Throwable("El código {$external_id} es inválido, no se encontro el pedido relacionado");
+        if (!$purchase) throw new \RuntimeException("El código {$external_id} es inválido, no se encontro el pedido relacionado");
 
         $this->reloadPDF($purchase, $format, $purchase->filename);
         $temp = tempnam(sys_get_temp_dir(), 'purchase');
@@ -812,7 +812,7 @@ class PurchaseController extends Controller
     public function download($external_id, $format = 'a4') {
         $purchase = SaleOpportunity::where('external_id', $external_id)->first();
 
-        if (!$purchase) throw new \Throwable("El código {$external_id} es inválido, no se encontro el archivo relacionado");
+        if (!$purchase) throw new \RuntimeException("El código {$external_id} es inválido, no se encontro el archivo relacionado");
 
         return $this->downloadStorage($purchase->filename, 'purchase');
     }

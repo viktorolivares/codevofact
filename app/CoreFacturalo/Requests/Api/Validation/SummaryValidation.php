@@ -29,7 +29,7 @@ class SummaryValidation
                             ->get();
 
         if($documents->count() === 0) {
-            throw new \Throwable("No se encontraron documentos con fecha de emisión {$inputs['date_of_reference']}.");
+            throw new \RuntimeException("No se encontraron documentos con fecha de emisión {$inputs['date_of_reference']}.");
         }
 
         $docs = [];

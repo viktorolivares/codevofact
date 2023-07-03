@@ -337,7 +337,7 @@ class SaleOpportunityController extends Controller
     public function download($external_id, $format = 'a4') {
         $sale_opportunity = SaleOpportunity::where('external_id', $external_id)->first();
 
-        if (!$sale_opportunity) throw new \Throwable("El código {$external_id} es inválido, no se encontro el pedido relacionado");
+        if (!$sale_opportunity) throw new \RuntimeException("El código {$external_id} es inválido, no se encontro el pedido relacionado");
 
         $this->reloadPDF($sale_opportunity, $format, $sale_opportunity->filename);
 
@@ -348,7 +348,7 @@ class SaleOpportunityController extends Controller
     public function toPrint($external_id, $format) {
         $sale_opportunity = SaleOpportunity::where('external_id', $external_id)->first();
 
-        if (!$sale_opportunity) throw new \Throwable("El código {$external_id} es inválido, no se encontro el pedido relacionado");
+        if (!$sale_opportunity) throw new \RuntimeException("El código {$external_id} es inválido, no se encontro el pedido relacionado");
 
         $this->reloadPDF($sale_opportunity, $format, $sale_opportunity->filename);
         $temp = tempnam(sys_get_temp_dir(), 'sale_opportunity');

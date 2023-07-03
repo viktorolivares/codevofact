@@ -8,7 +8,7 @@ class PerceptionValidation
     {
 
         $series = Functions::findSeries($inputs);
-        if (!$series) throw new \Throwable("La serie no fue encontrada.");
+        if (!$series) throw new \RuntimeException("La serie no fue encontrada.");
         $inputs['series'] = $series->number;
         unset($inputs['series_id']);
 

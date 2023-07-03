@@ -208,7 +208,7 @@ trait InventoryTrait
 
         if($quantity < 0 && $item_warehouse->item->unit_type_id !== 'ZZ'){
             if (($inventory_configuration->stock_control) && ($item_warehouse->stock < 0)){
-                throw new \Throwable("El producto {$item_warehouse->item->description} no tiene suficiente stock!");
+                throw new \RuntimeException("El producto {$item_warehouse->item->description} no tiene suficiente stock!");
             }
         }
         $item_warehouse->save();
@@ -363,7 +363,7 @@ trait InventoryTrait
 
         if($validated == false)
         {
-            throw new \Throwable("El producto {$purchase_item->item->description} contiene series vendidas!");
+            throw new \RuntimeException("El producto {$purchase_item->item->description} contiene series vendidas!");
         }
     }
 
@@ -375,12 +375,12 @@ trait InventoryTrait
 
             if(!$lot_group)
             {
-                throw new \Throwable("El lote {$purchase_item->lot_code} no existe!");
+                throw new \RuntimeException("El lote {$purchase_item->lot_code} no existe!");
             }
 
             if( (int)$lot_group->quantity != (int)$purchase_item->quantity)
             {
-                throw new \Throwable("Los productos del lote {$purchase_item->lot_code} han sido vendidos!");
+                throw new \RuntimeException("Los productos del lote {$purchase_item->lot_code} han sido vendidos!");
             }
 
         }
@@ -399,7 +399,7 @@ trait InventoryTrait
             $lot_group = ItemLotsGroup::where('code', $purchase_item->lot_code)->firstOrFail();
             if(!$lot_group)
             {
-                throw new \Throwable("El lote {$purchase_item->lot_code} no existe!");
+                throw new \RuntimeException("El lote {$purchase_item->lot_code} no existe!");
             }
             $lot_group->delete();
         }

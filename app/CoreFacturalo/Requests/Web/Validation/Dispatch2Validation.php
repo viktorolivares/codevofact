@@ -28,7 +28,7 @@ class Dispatch2Validation
 
             // $item = Item::where('internal_id', $row['internal_id'])->first();
 
-            // if (!$item) throw new \Throwable("El código interno {$row['internal_id']} no fue encontrado.");
+            // if (!$item) throw new \RuntimeException("El código interno {$row['internal_id']} no fue encontrado.");
 
             $items[] = [
                 'item_id' => $row['id'],
