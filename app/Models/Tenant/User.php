@@ -111,6 +111,11 @@ class User extends Authenticatable
         return $this->belongsTo(Establishment::class);
     }
 
+    public function establecimiento()
+    {
+        return $this->hasOne(Establecimiento::class);
+    }
+
 
     public function documents()
     {
@@ -156,7 +161,7 @@ class User extends Authenticatable
         }
         return false;
     }
-    
+
     public function user_commission()
     {
         return $this->hasOne(UserCommission::class);

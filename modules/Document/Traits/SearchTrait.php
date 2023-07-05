@@ -7,7 +7,7 @@ use App\Models\Tenant\Item;
 trait SearchTrait
 {
 
-    public function getItemsServices($request)
+    public function getItemsServices($request, $warehouse)
     {
         if ($request->search_by_barcode == 1) {
             return Item::with(['item_lots'])
@@ -28,6 +28,7 @@ trait SearchTrait
                     })
                     ->with(['item_lots'])
                     ->where('unit_type_id','ZZ')
+                    ->whereWarehouse($warehouse)
                     ->whereNotIsSet()
                     ->whereIsActive()
                     ->orderBy('description')

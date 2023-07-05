@@ -63,4 +63,10 @@ class Establishment extends ModelTenant
         return $this->hasOne(Warehouse::class);
     }
 
+
+    public function almacen()
+    {
+        return $this->belongsTo(Warehouse::class);
+    }
+
 }

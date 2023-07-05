@@ -181,6 +181,7 @@ class DocumentController extends Controller
 
     public function item_tables()
     {
+
         $items = $this->table('items');
         $categories = [];
         $affectation_igv_types = AffectationIgvType::whereActive()->get();
@@ -244,7 +245,7 @@ class DocumentController extends Controller
         }
 
         if ($table === 'items') {
-
+//
             $establishment_id = auth()->user()->establishment_id;
             $warehouse = ModuleWarehouse::where('establishment_id', $establishment_id)->first();
             $items_u = Item::whereWarehouse()->whereIsActive()->orderBy('description')->take(20)->get();

@@ -19,5 +19,9 @@ class Warehouse extends ModelTenant
     {
         return $this->hasMany(InventoryKardex::class);
     }
-    
+
+    public function establecimiento()
+    {
+        return $this->hasMany(Establecimiento::class);
+    }
 }

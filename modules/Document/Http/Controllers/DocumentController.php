@@ -287,17 +287,19 @@ class DocumentController extends Controller
 
     public function searchItems(Request $request)
     {
-
+//
         $establishment_id = auth()->user()->establishment_id;
         $warehouse = ModuleWarehouse::where('establishment_id', $establishment_id)->first();
 
         $items_not_services = $this->getItemsNotServices($request);
-        $items_services = $this->getItemsServices($request);
+        $items_services = $this->getItemsServices($request, $warehouse);
         $all_items = $items_not_services->merge($items_services);
 
         $items = collect($all_items)->transform(function($row) use($warehouse){
 
                 $detail = $this->getFullDescription($row, $warehouse);
+
+                //Here
 
                 return [
                     'id' => $row->id,
