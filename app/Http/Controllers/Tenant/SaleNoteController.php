@@ -699,13 +699,12 @@ class SaleNoteController extends Controller
     public function searchItems(Request $request)
     {
 
-        // dd($request->all());
         $establishment_id = auth()->user()->establishment_id;
         $warehouse = Warehouse::where('establishment_id', $establishment_id)->first();
         $warehouse_id = ($warehouse) ? $warehouse->id:null;
 
         $items_not_services = $this->getItemsNotServices($request);
-        $items_services = $this->getItemsServices($request);
+        $items_services = $this->getItemsServices($request, $warehouse);
         $all_items = $items_not_services->merge($items_services);
 
         $items = collect($all_items)->transform(function($row) use($warehouse_id, $warehouse){
