@@ -122,6 +122,7 @@ class GeneralItemCollection extends ResourceCollection
             $data['series'] = $row->sale_note->series;
             $data['alone_number'] = $row->sale_note->number;
             $data['document_type_description'] = 'NOTA DE VENTA';
+            $data['additional_information'] = $row->sale_note->additional_information;
             $data['document_type_id'] = 80;
             $data['currency_type_id'] = $row->sale_note->currency_type_id;
         }
